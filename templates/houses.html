@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our House</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+</head>
+<body>
+	<div id="welcome"></div>
+    <div id="view-houses"></div>
+</body>
+
+  <script type="text/jsx">
+     /*** @jsx React.DOM */
+    house_ids = [1, 2, 3, 4, 5, 6, 10];
+
+    var FirstComponent = React.createClass({
+        render: function() {
+            return (<p1>House: {this.props.value} <br /></p1>);
+        }
+    });
+    var WelcomeComponent =  React.createClass({
+    	render: function() {
+    		return (<h1>View Houses</h1>);
+    	}
+    });
+    var HousesComponent = React.createClass({
+    	render: function() {
+			if (house_ids.length == 0){
+				return (<p1>Theres nothing here</p1>);
+			}
+			else {
+				return (
+	    			<tbody>
+	    				{house_ids.map((house) => <FirstComponent key={house} value={house} />)}
+					</tbody>
+				);
+			}
+    	}
+    });
+    React.render(<WelcomeComponent />, document.getElementById('welcome'));
+    React.render(<HousesComponent />, document.getElementById('view-houses'));
+    
+     </script>
+
+</html>

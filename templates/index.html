@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flask React Tutorial</title>
+    <title>Our House</title>
 </head>
 <body>
      <div id="mount-point">
          <h1>Welcome to Our House</h1>
-	<form>
-		Email: <br>
-		<input type="text" name="email"><br>
-		Password<br>
-		<input type="password" name="password">
-	</form>
-	<button type="submit">login</button>
+		<form>
+			Email: <br>
+			<input type="text" name="email"><br>
+			Password<br>
+			<input type="password" name="password">
+		</form>
+		<button type="submit"> <a href="{{ url_for('houses') }}">login</a></button>
      </div>
 </body>
 </html>
