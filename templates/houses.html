@@ -6,20 +6,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+
 </head>
 <body>
 	<div id="navbar"></div>
 	<div id="welcome"></div>
+	<div id="filterbar"></div>
     <div id="view-houses"></div>
 </body>
 
   <script type="text/jsx">
      /*** @jsx React.DOM */
-    house_ids = [1, 2, 3, 4, 5, 6, 10];
-
-    var FirstComponent = React.createClass({
+    house_ids = [1, 2, 3, 4, 5, 6, 10, 15, 23, 28];
+    filter_types = [
+    	{
+    		"text":"pricing",
+    		"url":"#"
+    		// "submenu":[{}]
+    	}, 
+    	{
+    		"text":"miles",
+    		"url":"#"
+    	}, 
+    	{
+    		"text":"bedrooms",
+	    	"url":"#"
+	    }
+    ];
+    var SingleListing = React.createClass({
         render: function() {
-            return (<p1>House: {this.props.value} <br /></p1>);
+            return (<div className={"houseListing"}><p1>House: {this.props.value} </p1></div>);
         }
     });
     var WelcomeComponent =  React.createClass({
@@ -35,14 +52,44 @@
 			else {
 				return (
 	    			<tbody>
-	    				{house_ids.map((house) => <FirstComponent key={house} value={house} />)}
+	    				{house_ids.map((house) => <SingleListing key={house} value={house} />)}
 					</tbody>
 				);
 			}
     	}
     });
+    var FilterBar = React.createClass({
+    	generateItem:function(item){
+    		return (<FilterBarItem text={item.text} url={item.url} submenu={item.submenu} />);
+    	},
+    	render:function() {
+    		var items = filter_types.map(this.generateItem);
+    		return ( 
+    			<ul className="filtermenu">
+    				{items}
+    			</ul>
+    		);
+  		}
+    });
+    var FilterBarItem = React.createClass({
+    	// generateItem: function(){
+
+    	// }
+    	render: function(){
+    		return (
+    			<div className={this.props.text}>
+                	<select id="bedroom-option">
+                  		<option value="preference" selected disabled>0</option>
+                  		<option value="English">English</option>
+                  		<option value="Spanish">Spanish</option>
+                  		<option value="other">Other</option>
+                	</select>
+            	</div>);
+    	}
+    });
     React.render(<WelcomeComponent />, document.getElementById('welcome'));
     React.render(<HousesComponent />, document.getElementById('view-houses'));
+    React.render(<FilterBar />, document.getElementById('filterbar'));
     
      </script>
 

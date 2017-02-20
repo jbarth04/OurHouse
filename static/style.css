@@ -1,0 +1,21 @@
+#Welcome-Header{
+	font-weight: 200;
+	font-family: Helvetica;
+	text-align: center;
+}
+body{
+	background-color: white;
+}
+div .houseListing{
+	height: 200px;
+	width: 200px;
+	background-color: gray;
+	display: inline-block;
+	margin: 2px;
+}
+#navbar{
+	background-color: green;
+}
+#view-houses{
+	text-align: center;
+}
