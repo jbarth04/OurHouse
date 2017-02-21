@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
 
 </head>
@@ -19,80 +20,6 @@
   <script type="text/jsx">
      /*** @jsx React.DOM */
     house_ids = [1, 2, 3, 4, 5, 6, 10, 15, 23, 28];
-    filter_types = [
-    	{
-    		"text":"pricing",
-    		"url":"#",
-    		"submenu":[
-				{"text":"0", 
-				 "value":0
-				},
-				{"text":"1", 
-				 "value":1
-				},
-				{"text":"2", 
-				 "value":2
-				},
-				{"text":"3", 
-				 "value":3
-				},
-				{"text":"4", 
-				 "value":4
-				},
-				{"text":"5", 
-				 "value":5
-				}
-    		]
-    	}, 
-    	{
-    		"text":"miles",
-    		"url":"#",
-    		"submenu":[
-				{"text":"6", 
-				 "value":6
-				},
-				{"text":"7", 
-				 "value":7
-				},
-				{"text":"8", 
-				 "value":8
-				},
-				{"text":"9", 
-				 "value":9
-				},
-				{"text":"10", 
-				 "value":10
-				},
-				{"text":"11", 
-				 "value":11
-				}
-    		]
-    	}, 
-    	{
-    		"text":"bedrooms",
-	    	"url":"#",
-	    	"submenu":[
-				{"text":"12", 
-				 "value":12
-				},
-				{"text":"13", 
-				 "value":13
-				},
-				{"text":"14", 
-				 "value":14
-				},
-				{"text":"15", 
-				 "value":15
-				},
-				{"text":"16", 
-				 "value":16
-				},
-				{"text":"17", 
-				 "value":17
-				}
-    		]
-	    }
-    ];
     var SingleListing = React.createClass({
         render: function() {
             return (<div className={"houseListing"}><p1>House: {this.props.value} </p1></div>);
@@ -138,6 +65,7 @@
 		render:function() {
 			var menu = this.generateMenu();
 			return (<div className="filter-option">
+						{this.props.text}
 						<select id={this.props.text}>
 							{menu}
 						</select>
