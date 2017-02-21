@@ -1,0 +1,38 @@
+#Welcome-Header{
+	font-weight: 200;
+	font-family: Helvetica;
+	text-align: center;
+	background-color: gray;
+	margin: 300px;
+}
+body{
+	background-color: white;
+}
+div .houseListing{
+	height: 300px;
+	width: 300px;
+	background-color: gray;
+	display: inline-block;
+	margin: 1vw;
+}
+#navbar{
+	background-color: green;
+}
+#map-campus{
+	background-size: cover;
+	height: 500px;
+	text-align: center;
+  	overflow: hidden;
+  	margin: 10px;
+}
+#view-houses{
+	text-align: center;
+}
+.filter-option{
+	display: inline-block;
+	padding: 0.2vw;
+}
+#filterbar{
+	background-color: #89B3EA;
+	padding: 0.5vw;
+}
