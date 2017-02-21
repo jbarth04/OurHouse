@@ -19,18 +19,20 @@ div .houseListing{
 	background-color: green;
 }
 #map-campus{
-	/*height: 600px;
-	width: 1400px;*/
 	background-size: cover;
 	height: 500px;
-/*  	background: gray;  Just to visualize the extent 
-*/  	text-align: center;
+	text-align: center;
   	overflow: hidden;
-  	/*position: relative;*/
+  	margin: 10px;
 }
 #view-houses{
 	text-align: center;
 }
 .filter-option{
 	display: inline-block;
+	padding: 0.2vw;
+}
+#filterbar{
+	background-color: #89B3EA;
+	padding: 0.5vw;
 }
