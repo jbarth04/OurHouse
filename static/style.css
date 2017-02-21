@@ -19,9 +19,13 @@ div .houseListing{
 	background-color: green;
 }
 #map-campus{
-	height: 600px;
-	width: 1400px;
-  	background: gray; /* Just to visualize the extent */
+	/*height: 600px;
+	width: 1400px;*/
+	background-size: cover;
+	height: 500px;
+/*  	background: gray;  Just to visualize the extent 
+*/  	text-align: center;
+  	overflow: hidden;
   	/*position: relative;*/
 }
 #view-houses{

@@ -7,14 +7,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'map.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
 </head>
 <body>
 	<div id="navbar"></div>
 	
-	<div id="map-campus" onload="init();">
+	<div id="map-campus">
 		<div id="welcome"></div>
 	</div>
 	<div id="filterbar"></div>
@@ -74,96 +72,25 @@
 							{menu}
 						</select>
 					</div>);
-
-
-
-			// (<p1>{this.props.text}{this.props.url}{this.props.submenu}</p1>);
 		}
 	});
-
-
-
-
-				    			// <div className="filter-option">
-           //      	<select id="{this.props.text}">
-           //        		<option value="preference" selected disabled>0</option>
-           //        		<option value="oneb">1</option>
-           //        		<option value="twob">2</option>
-           //        		<option value="threeb">3</option>
-           //        		<option value="fourb">4</option>
-           //        		<option value="fiveb">5</option>
-           //      	</select>
-           //  	</div>
-           //  	<div className="filter-option">
-           //      	<select id="{this.props.text}">
-           //        		<option value="preference" selected disabled>0</option>
-           //        		<option value="oneb">1</option>
-           //        		<option value="twob">2</option>
-           //        		<option value="threeb">3</option>
-           //        		<option value="fourb">4</option>
-           //        		<option value="fiveb">5</option>
-           //      	</select>
-           //  	</div>
-           //  					    			<div className="filter-option">
-           //      	<select id="{this.props.text}">
-           //        		<option value="preference" selected disabled>0</option>
-           //        		<option value="oneb">1</option>
-           //        		<option value="twob">2</option>
-           //        		<option value="threeb">3</option>
-           //        		<option value="fourb">4</option>
-           //        		<option value="fiveb">5</option>
-           //      	</select>
-           //  	</div>
-
-
-
-
-    // var FilterBar = React.createClass({
-    // 	generateItem:function(item){
-    // 		return (<FilterBarItem text={item.text} url={item.url} submenu={item.submenu} />);
-    // 	},
-    // 	render:function() {
-    // 		var items = filter_types.map(this.generateItem);
-    // 		return ( 
-    // 			<ul className="filtermenu">
-    // 				{items}
-    // 			</ul>
-    // 		);
-  		// }
-    // });
-    // var FilterBarItem = React.createClass({
-    // 	generateSubmenu: function(){
-    // 		var submenu = [];
-    // 		this.props.submenu.map((submenuItem) => submenu.push(this.generateSubmenuItems()));
-    // 		return submenu;
-    // 		// var submenu = [<option value="preference" selected disabled>{this.props.submenu.value}</option>];
-
-    // 		// submenu.push()
-
-    // 	},
-    // 	generateSubmenuItems: function(){
-    // 		return (<option value={this.props.submenu.text}>{this.props.submenu.value}</option>)
-    // 	},
-    // 	render: function(){
-    // 		var submenu = this.generateSubmenu();
-    // 		return (
-    // 			<div className="filter-option">
-    //             	<select id={this.props.text}>
-    //             		// {submenu}
-    //               		// <option value="preference" selected disabled>0</option>
-    //               		// <option value="oneb">1</option>
-    //               		// <option value="twob">2</option>
-    //               		// <option value="threeb">3</option>
-    //               		// <option value="fourb">4</option>
-    //               		// <option value="fiveb">5</option>
-    //             	</select>
-    //         	</div>);
-    // 	}
-    // });
     React.render(<WelcomeComponent />, document.getElementById('welcome'));
     React.render(<HousesComponent />, document.getElementById('view-houses'));
     React.render(<FilterBar />, document.getElementById('filterbar'));
-    
+	var TuftsLat = 42.4055218;
+	var TuftsLng = -71.12003240000001;
+	var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
+	var mapOptions = {
+			zoom: 15,
+			center: TuftsLatLng,
+			mapTypeId: 'roadmap'
+	};
+	console.log("now here");
+	var map = new google.maps.Map(document.getElementById('map-campus'),
+								  mapOptions);
+	var marker = new google.maps.Marker({
+			position: TuftsLatLng,
+			map: map
+	});
      </script>
-
 </html>
