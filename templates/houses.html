@@ -7,13 +7,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'map.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
-
 </head>
 <body>
 	<div id="navbar"></div>
 	
-	<div id="map-campus">
+	<div id="map-campus" onload="init();">
 		<div id="welcome"></div>
 	</div>
 	<div id="filterbar"></div>
