@@ -78,20 +78,14 @@ filter_types = [
 				{"text":"0.5miles", 
 				 "value":"0.5 miles"
 				},
-				{"text":"7", 
-				 "value":7
+				{"text":"1mile", 
+				 "value":"1 mile"
 				},
-				{"text":"8", 
-				 "value":8
+				{"text":"1.5miles", 
+				 "value":"1.5 miles"
 				},
-				{"text":"9", 
-				 "value":9
-				},
-				{"text":"10", 
-				 "value":10
-				},
-				{"text":"11", 
-				 "value":11
+				{"text":"2miles", 
+				 "value":"2 miles"
 				}
     		]
     	}, 

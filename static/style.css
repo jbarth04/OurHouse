@@ -2,19 +2,27 @@
 	font-weight: 200;
 	font-family: Helvetica;
 	text-align: center;
+	background-color: gray;
+	margin: 300px;
 }
 body{
 	background-color: white;
 }
 div .houseListing{
-	height: 200px;
-	width: 200px;
+	height: 300px;
+	width: 300px;
 	background-color: gray;
 	display: inline-block;
-	margin: 2px;
+	margin: 1vw;
 }
 #navbar{
 	background-color: green;
+}
+#map-campus{
+	height: 600px;
+	width: 1400px;
+  	background: gray; /* Just to visualize the extent */
+  	/*position: relative;*/
 }
 #view-houses{
 	text-align: center;
