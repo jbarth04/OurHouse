@@ -22,16 +22,75 @@
     filter_types = [
     	{
     		"text":"pricing",
-    		"url":"#"
-    		// "submenu":[{}]
+    		"url":"#",
+    		"submenu":[
+				{"text":"0", 
+				 "value":0
+				},
+				{"text":"1", 
+				 "value":1
+				},
+				{"text":"2", 
+				 "value":2
+				},
+				{"text":"3", 
+				 "value":3
+				},
+				{"text":"4", 
+				 "value":4
+				},
+				{"text":"5", 
+				 "value":5
+				}
+    		]
     	}, 
     	{
     		"text":"miles",
-    		"url":"#"
+    		"url":"#",
+    		"submenu":[
+				{"text":"6", 
+				 "value":6
+				},
+				{"text":"7", 
+				 "value":7
+				},
+				{"text":"8", 
+				 "value":8
+				},
+				{"text":"9", 
+				 "value":9
+				},
+				{"text":"10", 
+				 "value":10
+				},
+				{"text":"11", 
+				 "value":11
+				}
+    		]
     	}, 
     	{
     		"text":"bedrooms",
-	    	"url":"#"
+	    	"url":"#",
+	    	"submenu":[
+				{"text":"12", 
+				 "value":12
+				},
+				{"text":"13", 
+				 "value":13
+				},
+				{"text":"14", 
+				 "value":14
+				},
+				{"text":"15", 
+				 "value":15
+				},
+				{"text":"16", 
+				 "value":16
+				},
+				{"text":"17", 
+				 "value":17
+				}
+    		]
 	    }
     ];
     var SingleListing = React.createClass({
@@ -59,34 +118,116 @@
     	}
     });
     var FilterBar = React.createClass({
-    	generateItem:function(item){
-    		return (<FilterBarItem text={item.text} url={item.url} submenu={item.submenu} />);
-    	},
-    	render:function() {
-    		var items = filter_types.map(this.generateItem);
-    		return ( 
-    			<ul className="filtermenu">
-    				{items}
-    			</ul>
-    		);
-  		}
-    });
-    var FilterBarItem = React.createClass({
-    	// generateItem: function(){
+		generateItem:function(item){
+			return (<FilterBarMenu text={item.text} url={item.url} submenu={item.submenu} />);
+		},
+		render:function(){
+			var items = filter_types.map(this.generateItem);
+			return (
+				<ul>
+				{items}
+				</ul>);
+		}
+	});
+	var FilterBarMenu = React.createClass({
+		generateMenu:function(){
+			var submenuArr = this.props.submenu;
+			var submenu = submenuArr.map((item) => <option value={item.text}>{item.value}</option>);
+			return submenu;
+		},
+		render:function() {
+			var menu = this.generateMenu();
+			return (<div className="filter-option">
+						<select id={this.props.text}>
+							{menu}
+						</select>
+					</div>);
 
-    	// }
-    	render: function(){
-    		return (
-    			<div className={this.props.text}>
-                	<select id="bedroom-option">
-                  		<option value="preference" selected disabled>0</option>
-                  		<option value="English">English</option>
-                  		<option value="Spanish">Spanish</option>
-                  		<option value="other">Other</option>
-                	</select>
-            	</div>);
-    	}
-    });
+
+
+			// (<p1>{this.props.text}{this.props.url}{this.props.submenu}</p1>);
+		}
+	});
+
+
+
+
+				    			// <div className="filter-option">
+           //      	<select id="{this.props.text}">
+           //        		<option value="preference" selected disabled>0</option>
+           //        		<option value="oneb">1</option>
+           //        		<option value="twob">2</option>
+           //        		<option value="threeb">3</option>
+           //        		<option value="fourb">4</option>
+           //        		<option value="fiveb">5</option>
+           //      	</select>
+           //  	</div>
+           //  	<div className="filter-option">
+           //      	<select id="{this.props.text}">
+           //        		<option value="preference" selected disabled>0</option>
+           //        		<option value="oneb">1</option>
+           //        		<option value="twob">2</option>
+           //        		<option value="threeb">3</option>
+           //        		<option value="fourb">4</option>
+           //        		<option value="fiveb">5</option>
+           //      	</select>
+           //  	</div>
+           //  					    			<div className="filter-option">
+           //      	<select id="{this.props.text}">
+           //        		<option value="preference" selected disabled>0</option>
+           //        		<option value="oneb">1</option>
+           //        		<option value="twob">2</option>
+           //        		<option value="threeb">3</option>
+           //        		<option value="fourb">4</option>
+           //        		<option value="fiveb">5</option>
+           //      	</select>
+           //  	</div>
+
+
+
+
+    // var FilterBar = React.createClass({
+    // 	generateItem:function(item){
+    // 		return (<FilterBarItem text={item.text} url={item.url} submenu={item.submenu} />);
+    // 	},
+    // 	render:function() {
+    // 		var items = filter_types.map(this.generateItem);
+    // 		return ( 
+    // 			<ul className="filtermenu">
+    // 				{items}
+    // 			</ul>
+    // 		);
+  		// }
+    // });
+    // var FilterBarItem = React.createClass({
+    // 	generateSubmenu: function(){
+    // 		var submenu = [];
+    // 		this.props.submenu.map((submenuItem) => submenu.push(this.generateSubmenuItems()));
+    // 		return submenu;
+    // 		// var submenu = [<option value="preference" selected disabled>{this.props.submenu.value}</option>];
+
+    // 		// submenu.push()
+
+    // 	},
+    // 	generateSubmenuItems: function(){
+    // 		return (<option value={this.props.submenu.text}>{this.props.submenu.value}</option>)
+    // 	},
+    // 	render: function(){
+    // 		var submenu = this.generateSubmenu();
+    // 		return (
+    // 			<div className="filter-option">
+    //             	<select id={this.props.text}>
+    //             		// {submenu}
+    //               		// <option value="preference" selected disabled>0</option>
+    //               		// <option value="oneb">1</option>
+    //               		// <option value="twob">2</option>
+    //               		// <option value="threeb">3</option>
+    //               		// <option value="fourb">4</option>
+    //               		// <option value="fiveb">5</option>
+    //             	</select>
+    //         	</div>);
+    // 	}
+    // });
     React.render(<WelcomeComponent />, document.getElementById('welcome'));
     React.render(<HousesComponent />, document.getElementById('view-houses'));
     React.render(<FilterBar />, document.getElementById('filterbar'));

@@ -19,3 +19,6 @@ div .houseListing{
 #view-houses{
 	text-align: center;
 }
+.filter-option{
+	display: inline-block;
+}
