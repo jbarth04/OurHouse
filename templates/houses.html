@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our House</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'secrets.js') }}"></script>
+   	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key="+mapkey></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+</head>
+<body>
+	<div id="navbar"></div>
+	
+	<div id="map-campus">
+		<div id="welcome"></div>
+	</div>
+	<div id="filterbar"></div>
+    <div id="view-houses"></div>
+</body>
+
+  <script type="text/jsx">
+     /*** @jsx React.DOM */
+    house_ids = [1, 2, 3, 4, 5, 6, 10, 15, 23, 28, 34, 37];
+    var SingleListing = React.createClass({
+        render: function() {
+            return (<div className={"houseListing"}><p1>House: {this.props.value} </p1></div>);
+        }
+    });
+    var WelcomeComponent =  React.createClass({
+    	render: function() {
+    		return (<h1>View Houses</h1>);
+    	}
+    });
+    var HousesComponent = React.createClass({
+    	render: function() {
+			if (house_ids.length == 0){
+				return (<p1>Theres nothing here</p1>);
+			}
+			else {
+				return (
+	    			<tbody>
+	    				{house_ids.map((house) => <SingleListing key={house} value={house} />)}
+					</tbody>
+				);
+			}
+    	}
+    });
+    var FilterBar = React.createClass({
+		generateItem:function(item){
+			return (<FilterBarMenu text={item.text} url={item.url} submenu={item.submenu} />);
+		},
+		render:function(){
+			var items = filter_types.map(this.generateItem);
+			return (
+				<ul>
+				{items}
+				</ul>);
+		}
+	});
+	var FilterBarMenu = React.createClass({
+		generateMenu:function(){
+			var submenuArr = this.props.submenu;
+			var submenu = submenuArr.map((item) => <option value={item.text}>{item.value}</option>);
+			return submenu;
+		},
+		render:function() {
+			var menu = this.generateMenu();
+			return (<div className="filter-option">
+						{this.props.text}
+						<select id={this.props.text}>
+							{menu}
+						</select>
+					</div>);
+		}
+	});
+    React.render(<WelcomeComponent />, document.getElementById('welcome'));
+    React.render(<HousesComponent />, document.getElementById('view-houses'));
+    React.render(<FilterBar />, document.getElementById('filterbar'));
+	var TuftsLat = 42.4055218;
+	var TuftsLng = -71.12003240000001;
+	var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
+	var mapOptions = {
+			zoom: 15,
+			center: TuftsLatLng,
+			mapTypeId: 'roadmap'
+	};
+	console.log("now here");
+	var map = new google.maps.Map(document.getElementById('map-campus'),
+								  mapOptions);
+	var marker = new google.maps.Marker({
+			position: TuftsLatLng,
+			map: map
+	});
+     </script>
+</html>
