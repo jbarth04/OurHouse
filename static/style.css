@@ -7,6 +7,8 @@
 }
 body{
 	background-color: white;
+	font-weight: 200;
+	font-family: Helvetica;
 }
 div .houseListing{
 	height: 300px;
@@ -16,7 +18,8 @@ div .houseListing{
 	margin: 1vw;
 }
 #navbar{
-	background-color: green;
+	background-color: #89B3EA;
+	margin: 0;
 }
 #map-campus{
 	background-size: cover;
@@ -35,4 +38,13 @@ div .houseListing{
 #filterbar{
 	background-color: #89B3EA;
 	padding: 0.5vw;
+}
+.navbar-links{
+	display: inline-block;
+	padding: 1vw;
+	text-decoration: none;
+}
+.navbar-link{
+	text-decoration: none;
+	color: white;
 }

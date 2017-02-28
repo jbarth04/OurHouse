@@ -1,18 +1,10 @@
 navbar_items = [
     	{
-    		"text":"",
-    		"url":"#"
+    		"text":"home",
+    		"url":"/houses"
     	}, 
     	{
-    		"text":"",
-    		"url":"#"
-    	},
-    	{
-    		"text":"",
-    		"url":"#"
-    	}, 
-    	{
-    		"text":"",
-	    	"url":"#"
-	    }
+    		"text":"logout",
+    		"url":"/"
+    	}
     ];
