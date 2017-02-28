@@ -5,6 +5,7 @@
     <title>Our House</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'houses.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
    	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyCe1TyZZdi-2EGFlwk7t8153ZsgsK0QIqA"></script>
@@ -23,7 +24,6 @@
 
   <script type="text/jsx">
      /*** @jsx React.DOM */
-    house_ids = [1, 2, 3, 4, 5, 6, 10, 15, 23, 28, 34, 37];
     var SingleListing = React.createClass({
         render: function() {
             return (<div className={"houseListing"}><p1>House: {this.props.value} </p1></div>);
@@ -87,7 +87,6 @@
 			center: TuftsLatLng,
 			mapTypeId: 'roadmap'
 	};
-	console.log("now here");
 	var map = new google.maps.Map(document.getElementById('map-campus'),
 								  mapOptions);
 	var marker = new google.maps.Marker({

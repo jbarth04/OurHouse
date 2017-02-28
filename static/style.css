@@ -13,12 +13,16 @@ body{
 div .houseListing{
 	height: 300px;
 	width: 300px;
-	background-color: gray;
+	background-color: #fdff00;
 	display: inline-block;
 	margin: 1vw;
 }
 #navbar{
 	background-color: #89B3EA;
+	margin: 0;
+	width: 100%;
+}
+#navbar ul {
 	margin: 0;
 }
 #map-campus{
@@ -43,8 +47,10 @@ div .houseListing{
 	display: inline-block;
 	padding: 1vw;
 	text-decoration: none;
+	margin: 0;
 }
 .navbar-link{
 	text-decoration: none;
 	color: white;
+	margin: 0;
 }
