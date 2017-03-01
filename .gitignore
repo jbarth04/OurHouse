@@ -2,3 +2,5 @@
 static/secrets.js
 venv
 config.py
+database.py
+models.py
