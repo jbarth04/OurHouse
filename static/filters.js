@@ -75,8 +75,32 @@ filter_types = [
     		"text":"Distance From Campus",
     		"url":"#",
     		"submenu":[
+				{"text":"0.1miles", 
+				 "value":"0.1 miles"
+				},
+				{"text":"0.2miles", 
+				 "value":"0.2 miles"
+				},
+				{"text":"0.3miles", 
+				 "value":"0.3 miles"
+				},
+				{"text":"0.4miles", 
+				 "value":"0.4 miles"
+				},
 				{"text":"0.5miles", 
 				 "value":"0.5 miles"
+				},
+				{"text":"0.6miles", 
+				 "value":"0.6 miles"
+				},
+				{"text":"0.7miles", 
+				 "value":"0.7 miles"
+				},
+				{"text":"0.8miles", 
+				 "value":"0.8 miles"
+				},
+				{"text":"0.9miles", 
+				 "value":"0.9 miles"
 				},
 				{"text":"1mile", 
 				 "value":"1 mile"
