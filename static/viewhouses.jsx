@@ -37,11 +37,21 @@ var SingleListing = React.createClass({
 });
 var HousesComponent = React.createClass({
 	render: function() {
-			return (
-    			<tbody>
-    				{houses.map((house) => <SingleListing key={house.id} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
-				</tbody>
+			var viewHouses = this.props.value;
+			if (viewHouses.length == 0){
+				return(
+					<div>
+						<h2>Sorry, there are no houses available</h2>
+					</div>
+				);
+			} else {
+				return (
+    				<tbody>
+    					{viewHouses.map((house) => <SingleListing key={house.id} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
+					</tbody>
 			);
+			}
+			
 		}
 });
 
@@ -75,7 +85,7 @@ var FilterBarMenu = React.createClass({
 	}
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
-React.render(<HousesComponent />, document.getElementById('view-houses'));
+React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
 React.render(<FilterBar />, document.getElementById('filterbar'));
 var TuftsLat = 42.4055218;
 var TuftsLng = -71.12003240000001;
@@ -132,6 +142,37 @@ function distanceGeo(lat2, lon2){
 		d /= 1.60934;
 		return(d);
 }
+function filterPrice(sHouses){
+	var returnHouses = [];
+	var minPrice = document.getElementById("Minimum Rent").value;
+	var maxPrice = document.getElementById("Maximum Rent").value;
+	for (var i = 0; i < sHouses.length; i++){
+		var rent = sHouses[i].MonthlyRent;
+		if ((rent <= maxPrice) && (rent >= minPrice)){
+			console.log("pushing");
+			returnHouses.push(sHouses[i]);
+		}
+	}
+	return returnHouses;
+}
+function filterBeds(sHouses){
+	var returnHouses = [];
+	var numBeds = document.getElementById("Number of Bedrooms").value;
+	for (var i = 0; i < sHouses.length; i++){
+		var beds = sHouses[i].Rooms;
+		if (beds == numBeds){
+			returnHouses.push(sHouses[i]);
+		}
+	}
+	return returnHouses;
+}
+function filterHouses(){
+	var pHouses = filterPrice(houses);
+	console.log(pHouses);
+	var returnHouses = filterBeds(pHouses);
+	return returnHouses;
+}
 function updateHouses(){
-	// TODO: sort houses	
+		var filteredHouses = filterHouses();
+		React.render(<HousesComponent value={filteredHouses}/>, document.getElementById('view-houses'));
 }
