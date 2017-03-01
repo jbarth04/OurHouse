@@ -23,8 +23,9 @@ div .houseListing{
 	text-align: left;
 	list-style: none;
 }
-.info{
-	/*padding: 1vw;*/
+#update-button{
+	padding-left: 0.5vw;
+	padding-right: 0.5vw;
 }
 #navbar{
 	background-color: #89B3EA;
