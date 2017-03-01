@@ -1,11 +1,70 @@
-houses = [1, 2, 3, 4, 5, 6, 10, 15, 23, 28, 34, 37];
-// {
-// 	"id":1,
-// 	"addrNum": 54,
-// 	"street": "sunset rd",
-// 	"city":"somerville",
-// 	"zipcode": 02144,
-// 	"bedrooms": 4,
-// 	"parking": true,
-// 	"rent": 750
-// }
+houses = [
+	{
+		"Id": 1,
+	    "LandlordId": 3,
+	    "Address1": "54 sunset Rd",
+	    "Address2": "Apt 2",
+	    "City":"Somerville",
+	    "State": "MA",
+	    "Zipcode": "02144",
+	    "Rooms": 4,
+	    "ParkingSpots": 1,
+	    "MonthlyRent": 750,
+	    "UtilitiesIncluded": true,
+	    "Laundry": false,
+	    "Pets": true,
+	    "Lat": 42.409044,
+	    "Lng": -71.126143
+	},
+	{
+		"Id": 2,
+	    "LandlordId": 4,
+	    "Address1": "99 Yale St",
+	    "Address2": "Apt 2",
+	    "City":"Medford",
+	    "State": "MA",
+	    "Zipcode": "02155",
+	    "Rooms": 4,
+	    "ParkingSpots": 2,
+	    "MonthlyRent": 800,
+	    "UtilitiesIncluded": true,
+	    "Laundry": true,
+	    "Pets": true,
+	    "Lat": 42.404477,
+	    "Lng": -71.112067
+	},
+	{
+		"Id": 3,
+	    "LandlordId": 3,
+	    "Address1": "3 Capen St.",
+	    "Address2": "Apt 2",
+	    "City":"Medford",
+	    "State": "MA",
+	    "Zipcode": "02155",
+	    "Rooms": 3,
+	    "ParkingSpots": 1,
+	    "MonthlyRent": 600,
+	    "UtilitiesIncluded": true,
+	    "Laundry": true,
+	    "Pets": false,
+	    "Lat": 42.410660,
+	    "Lng": -71.122557
+	},
+	{
+		"Id": 4,
+	    "LandlordId": 2,
+	    "Address1": "18 Curtis Ave.",
+	    "Address2": "Apt 1",
+	    "City":"Medford",
+	    "State": "MA",
+	    "Zipcode": "02155",
+	    "Rooms": 4,
+	    "ParkingSpots": 2,
+	    "MonthlyRent": 950,
+	    "UtilitiesIncluded": true,
+	    "Laundry": false,
+	    "Pets": false,
+	    "Lat": 42.407568,
+	    "Lng": -71.125496
+	}
+];

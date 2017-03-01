@@ -15,7 +15,16 @@ div .houseListing{
 	width: 300px;
 	background-color: #fdff00;
 	display: inline-block;
-	margin: 1vw;
+	margin: 1.5vw;
+}
+.houseInfo{
+	margin:0;
+	padding: 2vw;
+	text-align: left;
+	list-style: none;
+}
+.info{
+	/*padding: 1vw;*/
 }
 #navbar{
 	background-color: #89B3EA;
