@@ -2,173 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Your Home</title>
+    <title>Post Your Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script type="text/jsx" src="{{ url_for('static', filename = 'newprop.jsx') }}"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+
 </head>
-
-<body> 
-	<h1> Post Your Home </h1>
-
-<!-- 	<div id = "New Property Form"> 
-	<form>
-  		<label>
-    		Landlord Name
-    		<input type="text" name="name" />
-  		</label>
-	</form>
-
-		<form>
-  		<label>
-    		Address 1
-    		<input type="text" name="address1" />
-  		</label>
-	</form>
-
-		<form>
-  		<label>
-    		Address 2
-    		<input type="text" name="address2" />
-  		</label>
-	</form>
-		<form>
-  		<label>
-    		City 
-    		<input type="text" name="city" />
-  		</label>
-	</form>
-		<form>
-  		<label>
-    		State
-    		<input type="text" name="state" />
-  		</label>
-	</form>
-		<form>
-  		<label>
-    		Country
-    		<input type="text" name="country" />
-  		</label>
-	</form>
-		<form>
-  		<label>
-    		Zipcode
-    		<input type="text" name="zip" />
-  		</label>
-	</form>
-	<form> 
-		<label> 
-			Bedrooms 
-			<select name = "bedrooms">
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-				<option value=6>6</option>
-			</select>
-		</label>
-	</form>	
-		<form> 
-		<label> 
-			Parking
-			<select name = "parking">
-				<option value=0>0</option>
-				<option value=1>1</option>
-				<option value=2>2</option>
-				<option value=3>3</option>
-				<option value=4>4</option>
-				<option value=5>5</option>
-			</select>
-		</label>
-	</form>	
-
-	<form>
-		<label>
-			Monthly rent 
-			<input type="text" name ="rent"/>
-		</label>		
-	</form>
-	<form> 
-		<label> 
-		Utilities included? 
-		<select name = "utilities"> 
-			<option value ="true">Yes</option>
-			<option value ="false">No</option>
-		</select>
-		</label>
-	</form>
-		<form> 
-		<label> 
-		Pets allowed? 
-		<select name = "pets"> 
-			<option value ="true">Yes</option>
-			<option value ="false">No</option>
-		</select>
-		</label>
-	</form>
-		<form> 
-		<label> 
-		Utilities included? 
-		<select name = "utilities"> 
-			<option value ="true">Yes</option>
-			<option value ="false">No</option>
-		</select>
-		</label>
-	</form>
-		<form> 
-		<label> 
-		Laundry included? 
-		<select name = "laundryz"> 
-			<option value ="true">Yes</option>
-			<option value ="false">No</option>
-		</select>
-		</label>
-	</form>
-	<button type="submit"> <a href="{{ url_for('houses') }}">Upload Your House!</a></button>
-
-	</div>  -->
+<body>
+<div id="welcome">
+</div>
+<div id="root">
+</div> 
 </body>
-
-<script type="text/jsx">
-
-console.log("here")
-
-class NameForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  function render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-} 
-
-ReactDOM.render(
-  <NameForm />,
-  document.getElementById('root')
-);
-
-</script>
 
 </html>
