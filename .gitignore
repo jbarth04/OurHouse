@@ -1,8 +1,9 @@
+*.pyc
 .DS_Store
 venv
 database.py
-models.py
-models_old.py
+models_noschema.py
 migrations
 migrations_w_schema
 secrets.py
+working_migration.py
