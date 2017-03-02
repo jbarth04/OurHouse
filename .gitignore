@@ -6,4 +6,3 @@ models_noschema.py
 migrations
 migrations_w_schema
 secrets.py
-working_migration.py
