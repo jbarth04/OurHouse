@@ -49,7 +49,7 @@ Note2: migration logic taken from -
         Generating /flask-by-example/migrations/versions/63dba2060f71_.py
         ... done
 
-11. ALERT - CRUCIAL MIGRATION STEP: go into migrations/versions/ folder and open the file with the migration.  Open it in your favorite editor.  Now, also the "working_migration.py" filed provided and copy and paste the code defined in "def upgrade():" to your migration file (you can't miss the comments in "working_migration.py" telling you what to copy and paste)
+11. ALERT - CRUCIAL MIGRATION STEP: go into migrations/versions/ folder and open the file with the migration.  Open it in your favorite editor.  Now, also open the "working_migration.py" file located in the "working_migrations" folder (ignore the other migrations.)  Copy and paste the code defined in "def upgrade():" to your migration file (you can't miss the comments in "working_migration.py" telling you what to copy and paste)
 
 12. Apply the upgrades to the database using the db upgrade command:
 
