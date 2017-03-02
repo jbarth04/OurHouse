@@ -54,6 +54,19 @@ var HousesComponent = React.createClass({
 			
 		}
 });
+var FilterBar = React.createClass({
+	render:function(){
+		var items = filter_types.map(this.generateItem);
+		return (
+			<ul>
+			{items}
+			<button id="update-button" onClick={updateHouses}>Update</button>
+			</ul>);
+	}
+});
+
+
+
 
 var FilterBar = React.createClass({
 	generateItem:function(item){
