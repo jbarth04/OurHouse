@@ -52,11 +52,12 @@ def dbTest():
 @app.route("/test2", methods=['GET'])
 def dbTest2():
     print "here"
-    
-    rach = Student('Rachael', 'Robinson', 'rachael.robinson95@gamil.com', 1112223333, True, datetime.now(), datetime.now())
-    print rach.FirstName
-    db.session.add(rach)
-    db.session.commit()
+
+    # Don't uncomment - Rachael was already added to database
+    # rach = Student('Rachael', 'Robinson', 'rachael.robinson95@gamil.com', 1112223333, True, datetime.now(), datetime.now())
+    # print rach.FirstName
+    # db.session.add(rach)
+    # db.session.commit()
 
     return jsonify([])
 
