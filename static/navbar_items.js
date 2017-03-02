@@ -4,6 +4,10 @@ navbar_items = [
     		"url":"/houses"
     	}, 
     	{
+    		"text":"List Your House",
+    		"url":"/newhome"
+    	},
+    	{
     		"text":"Logout",
     		"url":"/"
     	}
