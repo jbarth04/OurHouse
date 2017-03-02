@@ -11,5 +11,9 @@ def index():
 def houses():
 	return render_template('houses.html')
 
+@app.route("/newhome")
+def newhome():
+	return render_template('newhome.html')
+
 if __name__ == "__main__":
     app.run()

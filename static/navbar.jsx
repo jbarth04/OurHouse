@@ -1,6 +1,7 @@
 var NavBar = React.createClass({
         render: function() {
-            return (<p1>NAVBAR</p1>);
+            return (<button type="submit"> <a href="{{ url_for('newhome') }}">Add Home</a></button>
+);
         }
     });
 React.render(<NavBar />, document.getElementById('navbar'));
