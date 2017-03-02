@@ -1,6 +1,8 @@
 .DS_Store
-static/secrets.js
 venv
-config.py
 database.py
 models.py
+models_old.py
+migrations
+migrations_w_schema
+secrets.py
