@@ -106,43 +106,44 @@ var FilterForm = React.createClass({
 		return(
 			<div className="filterOptions">
 				<div className = "filterOption">
-					<label>Minimum Rent</label>
+					<label className="filterLabel">Minimum Rent</label>
 					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
 					{this.generateSubMenu(filters.MinRent.submenu)}
 					</select>
 				</div>
 				<div className = "filterOption">
-					<label>Maximum Rent</label>
+					<label className="filterLabel">Maximum Rent</label>
 					<select id="MaxRent" value={this.state.MaxRent} onChange={this.handleChange('MaxRent')}>
 					{this.generateSubMenu(filters.MaxRent.submenu)}
 					</select>
 				</div>
 				<div className = "filterOption">
-					<label>Distance from Campus Center</label>
+					<label className="filterLabel">Distance from Campus Center</label>
 					<select id="Distance" value={this.state.Dist} onChange={this.handleChange('Dist')}>
 					{this.generateSubMenu(filters.Dist.submenu)}
 					</select>
 				</div>
 				<div className = "filterOption">
-					<label>Number of Bedrooms</label>
+					<label className="filterLabel">Number of Bedrooms</label>
 					<select id="NumRooms" value={this.state.NumRooms} onChange={this.handleChange('NumRooms')}>
 					{this.generateSubMenu(filters.NumRooms.submenu)}
 					</select>
 				</div>
+				<br />
 				<div className = "filterOption">
-					<label>Laundry Included</label>
+					<label className="filterLabel">Laundry Included</label>
 					<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>
 					{this.generateSubMenu(filters.Laundry.submenu)}
 					</select>
 				</div>
 				<div className = "filterOption">
-					<label>Utilities Included</label>
+					<label className="filterLabel">Utilities Included</label>
 					<select id="Utilities" value={this.state.Utilities} onChange={this.handleChange('Utilities')}>
 					{this.generateSubMenu(filters.Utilities.submenu)}
 					</select>
 				</div>
 				<div className = "filterOption">
-					<label>Parking Spots</label>
+					<label className="filterLabel">Parking Spots</label>
 					<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
 					{this.generateSubMenu(filters.Parking.submenu)}
 					</select>
