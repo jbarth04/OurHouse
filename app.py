@@ -54,10 +54,10 @@ def dbTest2():
     print "here"
 
     # Don't uncomment - Rachael was already added to database
-    # rach = Student('Rachael', 'Robinson', 'rachael.robinson95@gamil.com', 1112223333, True, datetime.now(), datetime.now())
-    # print rach.FirstName
-    # db.session.add(rach)
-    # db.session.commit()
+    rach = Student('Rachael', 'Robinson', 'rachael.robinson95@gamil.com', 1112223333, True, datetime.now(), datetime.now())
+    print rach.FirstName
+    db.session.add(rach)
+    db.session.commit()
 
     return jsonify([])
 
