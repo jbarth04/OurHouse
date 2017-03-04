@@ -54,138 +54,105 @@ var HousesComponent = React.createClass({
 			
 		}
 });
-var FilterBar = React.createClass({
-	render:function(){
-		var items = filter_types.map(this.generateItem);
-		return (
-			<ul>
-			{items}
-			<button id="update-button" onClick={updateHouses}>Update</button>
-			</ul>);
-	}
-});
-
-
-
-
-var FilterBar = React.createClass({
-	generateItem:function(item){
-		return (<FilterBarMenu text={item.text} url={item.url} submenu={item.submenu} />);
+var FilterForm = React.createClass({
+	getInitialState: function() {
+	    return {
+	      MinRent: 500,
+	      MaxRent: 1000,
+	      Dist: 0.1,
+	      NumRooms: 1,
+	      Laundry: true,
+	      Utilities: true,
+	      ParkingSpots: 0
+	    }
+  	},
+  	handleChange: function(key){
+		return function(event){
+			var state = {};
+			state[key] = event.target.value;
+			this.setState(state);
+		}.bind(this);
+  	},
+	handleUpdate: function(event){
+		console.log("HIT");
+		this.UpdateHouses();
+		event.preventDefault();
 	},
-	render:function(){
-		var items = filter_types.map(this.generateItem);
-		return (
-			<ul>
-			{items}
-			<button id="update-button" onClick={updateHouses}>Update</button>
-			</ul>);
-	}
-});
-var FilterBarMenu = React.createClass({
-	generateMenu:function(){
-		var submenuArr = this.props.submenu;
-		var submenu = submenuArr.map((item) => <option value={item.value}>{item.value}</option>);
+	UpdateHouses: function(){
+		var filterHouses = [];
+		var minRent = this.state.MinRent;
+		var maxRent = this.state.MaxRent;
+		var dist = this.state.Dist;
+		var rooms = this.state.NumRooms;
+		var parking = this.state.ParkingSpots;
+		for(var i=0;i<houses.length;i++){
+			if(houses[i].MonthlyRent <= maxRent && houses[i].MonthlyRent >= minRent){
+				if(houses[i].Dist <= dist){
+					if(houses[i].Rooms == rooms){
+						if(houses[i].ParkingSpots == parking || parking == -1){
+							filterHouses.push(houses[i]);
+						}
+					}
+				}
+			}
+		}
+		React.render(<HousesComponent value={filterHouses}/>, document.getElementById('view-houses'));
+	},
+	generateSubMenu: function(submenu){
+		var submenu = submenu.map((item) => <option value={item.value}>{item.text}</option>);
 		return submenu;
 	},
-	render:function() {
-		var menu = this.generateMenu();
-		return (<div className="filter-option">
-					{this.props.text}
-					<select id={this.props.text}>
-						{menu}
+	render: function() {
+		return(
+			<div className="filterOptions">
+				<div className = "filterOption">
+					<label>Minimum Rent</label>
+					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
+					{this.generateSubMenu(filters.MinRent.submenu)}
 					</select>
-				</div>);
+				</div>
+				<div className = "filterOption">
+					<label>Maximum Rent</label>
+					<select id="MaxRent" value={this.state.MaxRent} onChange={this.handleChange('MaxRent')}>
+					{this.generateSubMenu(filters.MaxRent.submenu)}
+					</select>
+				</div>
+				<div className = "filterOption">
+					<label>Distance from Campus Center</label>
+					<select id="Distance" value={this.state.Dist} onChange={this.handleChange('Dist')}>
+					{this.generateSubMenu(filters.Dist.submenu)}
+					</select>
+				</div>
+				<div className = "filterOption">
+					<label>Number of Bedrooms</label>
+					<select id="NumRooms" value={this.state.NumRooms} onChange={this.handleChange('NumRooms')}>
+					{this.generateSubMenu(filters.NumRooms.submenu)}
+					</select>
+				</div>
+				<div className = "filterOption">
+					<label>Laundry Included</label>
+					<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>
+					{this.generateSubMenu(filters.Laundry.submenu)}
+					</select>
+				</div>
+				<div className = "filterOption">
+					<label>Utilities Included</label>
+					<select id="Utilities" value={this.state.Utilities} onChange={this.handleChange('Utilities')}>
+					{this.generateSubMenu(filters.Utilities.submenu)}
+					</select>
+				</div>
+				<div className = "filterOption">
+					<label>Parking Spots</label>
+					<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
+					{this.generateSubMenu(filters.Parking.submenu)}
+					</select>
+				</div>
+				<button onClick={this.handleUpdate}>Update</button>
+			</div>
+		);
+		
 	}
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
 React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
-React.render(<FilterBar />, document.getElementById('filterbar'));
-var TuftsLat = 42.4055218;
-var TuftsLng = -71.12003240000001;
-var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
-var infowindow = new google.maps.InfoWindow();
-var mapOptions = {
-		zoom: 15,
-		center: TuftsLatLng,
-		mapTypeId: 'roadmap'
-};
-var map = new google.maps.Map(document.getElementById('map-campus'),
-							  mapOptions);
-var marker = new google.maps.Marker({
-		position: TuftsLatLng,
-		map: map
-});
-var house;
-for (var i = 0; i < houses.length; i++) {
-	house = new google.maps.LatLng(houses[i].Lat, houses[i].Lng);
-	distance = distanceGeo(houses[i].Lat, houses[i].Lng);
-	infoMessage = "<p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p>"+
-				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
-				  "<p>Distance: "+distance+" miles</p>";
-	marker = new google.maps.Marker({
-		position: house,
-		title: infoMessage
-	});
-	google.maps.event.addListener(marker, 'click', (function(marker, i) {
-		return function() {
-			infowindow.setContent(marker.title);
-			infowindow.open(map, marker);
-		}
-	})(marker, i));
-	marker.setMap(map);
-}
-function distanceGeo(lat2, lon2){
-		Number.prototype.toRad = function() {
-				return this * Math.PI / 180;
-		}
-
-		var lat1 = TuftsLat; 
-		var lon1 = TuftsLng; 
-
-		var R = 6371; // km 
-		var x1 = lat2-lat1;
-		var dLat = x1.toRad();  
-		var x2 = lon2-lon1;
-		var dLon = x2.toRad();  
-		var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-        	Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
-        	Math.sin(dLon/2) * Math.sin(dLon/2);  
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-		var d = R * c; 
-		d /= 1.60934;
-		return(d);
-}
-function filterPrice(sHouses){
-	var returnHouses = [];
-	var minPrice = document.getElementById("Minimum Rent").value;
-	var maxPrice = document.getElementById("Maximum Rent").value;
-	for (var i = 0; i < sHouses.length; i++){
-		var rent = sHouses[i].MonthlyRent;
-		if ((rent <= maxPrice) && (rent >= minPrice)){
-			console.log("pushing");
-			returnHouses.push(sHouses[i]);
-		}
-	}
-	return returnHouses;
-}
-function filterBeds(sHouses){
-	var returnHouses = [];
-	var numBeds = document.getElementById("Number of Bedrooms").value;
-	for (var i = 0; i < sHouses.length; i++){
-		var beds = sHouses[i].Rooms;
-		if (beds == numBeds){
-			returnHouses.push(sHouses[i]);
-		}
-	}
-	return returnHouses;
-}
-function filterHouses(){
-	var pHouses = filterPrice(houses);
-	console.log(pHouses);
-	var returnHouses = filterBeds(pHouses);
-	return returnHouses;
-}
-function updateHouses(){
-		var filteredHouses = filterHouses();
-		React.render(<HousesComponent value={filteredHouses}/>, document.getElementById('view-houses'));
-}
+React.render(<FilterForm />, document.getElementById('filterbar'));
