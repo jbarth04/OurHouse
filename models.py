@@ -51,6 +51,15 @@ class Landlord(db.Model):
     IsActive = db.Column(db.Boolean, nullable=False)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    
+    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Email = Email
+        self.Phone = Phone
+        self.IsActive = IsActive
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
 
 
 class Review(db.Model):

@@ -155,5 +155,6 @@ var FilterForm = React.createClass({
 	}
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
-React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
 React.render(<FilterForm />, document.getElementById('filterbar'));
+console.log(houses);
+React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
