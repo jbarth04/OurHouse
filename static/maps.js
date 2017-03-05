@@ -15,8 +15,8 @@ var marker = new google.maps.Marker({
 });
 var house;
 for (var i = 0; i < houses.length; i++) {
-	house = new google.maps.LatLng(houses[i].Lat, houses[i].Lng);
-	distance = distanceGeo(houses[i].Lat, houses[i].Lng);
+	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
+	distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
 	infoMessage = "<p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p>"+
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
 				  "<p>Distance: "+distance+" miles</p>";

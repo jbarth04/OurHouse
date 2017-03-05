@@ -5,7 +5,9 @@
     <title>Our House</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
-   <script type="text/javascript" src="{{ url_for('static', filename = 'houses.js') }}"></script>
+    <script type="text/javascript">
+    	houses = {{ rhouses | safe}};
+    </script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
    	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyCe1TyZZdi-2EGFlwk7t8153ZsgsK0QIqA"></script>
