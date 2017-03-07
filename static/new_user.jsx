@@ -6,8 +6,8 @@ var NewUserForm = React.createClass ({
         LastName:'',
         Email:'',
         PhoneNum: 0000000000,
-        Student: true,
-        Landlord: false
+        Student: false,
+        Landlord: true
         //We will need a way to deal with passwords
       };
       this.handleChange = this.handleChange.bind(this);
@@ -21,8 +21,17 @@ var NewUserForm = React.createClass ({
       }.bind(this);
     },
     handleSubmit: function(event){
-      console.log(this.state.Email);
-      // console.log(this.state.password);
+      console.log(this.state);
+      data = this.state;
+
+      $.ajax({
+        type: 'POST',
+        url: '/signup',
+        data: data,
+        success: function(result) {
+          console.log(result);
+        }
+      })
       event.preventDefault();
     },
     render: function(){
