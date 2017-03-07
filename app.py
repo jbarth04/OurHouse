@@ -35,7 +35,8 @@ from models import Review
 ###################### Routes #############################
 import json
 #####################Decimal JSON encoding ################
-# http://stackoverflow.com/questions/1960516/python-json-serialize-a-decimal-object
+# http://stackoverflow.com/questions/1960516/python-json-serialize-a-decimal-
+# object
 # User: tesdal
 ###########################################################
 class fakefloat(float):
@@ -60,6 +61,14 @@ def houses():
     allHouses = [h.as_dict() for h in houses]
     jsonHouses = json.dumps(allHouses, default=defaultencode)
     return render_template('houses.html', rhouses=jsonHouses)
+    # return render_template('houses.html')
+
+@app.route("/signup", methods=['GET'])
+def signup():
+    # houses = House.query.all()
+    # allHouses = [h.as_dict() for h in houses]
+    # jsonHouses = json.dumps(allHouses, default=defaultencode)
+    return render_template('signup.html')
     # return render_template('houses.html')
 
 @app.route("/test", methods=['GET'])
