@@ -63,12 +63,17 @@ def houses():
     return render_template('houses.html', rhouses=jsonHouses)
     # return render_template('houses.html')
 
-@app.route("/signup", methods=['GET'])
+@app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    # if request.method == 'POST':
+    #     print "hi"
+    #     #FUNCTION TO SUBMIT NEW USER
+    # else:
+    return render_template('signup.html')
     # houses = House.query.all()
     # allHouses = [h.as_dict() for h in houses]
     # jsonHouses = json.dumps(allHouses, default=defaultencode)
-    return render_template('signup.html')
+        
     # return render_template('houses.html')
 
 @app.route("/test", methods=['GET'])
