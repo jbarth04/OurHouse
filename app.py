@@ -76,6 +76,10 @@ def signup():
         
     # return render_template('houses.html')
 
+@app.route("/newhome")
+def newhome():
+	return render_template('newhome.html')
+
 @app.route("/test", methods=['GET'])
 def dbTest():
     print "here"

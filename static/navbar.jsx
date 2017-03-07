@@ -7,6 +7,7 @@ var NavBar = React.createClass({
 		// 	return (<a href={this.props.url} className="navbar-link" id={this.props.text}>{this.props.text}</a>);
 		// },
         render: function() {
+
             navbar_links = this.generateItems();
             return(
             	<ul>
