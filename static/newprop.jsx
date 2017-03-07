@@ -1,6 +1,6 @@
 var Header = React.createClass({
   render: function() {
-    return (<h1>Post Your House</h1>);
+    return (<h1>List Your House on Our House!</h1>);
   }
 });
 

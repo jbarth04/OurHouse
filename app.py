@@ -19,14 +19,14 @@ if app.config['SQLALCHEMY_DATABASE_URI'] == None:
 ############ Do the configuration for the database #############
 
 # import created database in models.py
-from models_old import db
+from models import db
 db.init_app(app)
 
 # import tables
-from models_old import Student
-from models_old import Landlord
-from models_old import House
-from models_old import Review
+from models import Student
+from models import Landlord
+from models import House
+from models import Review
 
 # db.create_all()
 
@@ -64,6 +64,6 @@ def dbTest2():
     # db.session.commit()
 
     return jsonify([])
-    
+
 if __name__ == "__main__":
     app.run()
