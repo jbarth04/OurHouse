@@ -1,3 +1,8 @@
+*.pyc
 .DS_Store
 venv
-config.py
+database.py
+models_noschema.py
+migrations
+migrations_w_schema
+secrets.py

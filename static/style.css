@@ -1,10 +1,3 @@
-#Welcome-Header{
-	font-weight: 200;
-	font-family: Helvetica;
-	text-align: center;
-	background-color: gray;
-	margin: 300px;
-}
 body{
 	background-color: white;
 	font-weight: 200;
@@ -16,6 +9,14 @@ div .houseListing{
 	background-color: #fdff00;
 	display: inline-block;
 	margin: 1.5vw;
+}
+#Welcome-Header{
+	font-weight: 200;
+	font-family: Helvetica;
+	text-align: center;
+	background-color: gray;
+	margin: 15vw;
+	padding: 2vw;
 }
 .houseInfo{
 	margin:0;
@@ -63,4 +64,11 @@ div .houseListing{
 	text-decoration: none;
 	color: white;
 	margin: 0;
+}
+.filterOption{
+	display: inline-block;
+	padding: 0.5vw;
+}
+.filterLabel{
+	padding: 0.5vw;
 }

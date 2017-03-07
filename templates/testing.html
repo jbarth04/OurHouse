@@ -5,11 +5,18 @@
     <title>Our House</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
-   	<script type="text/jsx" src="{{ url_for('static', filename = 'login.jsx') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
 </head>
 <body>
-	<div id="Welcome-Header">
-	</div>
+	<div id="filterbar"></div>
+    <div id="view-houses"></div>
 </body>
+
+  <script type="text/jsx">
+     /*** @jsx React.DOM */
+    var Child = React.createClass({
+      render: function () {
+        return <button onClick={this.props.onClick}>{this.props.text}</button>;
+      },
+    });
+     </script>
 </html>
