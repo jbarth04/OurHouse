@@ -10,6 +10,7 @@ from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, Nu
 from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+import __builtin__
 
 # create the database, to be imported later in app.py
 # creating DB here avoids circular dependencies
@@ -38,6 +39,42 @@ class House(db.Model):
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
+    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC):
+        self.LandlordId = LandlordId
+        self.Address1 = Address1
+        self.Address2 = Address2
+        self.City = City
+        self.State = State
+        self.Zipcode = Zipcode
+        self.Rooms = Rooms
+        self.ParkingSpots = ParkingSpots
+        self.MonthlyRent = MonthlyRent
+        self.UtilitiesIncluded = UtilitiesIncluded
+        self.Laundry = Laundry
+        self.Pets = Pets
+        self.Latitude = Latitude
+        self.Longitude = Longitude
+        self.DistFromCC = DistFromCC
+
+    def as_dict(self):
+        house = __builtin__.dict(
+            Id=self.Id, 
+            LandlordId =  self.LandlordId,
+            Address1 = self.Address1,
+            Address2 = self.Address2,
+            City = self.City,
+            State = self.State,
+            Zipcode = self.Zipcode,
+            Rooms = self.Rooms,
+            ParkingSpots = self.ParkingSpots,
+            MonthlyRent = self.MonthlyRent,
+            UtilitiesIncluded = self.UtilitiesIncluded,
+            Laundry = self.Laundry,
+            Pets = self.Pets,
+            Latitude = self.Latitude,
+            Longitude = self.Longitude,
+            DistFromCC = self.DistFromCC)
+        return house
 
 class Landlord(db.Model):
     __tablename__ = 'Landlords'
@@ -51,6 +88,15 @@ class Landlord(db.Model):
     IsActive = db.Column(db.Boolean, nullable=False)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    
+    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Email = Email
+        self.Phone = Phone
+        self.IsActive = IsActive
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
 
 
 class Review(db.Model):
