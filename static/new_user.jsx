@@ -29,7 +29,7 @@ var NewUserForm = React.createClass ({
         url: '/signup',
         data: data,
         success: function(result) {
-          console.log(result);
+          window.location = "/";
         }
       })
       event.preventDefault();

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request 
+from flask import Flask, render_template, jsonify, request, redirect, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
@@ -51,12 +51,18 @@ def defaultencode(o):
         return fakefloat(o)
     raise TypeError(repr(o) + " is not JSON serializable")
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        #do some things to log the person in
+        print "trying to send to houes"
+        return redirect(url_for('houses'), code=302)
+    else:
+        return render_template('index.html')
 
 @app.route("/houses", methods=['GET'])
 def houses():
+    print "GET FOR HOUSES"
     houses = House.query.all()
     allHouses = [h.as_dict() for h in houses]
     jsonHouses = json.dumps(allHouses, default=defaultencode)
@@ -67,18 +73,18 @@ def houses():
 
 #FUNCTION TO SUBMIT NEW USER
 def signup():
-	if request.method == 'POST':
-		if request.form['Landlord'] == 'true': 
-			FirstName = request.form['FirstName']
-			LastName = request.form['LastName']
-			PhoneNum = request.form['PhoneNum']
-			Email = request.form['Email']
-			landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
-			db.session.add(landlord)
-			db.session.commit()
-			return jsonify([]) # Figure out if need to make get request 
-	else:
-		return render_template('signup.html')
+    if request.method == 'POST':
+        if request.form['Landlord'] == 'true': 
+          FirstName = request.form['FirstName']
+          LastName = request.form['LastName']
+          PhoneNum = request.form['PhoneNum']
+          Email = request.form['Email']
+          landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+          # db.session.add(landlord)
+          # db.session.commit()
+        return render_template('index.html') # Figure out if need to make get request 
+    else:
+        return render_template('signup.html')
     # houses = House.query.all()
     # allHouses = [h.as_dict() for h in houses]
     # jsonHouses = json.dumps(allHouses, default=defaultencode)
