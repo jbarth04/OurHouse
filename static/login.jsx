@@ -24,7 +24,9 @@ var LoginForm = React.createClass ({
         url: '/',
         data: data,
         success: function(result) {
-          // window.location = "/";
+          if(result[0].status == 200){
+            window.location.href = "/houses";
+          }
         }
       })
       event.preventDefault();

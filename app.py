@@ -54,15 +54,13 @@ def defaultencode(o):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #do some things to log the person in
-        print "trying to send to houes"
-        return redirect(url_for('houses'), code=302)
+        #AUTHENTICATION
+        return jsonify([{'status':200}])
     else:
         return render_template('index.html')
 
 @app.route("/houses", methods=['GET'])
 def houses():
-    print "GET FOR HOUSES"
     houses = House.query.all()
     allHouses = [h.as_dict() for h in houses]
     jsonHouses = json.dumps(allHouses, default=defaultencode)
@@ -82,7 +80,7 @@ def signup():
           landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
           # db.session.add(landlord)
           # db.session.commit()
-        return render_template('index.html') # Figure out if need to make get request 
+        return jsonify([{'status':200}])
     else:
         return render_template('signup.html')
     # houses = House.query.all()
