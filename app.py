@@ -96,6 +96,10 @@ def signup():
 def newhome():
     if request.method == 'POST':
         #May not need to format types of input
+        LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
+        LandlordLName = request.form['landlordLName'].encode('ascii', 'ignore')
+        print LandlordFName
+        print LandlordLName
         Address1 = request.form['address1'].encode('ascii', 'ignore')
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
@@ -112,10 +116,12 @@ def newhome():
         DistFromCC = request.form['disttocc']
         #Will need to query for Landlord and add landlord ID
         #Currently hardcoded to add to the first landlord listed in db
+        HouseLandlord = Landlord.query.filter_by(FirstName=LandlordLName)
+        print HouseLandlord.Id
         house = House(1, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         print house
-        db.session.add(house)
-        db.session.commit() 
+        # db.session.add(house)
+        # db.session.commit() 
         return jsonify([])
     else: 	
         return render_template('newhome.html')
