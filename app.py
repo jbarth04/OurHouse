@@ -30,8 +30,6 @@ from models import Landlord
 from models import House
 from models import Review
 
-# db.create_all()
-
 ###################### Routes #############################
 import json
 #####################Decimal JSON encoding ################
@@ -99,7 +97,7 @@ def dbTest():
 def dbTest2():
     print "here"
     # Don't uncomment - Rachael was already added to database
-    # frankie = Student('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
+    # frankie = Landlord('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
     # print frankie.FirstName
     # db.session.add(frankie)
     # db.session.commit()

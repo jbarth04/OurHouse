@@ -31,21 +31,14 @@ Note2: migration logic taken from -
 9. Initialize Alembic in order to run migrations:
 
     $ python manage.py db init
-
+    
       Creating directory /flask-by-example/migrations ... done
-
       Creating directory /flask-by-example/migrations/versions ... done
-
       Generating /flask-by-example/migrations/alembic.ini ... done
-
       Generating /flask-by-example/migrations/env.py ... done
-
       Generating /flask-by-example/migrations/README ... done
-
       Generating /flask-by-example/migrations/script.py.mako ... done
-
       Please edit configuration/connection/logging settings in
-
       '/flask-by-example/migrations/alembic.ini' before proceeding.
 
 10. First migration by running the migrate command:
@@ -53,13 +46,9 @@ Note2: migration logic taken from -
     $ python manage.py db migrate
 
       INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-
       INFO  [alembic.runtime.migration] Will assume transactional DDL.
-
       INFO  [alembic.autogenerate.compare] Detected added table 'results'
-
         Generating /flask-by-example/migrations/versions/63dba2060f71_.py
-
         ... done
 
 11. ALERT - CRUCIAL MIGRATION STEP: go into migrations/versions/ folder and open the file with the migration.  Open it in your favorite editor.  Now, also open the "working_migration.py" file located in the "working_migrations" folder (ignore the other migrations.)  Copy and paste the code defined in "def upgrade():" to your migration file (you can't miss the comments in "working_migration.py" telling you what to copy and paste)
@@ -69,9 +58,7 @@ Note2: migration logic taken from -
     $ python manage.py db upgrade
 
       INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-
       INFO  [alembic.runtime.migration] Will assume transactional DDL.
-
       INFO  [alembic.runtime.migration] Running upgrade  -> 63dba2060f71, empty message
 
 13. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
