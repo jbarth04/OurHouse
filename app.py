@@ -54,7 +54,7 @@ def defaultencode(o):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #AUTHENTICATION
+        #Check for username in database
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
