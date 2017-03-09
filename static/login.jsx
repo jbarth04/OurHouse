@@ -15,8 +15,20 @@ var LoginForm = React.createClass ({
       }.bind(this);
     },
     handleSubmit: function(event){
+      console.log("HERE");
       console.log(this.state.email);
       console.log(this.state.password);
+      data = this.state;
+      $.ajax({
+        type: 'POST',
+        url: '/',
+        data: data,
+        success: function(result) {
+          if(result[0].status == 200){
+            window.location.href = "/houses";
+          }
+        }
+      })
       event.preventDefault();
     },
     render: function(){
@@ -34,9 +46,9 @@ var LoginForm = React.createClass ({
             </label> <br />
             <input type="submit" value="Submit" />
           </form>
+          New User? <a href="/signup">Sign Up!</a>
         </div>
       );
     }
 });
-// React.render(<WelcomeHeader />, document.getElementById('Welcome-Header'));
 React.render(<LoginForm />, document.getElementById('Welcome-Header'));

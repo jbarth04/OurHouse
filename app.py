@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
@@ -38,7 +38,6 @@ import json
 # http://stackoverflow.com/questions/1960516/python-json-serialize-a-decimal-
 # object
 # User: tesdal
-###########################################################
 class fakefloat(float):
     def __init__(self, value):
         self._value = value
@@ -50,10 +49,15 @@ def defaultencode(o):
         # Subclass float with custom repr?
         return fakefloat(o)
     raise TypeError(repr(o) + " is not JSON serializable")
+###########################################################
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        #Check for username in database
+        return jsonify([{'status':200}])
+    else:
+        return render_template('index.html')
 
 @app.route("/houses", methods=['GET'])
 def houses():
@@ -61,26 +65,66 @@ def houses():
     allHouses = [h.as_dict() for h in houses]
     jsonHouses = json.dumps(allHouses, default=defaultencode)
     return render_template('houses.html', rhouses=jsonHouses)
-    # return render_template('houses.html')
 
 @app.route("/signup", methods=['GET', 'POST'])
-def signup():
-    # if request.method == 'POST':
-    #     print "hi"
-    #     #FUNCTION TO SUBMIT NEW USER
-    # else:
-    return render_template('signup.html')
-    # houses = House.query.all()
-    # allHouses = [h.as_dict() for h in houses]
-    # jsonHouses = json.dumps(allHouses, default=defaultencode)
-        
-    # return render_template('houses.html')
 
-@app.route("/newhome")
+#FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
+def signup():
+	if request.method == 'POST':
+		if request.form['UserType'] == 'Landlord': 
+			FirstName = request.form['FirstName']
+			LastName = request.form['LastName']
+			PhoneNum = request.form['PhoneNum']
+			Email = request.form['Email']
+			landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+			db.session.add(landlord)
+			db.session.commit()
+			return jsonify([{'status':200}]) # Figure out if need to make get request 
+		elif request.form['UserType'] == 'Student':
+			FirstName = request.form['FirstName']
+			LastName = request.form['LastName']
+			PhoneNum = request.form['PhoneNum']
+			Email = request.form['Email']
+			student = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+			db.session.add(student)
+			db.session.commit()
+			return jsonify([{'status':200}])
+	else:
+		return render_template('signup.html')
+
+@app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
-	return render_template('newhome.html')
+    if request.method == 'POST':
+        #May not need to format types of input
+        Address1 = request.form['address1'].encode('ascii', 'ignore')
+        Address2 = request.form['address2'].encode('ascii', 'ignore')
+        City = request.form['city'].encode('ascii', 'ignore')
+        State = request.form['state'].encode('ascii', 'ignore')
+        Zipcode = request.form['zip']	# parseFloat deprecated 
+        Rooms = int(request.form['bedrooms'])
+        ParkingSpots = int(request.form['parking'])
+        MonthlyRent = int(request.form['rent'])
+        UtilitiesIncluded = True if request.form['utilities'] == 'true' else False
+        Laundry = True if request.form['laundry'] == 'true' else False
+        Pets = True if request.form['pets'] == 'true' else False
+        Latitude = request.form['latitude']
+        Longitude = request.form['longitude']
+        DistFromCC = request.form['disttocc']
+        #Will need to query for Landlord and add landlord ID
+        #Currently hardcoded to add to the first landlord listed in db
+        house = House(1, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+        print house
+        db.session.add(house)
+        db.session.commit() 
+        return jsonify([])
+    else: 	
+        return render_template('newhome.html')
+
+###############################################################################
+# For testing purposes
 
 @app.route("/test", methods=['GET'])
+
 def dbTest():
     print "here"
     # students = Student.query.first()
@@ -98,16 +142,18 @@ def dbTest():
 @app.route("/test2", methods=['GET'])
 def dbTest2():
     print "here"
-    # Don't uncomment - Rachael was already added to database
+    ### Don't uncomment - Rachael was already added to database
     # frankie = Student('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
     # print frankie.FirstName
     # db.session.add(frankie)
     # db.session.commit()
-    # house = House(1, '33 capen', 'apt 2', 'somerville', 'MA', 02155, 3, 4, 3000, True, True, True, 42.411291, -71.124046, 0.3)
+    ### Don't uncomment - No constraints yet on multiple houses
+    # house = House(1, '23 Sunset Rd.', 'apt 2', 'somerville', 'MA', 02144, 3, 4, 3000, True, True, True, 42.408890, -71.124639, 0.25)
     # print house.City
     # db.session.add(house)
     # db.session.commit()
     return jsonify([])
+###############################################################################
 
 if __name__ == "__main__":
     app.run()
