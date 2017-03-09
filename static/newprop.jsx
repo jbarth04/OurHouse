@@ -82,7 +82,7 @@ var AptForm = React.createClass ({
         apartment.latitude = parseFloat(lat2);
         apartment.longitude = parseFloat(lon2);  
         apartment.rent = parseFloat(apartment.rent);
-        apartment.zip = parseFloat(apartment.zip);
+        apartment.zip = apartment.zip;
         apartment.bedrooms = parseFloat(apartment.bedrooms);
         apartment.parking = parseFloat(apartment.parking);
 
