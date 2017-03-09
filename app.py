@@ -30,8 +30,6 @@ from models import Landlord
 from models import House
 from models import Review
 
-# db.create_all()
-
 ###################### Routes #############################
 import json
 #####################Decimal JSON encoding ################
@@ -96,6 +94,10 @@ def signup():
 def newhome():
     if request.method == 'POST':
         #May not need to format types of input
+        LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
+        LandlordLName = request.form['landlordLName'].encode('ascii', 'ignore')
+        LandlordEmail = request.form['landlordEmail']
+
         Address1 = request.form['address1'].encode('ascii', 'ignore')
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
@@ -110,10 +112,10 @@ def newhome():
         Latitude = request.form['latitude']
         Longitude = request.form['longitude']
         DistFromCC = request.form['disttocc']
-        #Will need to query for Landlord and add landlord ID
-        #Currently hardcoded to add to the first landlord listed in db
-        house = House(1, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-        print house
+
+        someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
+        house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+
         db.session.add(house)
         db.session.commit() 
         return jsonify([])
@@ -142,8 +144,10 @@ def dbTest():
 @app.route("/test2", methods=['GET'])
 def dbTest2():
     print "here"
-    ### Don't uncomment - Rachael was already added to database
-    # frankie = Student('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
+
+    # Don't uncomment - Rachael was already added to database
+    # frankie = Landlord('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
+
     # print frankie.FirstName
     # db.session.add(frankie)
     # db.session.commit()
