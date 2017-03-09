@@ -97,9 +97,7 @@ def newhome():
         LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
         LandlordLName = request.form['landlordLName'].encode('ascii', 'ignore')
         LandlordEmail = request.form['landlordEmail']
-        print LandlordFName
-        print LandlordLName
-        print LandlordEmail
+
         Address1 = request.form['address1'].encode('ascii', 'ignore')
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
@@ -117,7 +115,6 @@ def newhome():
 
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-        print house
 
         db.session.add(house)
         db.session.commit() 
