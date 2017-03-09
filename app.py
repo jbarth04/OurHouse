@@ -107,9 +107,9 @@ def newhome():
         UtilitiesIncluded = True if request.form['utilities'] == 'true' else False
         Laundry = True if request.form['laundry'] == 'true' else False
         Pets = True if request.form['pets'] == 'true' else False
-        Latitude = float(request.form['latitude'])
-        Longitude = float(request.form['longitude'])
-        DistFromCC = float(request.form['disttocc'])
+        Latitude = request.form['latitude']
+        Longitude = request.form['longitude']
+        DistFromCC = request.form['disttocc']
         #Will need to query for Landlord and add landlord ID
         #Currently hardcoded to add to the first landlord listed in db
         house = House(1, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)

@@ -78,9 +78,9 @@ var AptForm = React.createClass ({
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
         var d = R * c; 
         d /= 1.60934;
-        apartment.disttocc = parseFloat(d);
-        apartment.latitude = parseFloat(lat2);
-        apartment.longitude = parseFloat(lon2);  
+        apartment.disttocc = d;
+        apartment.latitude = lat2;
+        apartment.longitude = lon2;  
         apartment.rent = parseFloat(apartment.rent);
         apartment.zip = apartment.zip;
         apartment.bedrooms = parseFloat(apartment.bedrooms);
@@ -93,6 +93,7 @@ var AptForm = React.createClass ({
         data: apartment,
         success: function(result) {
           console.log(result);
+          window.location.href = "/houses";
         }
       })
       
