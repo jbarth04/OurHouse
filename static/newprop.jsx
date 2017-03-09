@@ -13,6 +13,7 @@ var AptForm = React.createClass ({
     return {
       landlordFName:'',
       landlordLName:'',
+      landlordEmail:'',
       address1:'',
       address2:'',
       city:'Medford',
@@ -117,6 +118,10 @@ var AptForm = React.createClass ({
       <label>
         Landlord Last Name
       <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
+      </label>
+      <label>
+        Landlord Email
+      <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordEmail')} /><br/>
       </label>
       <label>
         Address 1
