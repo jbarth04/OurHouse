@@ -100,28 +100,30 @@ def signup():
 
 @app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
-	if request.method == 'POST':
-		print 'posting something'
-		# Address1 = request.form['address1']
-		# Address2 = request.form['address2']
-		# City = request.form['city']
-		# State = request.form['state']
-		# Zipcode = request.form['zipcode']
-		# Rooms = request.form['bedrooms']
-		# ParkingSpots = request.form['parking']
-		# MonthlyRent = request.form['rent']
-		# UtilitiesIncluded = request.form['utilities']
-		# Laundry = request.form['laundry']
-		# Pets = request.form['pets']
-		# Latitude = request.form['latitude']
-		# Longitude = request.form['longitude']
-		# DistFromCC = request.form['distfromcc']
-		# house = House(Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-		# db.session.add(house)
-		# db.session.commit() 
-		# return jsonify([])
-	else: 	
-		return render_template('newhome.html')
+    if request.method == 'POST':
+        #May not need to format types of input
+        Address1 = request.form['address1'].encode('ascii', 'ignore')
+        Address2 = request.form['address2'].encode('ascii', 'ignore')
+        City = request.form['city'].encode('ascii', 'ignore')
+        State = request.form['state'].encode('ascii', 'ignore')
+        Zipcode = request.form['zip']	# parseFloat deprecated 
+        # print Zipcode
+        Rooms = int(request.form['bedrooms'])
+        ParkingSpots = int(request.form['parking'])
+        MonthlyRent = int(request.form['rent'])
+        UtilitiesIncluded = True if request.form['utilities'] == 'true' else False
+        Laundry = True if request.form['laundry'] == 'true' else False
+        Pets = True if request.form['pets'] == 'true' else False
+        Latitude = float(request.form['latitude'])
+        Longitude = float(request.form['longitude'])
+        DistFromCC = float(request.form['disttocc'])
+        house = House(1, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+        print house
+        db.session.add(house)
+        db.session.commit() 
+        return jsonify([])
+    else: 	
+        return render_template('newhome.html')
 
 
 @app.route("/test", methods=['GET'])
@@ -148,10 +150,10 @@ def dbTest2():
     # print frankie.FirstName
     # db.session.add(frankie)
     # db.session.commit()
-    # house = House(1, '33 capen', 'apt 2', 'somerville', 'MA', 02155, 3, 4, 3000, True, True, True, 42.411291, -71.124046, 0.3)
-    # print house.City
-    # db.session.add(house)
-    # db.session.commit()
+    house = House(1, '23 Sunset Rd.', 'apt 2', 'somerville', 'MA', 02144, 3, 4, 3000, True, True, True, 42.408890, -71.124639, 0.25)
+    print house.City
+    db.session.add(house)
+    db.session.commit()
     return jsonify([])
 
 
