@@ -52,15 +52,14 @@ var AptForm = React.createClass ({
     geocoder.geocode({'address': address}, function(results, status) { 
       if (status == 'OK') {
         latitude = results[0].geometry.location.lat();
-        longitude = results[0].geometry.location.lng(); 
-        // this.state.disttocc = this.distanceGeo(this.state.latitude, this.state.longitude);
-        // console.log(this.state.disttocc);
+        longitude = results[0].geometry.location.lng();
+        console.log(latitude, longitude); 
+      
       } else { 
         alert('We were unable to locate your property! Please doublecheck your address for accuracy.');
       }
     });
   
-
     event.preventDefault();
   },
 
