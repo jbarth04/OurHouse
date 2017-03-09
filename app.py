@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect, url_for 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
@@ -49,9 +49,13 @@ def defaultencode(o):
         return fakefloat(o)
     raise TypeError(repr(o) + " is not JSON serializable")
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        #AUTHENTICATION
+        return jsonify([{'status':200}])
+    else:
+        return render_template('index.html')
 
 @app.route("/houses", methods=['GET'])
 def houses():
@@ -62,23 +66,64 @@ def houses():
     # return render_template('houses.html')
 
 @app.route("/signup", methods=['GET', 'POST'])
+
+#FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
 def signup():
-    # if request.method == 'POST':
-    #     print "hi"
-    #     #FUNCTION TO SUBMIT NEW USER
-    # else:
-    return render_template('signup.html')
+	if request.method == 'POST':
+		if request.form['UserType'] == 'Landlord': 
+			FirstName = request.form['FirstName']
+			LastName = request.form['LastName']
+			PhoneNum = request.form['PhoneNum']
+			Email = request.form['Email']
+			landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+			# db.session.add(landlord)
+			# db.session.commit()
+			return jsonify([{'status':200}]) # Figure out if need to make get request 
+		elif request.form['UserType'] == 'Student':
+			FirstName = request.form['FirstName']
+			LastName = request.form['LastName']
+			PhoneNum = request.form['PhoneNum']
+			Email = request.form['Email']
+			student = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+			# db.session.add(student)
+			# db.session.commit()
+			return jsonify([{'status':200}])
+	else:
+		return render_template('signup.html')
     # houses = House.query.all()
     # allHouses = [h.as_dict() for h in houses]
     # jsonHouses = json.dumps(allHouses, default=defaultencode)
         
     # return render_template('houses.html')
 
-@app.route("/newhome")
+@app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
-	return render_template('newhome.html')
+	if request.method == 'POST':
+		print 'posting something'
+		# Address1 = request.form['address1']
+		# Address2 = request.form['address2']
+		# City = request.form['city']
+		# State = request.form['state']
+		# Zipcode = request.form['zipcode']
+		# Rooms = request.form['bedrooms']
+		# ParkingSpots = request.form['parking']
+		# MonthlyRent = request.form['rent']
+		# UtilitiesIncluded = request.form['utilities']
+		# Laundry = request.form['laundry']
+		# Pets = request.form['pets']
+		# Latitude = request.form['latitude']
+		# Longitude = request.form['longitude']
+		# DistFromCC = request.form['distfromcc']
+		# house = House(Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+		# db.session.add(house)
+		# db.session.commit() 
+		# return jsonify([])
+	else: 	
+		return render_template('newhome.html')
+
 
 @app.route("/test", methods=['GET'])
+
 def dbTest():
     print "here"
     # students = Student.query.first()
@@ -106,6 +151,7 @@ def dbTest2():
     # db.session.add(house)
     # db.session.commit()
     return jsonify([])
+
 
 if __name__ == "__main__":
     app.run()

@@ -1,3 +1,4 @@
+/* Lat and Lng of Tufts Mayer Campus Center */
 var TuftsLat = 42.4055218;
 var TuftsLng = -71.12003240000001;
 var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
@@ -14,6 +15,8 @@ var marker = new google.maps.Marker({
 		map: map
 });
 var house;
+
+/* Creates markers for all of the houses from the database */
 for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
 	distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
@@ -32,6 +35,7 @@ for (var i = 0; i < houses.length; i++) {
 	})(marker, i));
 	marker.setMap(map);
 }
+/* Function to calculate distance between Tufts CC and house */
 function distanceGeo(lat2, lon2){
 		Number.prototype.toRad = function() {
 				return this * Math.PI / 180;

@@ -1,3 +1,4 @@
+/* Filters to filter the houses by. Used in viewhouses.jsx */
 filters = 
 	{
 		MinRent:{

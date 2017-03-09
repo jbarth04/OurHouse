@@ -4,6 +4,9 @@ var Header = React.createClass({
   }
 });
 
+var TuftsLat = 42.4055218;
+var TuftsLng = -71.12003240000001;
+
 var AptForm = React.createClass ({
   
   getInitialState: function() {
@@ -20,7 +23,10 @@ var AptForm = React.createClass ({
       bedrooms:'1',
       parking:'true',
       pets:'true',
-      laundry:'true' };
+      laundry:'true',
+      latitude:'',
+      longitude:'', 
+      disttocc:''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +42,24 @@ var AptForm = React.createClass ({
 
   handleSubmit: function(event) {
     alert('Thank you for uploading your apartment!');
+
+    var geocoder = new google.maps.Geocoder(); 
+    var latitude;
+    var longitude;
+
+    address = this.state.address1 + ' ' + this.state.address2 + ' ' + this.state.city + ' ' + this.state.state +' ' + this.state.zip; 
+    console.log(address);
+    geocoder.geocode({'address': address}, function(results, status) { 
+      if (status == 'OK') {
+        latitude = results[0].geometry.location.lat();
+        longitude = results[0].geometry.location.lng();
+        console.log(latitude, longitude); 
+      
+      } else { 
+        alert('We were unable to locate your property! Please doublecheck your address for accuracy.');
+      }
+    });
+  
     event.preventDefault();
   },
 
@@ -141,8 +165,33 @@ var AptForm = React.createClass ({
     <input type="submit" value="Upload your house!"/>  
     </form>
     );
+  },
+
+  distanceGeo: function(lat2, lon2){
+    console.log(lat2);
+    Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+    }
+
+    var lat1 = TuftsLat; 
+    var lon1 = TuftsLng; 
+
+    var R = 6371; // km 
+    var x1 = lat2-lat1;
+    var dLat = x1.toRad();  
+    var x2 = lon2-lon1;
+    var dLon = x2.toRad();  
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2);  
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; 
+    d /= 1.60934;
+    return(d);
   }
+
 });
+
 
 React.render(
   <AptForm />,
