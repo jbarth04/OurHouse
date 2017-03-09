@@ -6,6 +6,7 @@ var WelcomeComponent =  React.createClass({
 var SingleListing = React.createClass({
 	generateListing: function(){
 		var listing = [];
+		listing.push(<li className="info">Address: {this.props.address}</li>);
 		listing.push(<li className="info">Bedrooms: {this.props.rooms}</li>);
 		listing.push(<li className="info">Monthly Rent: ${this.props.rent}</li>);
 		listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
@@ -47,7 +48,7 @@ var HousesComponent = React.createClass({
 			} else {
 				return (
     				<tbody>
-    					{viewHouses.map((house) => <SingleListing key={house.id} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
+    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
 					</tbody>
 			);
 			}
@@ -74,7 +75,6 @@ var FilterForm = React.createClass({
 		}.bind(this);
   	},
 	handleUpdate: function(event){
-		console.log("HIT");
 		this.UpdateHouses();
 		event.preventDefault();
 	},
@@ -86,10 +86,10 @@ var FilterForm = React.createClass({
 		var rooms = this.state.NumRooms;
 		var parking = this.state.ParkingSpots;
 		for(var i=0;i<houses.length;i++){
-			if(houses[i].MonthlyRent <= maxRent && houses[i].MonthlyRent >= minRent){
-				if(houses[i].Dist <= dist){
+			if((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)){
+				if(houses[i].DistFromCC <= dist){
 					if(houses[i].Rooms == rooms){
-						if(houses[i].ParkingSpots == parking || parking == -1){
+						if(parking == -1 || houses[i].ParkingSpots == parking){
 							filterHouses.push(houses[i]);
 						}
 					}
@@ -156,5 +156,4 @@ var FilterForm = React.createClass({
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
 React.render(<FilterForm />, document.getElementById('filterbar'));
-console.log(houses);
 React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
