@@ -11,7 +11,8 @@ var AptForm = React.createClass ({
   
   getInitialState: function() {
     return {
-      landlord:'',
+      landlordFName:'',
+      landlordLName:'',
       address1:'',
       address2:'',
       city:'Medford',
@@ -110,10 +111,13 @@ var AptForm = React.createClass ({
     <form onSubmit={this.handleSubmit}>
 
       <label>
-        Landlord Name
-      <input type="text" value={this.state.landlord} onChange={this.handleChange('landlord')} /><br/>
+        Landlord First Name
+      <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordFName')} /><br/>
       </label>
-
+      <label>
+        Landlord Last Name
+      <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
+      </label>
       <label>
         Address 1
       <input type="text" value={this.state.address1} onChange={this.handleChange('address1')} /><br/>
