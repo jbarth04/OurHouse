@@ -46,6 +46,7 @@ var AptForm = React.createClass ({
     var geocoder = new google.maps.Geocoder(); 
     var latitude;
     var longitude;
+    var apartment = this.state;
 
     address = this.state.address1 + ' ' + this.state.address2 + ' ' + this.state.city + ' ' + this.state.state +' ' + this.state.zip; 
     console.log(address);
@@ -54,6 +55,46 @@ var AptForm = React.createClass ({
         latitude = results[0].geometry.location.lat();
         longitude = results[0].geometry.location.lng();
         console.log(latitude, longitude); 
+        console.log(apartment);
+
+
+        Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+        }
+
+        var lat1 = TuftsLat; 
+        var lon1 = TuftsLng; 
+        var lat2 = latitude;
+        var lon2 = longitude;
+
+        var R = 6371; // km 
+        var x1 = lat2-lat1;
+        var dLat = x1.toRad();  
+        var x2 = lon2-lon1;
+        var dLon = x2.toRad();  
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2);  
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; 
+        d /= 1.60934;
+        apartment.disttocc = parseFloat(d);
+        apartment.latitude = parseFloat(lat2);
+        apartment.longitude = parseFloat(lon2);  
+        apartment.rent = parseFloat(apartment.rent);
+        apartment.zip = parseFloat(apartment.zip);
+        apartment.bedrooms = parseFloat(apartment.bedrooms);
+        apartment.parking = parseFloat(apartment.parking);
+
+
+        $.ajax({
+        type: 'POST',
+        url: '/newhome',
+        data: apartment,
+        success: function(result) {
+          console.log(result);
+        }
+      })
       
       } else { 
         alert('We were unable to locate your property! Please doublecheck your address for accuracy.');
@@ -165,31 +206,31 @@ var AptForm = React.createClass ({
     <input type="submit" value="Upload your house!"/>  
     </form>
     );
-  },
-
-  distanceGeo: function(lat2, lon2){
-    console.log(lat2);
-    Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-    }
-
-    var lat1 = TuftsLat; 
-    var lon1 = TuftsLng; 
-
-    var R = 6371; // km 
-    var x1 = lat2-lat1;
-    var dLat = x1.toRad();  
-    var x2 = lon2-lon1;
-    var dLon = x2.toRad();  
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
-          Math.sin(dLon/2) * Math.sin(dLon/2);  
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    var d = R * c; 
-    d /= 1.60934;
-    return(d);
   }
+  //   distanceGeo: function(lat2, lon2){
 
+  //   console.log(lat2);
+  //   Number.prototype.toRad = function() {
+  //       return this * Math.PI / 180;
+  //   }
+
+  //   var lat1 = TuftsLat; 
+  //   var lon1 = TuftsLng; 
+
+  //   var R = 6371; // km 
+  //   var x1 = lat2-lat1;
+  //   var dLat = x1.toRad();  
+  //   var x2 = lon2-lon1;
+  //   var dLon = x2.toRad();  
+  //   var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+  //         Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+  //         Math.sin(dLon/2) * Math.sin(dLon/2);  
+  //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  //   var d = R * c; 
+  //   d /= 1.60934;
+  //   return(d);
+
+  // }
 });
 
 
@@ -197,6 +238,7 @@ React.render(
   <AptForm />,
   document.getElementById('root')
 );
+
 
 React.render(
   <Header />,

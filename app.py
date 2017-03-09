@@ -97,25 +97,27 @@ def signup():
 @app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
 	if request.method == 'POST':
-		print 'posting something'
-		# Address1 = request.form['address1']
-		# Address2 = request.form['address2']
-		# City = request.form['city']
-		# State = request.form['state']
-		# Zipcode = request.form['zipcode']
-		# Rooms = request.form['bedrooms']
-		# ParkingSpots = request.form['parking']
-		# MonthlyRent = request.form['rent']
-		# UtilitiesIncluded = request.form['utilities']
-		# Laundry = request.form['laundry']
-		# Pets = request.form['pets']
-		# Latitude = request.form['latitude']
-		# Longitude = request.form['longitude']
-		# DistFromCC = request.form['distfromcc']
-		# house = House(Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-		# db.session.add(house)
-		# db.session.commit() 
-		# return jsonify([])
+		print 'posting an apartment'
+		print request.form
+		Address1 = request.form['address1']
+		Address2 = request.form['address2']
+		City = request.form['city']
+		State = request.form['state']
+		Zipcode = request.form['zip']	# parseFloat deprecated 
+		Rooms = request.form['bedrooms']
+		ParkingSpots = request.form['parking']
+		MonthlyRent = request.form['rent']
+		UtilitiesIncluded = request.form['utilities']
+		Laundry = request.form['laundry']
+		Pets = request.form['pets']
+		Latitude = request.form['latitude']
+		Longitude = request.form['longitude']
+		DistFromCC = request.form['distfromcc']
+		house = House(1, Address1, Address2, City, State, ZipCode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+		print house
+		db.session.add(house)
+		db.session.commit() 
+		return jsonify([])
 	else: 	
 		return render_template('newhome.html')
 
