@@ -65,10 +65,10 @@ def houses():
 
 @app.route("/signup", methods=['GET', 'POST'])
 
-#FUNCTION TO SUBMIT NEW USER
+#FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
 def signup():
 	if request.method == 'POST':
-		if request.form['Landlord'] == 'true': 
+		if request.form['UserType'] == 'Landlord': 
 			FirstName = request.form['FirstName']
 			LastName = request.form['LastName']
 			PhoneNum = request.form['PhoneNum']
@@ -77,6 +77,15 @@ def signup():
 			db.session.add(landlord)
 			db.session.commit()
 			return jsonify([]) # Figure out if need to make get request 
+		elif request.form['UserType'] == 'Student':
+			FirstName = request.form['FirstName']
+			LastName = request.form['LastName']
+			PhoneNum = request.form['PhoneNum']
+			Email = request.form['Email']
+			student = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+			db.session.add(student)
+			db.session.commit()
+			return jsonify([])
 	else:
 		return render_template('signup.html')
     # houses = House.query.all()
@@ -84,9 +93,6 @@ def signup():
     # jsonHouses = json.dumps(allHouses, default=defaultencode)
         
     # return render_template('houses.html')
-
-
-
 
 @app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
@@ -109,7 +115,7 @@ def newhome():
 		# house = House(Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
 		# db.session.add(house)
 		# db.session.commit() 
-		# retrn jsonify([])
+		# return jsonify([])
 	else: 	
 		return render_template('newhome.html')
 

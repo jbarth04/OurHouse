@@ -6,8 +6,7 @@ var NewUserForm = React.createClass ({
         LastName:'',
         Email:'',
         PhoneNum: 0000000000,
-        Student: false,
-        Landlord: true
+        UserType: 'Student',
         //We will need a way to deal with passwords
       };
       this.handleChange = this.handleChange.bind(this);
@@ -21,9 +20,8 @@ var NewUserForm = React.createClass ({
       }.bind(this);
     },
     handleSubmit: function(event){
-      console.log(this.state);
-      data = this.state;
 
+      data = this.state;
       $.ajax({
         type: 'POST',
         url: '/signup',
@@ -34,6 +32,7 @@ var NewUserForm = React.createClass ({
       })
       event.preventDefault();
     },
+
     render: function(){
       return(
         <div className="LoginForm">
@@ -57,9 +56,9 @@ var NewUserForm = React.createClass ({
             </label> <br />
             <label className="loginForm">
               Select One: <br />
-              <select id="Utilities">
-                <option value="true" onChange={this.handleChange('Student')}>Student</option>
-                <option value="true" onChange={this.handleChange('Landlord')}>Landlord</option>
+              <select id="UserType" value={this.state.Type} onChange={this.handleChange('UserType')}>
+                <option value="Student">Student</option>
+                <option value="Landlord">Landlord</option>
               </select>
             </label><br />
             <input type="submit" value="Submit" />
