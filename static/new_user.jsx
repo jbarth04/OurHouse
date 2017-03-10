@@ -30,6 +30,9 @@ var NewUserForm = React.createClass ({
           if(result[0].status == 200){
             window.location.href = "/";
           }
+          else if (result[0].status == 400){
+            alert(result[0].message);
+          }
         }
       })
       event.preventDefault();
