@@ -2,9 +2,9 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
+from sqlalchemy import exc
 
 import os
-# import sqlalchemy.exc
 
 ################### Initial Config ######################
 
@@ -30,8 +30,6 @@ from models import Student
 from models import Landlord
 from models import House
 from models import Review
-
-from sqlalchemy import exc
 
 ###################### Routes #############################
 import json
