@@ -55,7 +55,12 @@ def defaultencode(o):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #Check for username in database
+        Email = request.form['email']
+        #Will use firebase for authentication so not checking passwords here
+        someStudent = Student.query.filter_by(Email=Email).first()
+        someLandlord = Landlord.query.filter_by(Email=Email).first()
+        if (someStudent == None and someLandlord == None) or Email == '':
+            return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
@@ -87,6 +92,7 @@ def signup():
             user = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
             db.session.add(user)
         #Handling SQLalchemy errors when a user added has the same email address (already exists)
+        # http://docs.sqlalchemy.org/en/latest/core/exceptions.html
         try:
             db.session.commit()
         except exc.IntegrityError:
@@ -102,7 +108,6 @@ def newhome():
         LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
         LandlordLName = request.form['landlordLName'].encode('ascii', 'ignore')
         LandlordEmail = request.form['landlordEmail']
-
         Address1 = request.form['address1'].encode('ascii', 'ignore')
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
@@ -117,10 +122,9 @@ def newhome():
         Latitude = request.form['latitude']
         Longitude = request.form['longitude']
         DistFromCC = request.form['disttocc']
-
+        #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
         #Will need to readjust once unique key is handled 
