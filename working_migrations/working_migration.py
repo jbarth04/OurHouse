@@ -89,7 +89,10 @@ def upgrade():
 
     ## Create Houses constraints and indexes
     op.create_index(op.f('ix_OurHouse_Houses_LandlordId'), 'Houses', ['LandlordId'], unique=False, schema='OurHouse')
-    
+
+    op.create_unique_constraint('uq_Houses_Latitude_Longitude_Address2', 'Houses', ['Latitude', 'Longitude', 'Address2'], schema='OurHouse')
+    op.create_index('ix_Houses_Latitude_Longitude_Address2', 'Houses', ['Latitude', 'Longitude', 'Address2'], unique=True, schema='OurHouse')
+
     ## Create Reviews table
     op.create_table('Reviews',
     sa.Column('Id', sa.Integer(), primary_key=True, autoincrement=True, nullable=False),
