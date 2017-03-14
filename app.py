@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
+from sqlalchemy import exc
 
 import os
 
@@ -52,7 +53,12 @@ def defaultencode(o):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #Check for username in database
+        Email = request.form['email']
+        #Will use firebase for authentication so not checking passwords here
+        someStudent = Student.query.filter_by(Email=Email).first()
+        someLandlord = Landlord.query.filter_by(Email=Email).first()
+        if (someStudent == None and someLandlord == None) or Email == '':
+            return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
@@ -68,26 +74,29 @@ def houses():
 
 #FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
 def signup():
-	if request.method == 'POST':
-		if request.form['UserType'] == 'Landlord': 
-			FirstName = request.form['FirstName']
-			LastName = request.form['LastName']
-			PhoneNum = request.form['PhoneNum']
-			Email = request.form['Email']
-			landlord = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
-			db.session.add(landlord)
-			db.session.commit()
-			return jsonify([{'status':200}]) # Figure out if need to make get request 
-		elif request.form['UserType'] == 'Student':
-			FirstName = request.form['FirstName']
-			LastName = request.form['LastName']
-			PhoneNum = request.form['PhoneNum']
-			Email = request.form['Email']
-			student = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
-			db.session.add(student)
-			db.session.commit()
-			return jsonify([{'status':200}])
-	else:
+    if request.method == 'POST':
+        if request.form['UserType'] == 'Landlord': 
+            FirstName = request.form['FirstName']
+            LastName = request.form['LastName']
+            PhoneNum = request.form['PhoneNum']
+            Email = request.form['Email']
+            user = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+            db.session.add(user)
+        elif request.form['UserType'] == 'Student':
+            FirstName = request.form['FirstName']
+            LastName = request.form['LastName']
+            PhoneNum = request.form['PhoneNum']
+            Email = request.form['Email']
+            user = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+            db.session.add(user)
+        #Handling SQLalchemy errors when a user added has the same email address (already exists)
+        # http://docs.sqlalchemy.org/en/latest/core/exceptions.html
+        try:
+            db.session.commit()
+        except exc.IntegrityError:
+            return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
+        return jsonify([{'status':200}])
+    else:
 		return render_template('signup.html')
 
 @app.route("/newhome", methods=['GET', 'POST'])
@@ -97,7 +106,6 @@ def newhome():
         LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
         LandlordLName = request.form['landlordLName'].encode('ascii', 'ignore')
         LandlordEmail = request.form['landlordEmail']
-
         Address1 = request.form['address1'].encode('ascii', 'ignore')
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
@@ -112,13 +120,17 @@ def newhome():
         Latitude = request.form['latitude']
         Longitude = request.form['longitude']
         DistFromCC = request.form['disttocc']
-
+        #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
-
         db.session.add(house)
-        db.session.commit() 
-        return jsonify([])
+        #Handling SQLalchemy errors when a house cannot be inputted/already has the address
+        #Will need to readjust once unique key is handled 
+        try:
+            db.session.commit() 
+        except exc.IntegrityError:
+            return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
+        return jsonify([{'status':200}])
     else: 	
         return render_template('newhome.html')
 

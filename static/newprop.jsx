@@ -43,8 +43,6 @@ var AptForm = React.createClass ({
   },
 
   handleSubmit: function(event) {
-    alert('Thank you for uploading your apartment!');
-
     var geocoder = new google.maps.Geocoder(); 
     var latitude;
     var longitude;
@@ -95,7 +93,14 @@ var AptForm = React.createClass ({
         data: apartment,
         success: function(result) {
           console.log(result);
-          window.location.href = "/houses";
+          if(result[0].status == 200){
+            alert('Thank you for uploading your apartment!');
+            window.location.href = "/houses";
+          }
+          else if (result[0].status == 400){
+            alert(result[0].message);
+          }
+          
         }
       })
       
