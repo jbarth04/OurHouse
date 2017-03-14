@@ -6,6 +6,7 @@ Flask-Migrate==2.0.3
 Flask-Script==2.0.5
 flask-sqlacodegen==1.1.6.1
 Flask-SQLAlchemy==2.1
+gunicorn==19.7.0
 inflect==0.2.5
 itsdangerous==0.24
 Jinja2==2.9.5
