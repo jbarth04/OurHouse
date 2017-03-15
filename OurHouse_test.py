@@ -2,6 +2,7 @@
  # $ export DATABASE_URL="postgresql://Rachael@localhost/OurHouse_UnitTest"
 
 # Helpful links
+# https://docs.python.org/2/library/unittest.html -- pyhton unit testing overall 
 # http://stackoverflow.com/questions/15068988/flask-sqlalchemy-not-creating-tables-using-create-all
 # http://kronosapiens.github.io/blog/2014/07/29/setting-up-unit-tests-with-flask.html
 # http://flask.pocoo.org/docs/0.12/testing/
@@ -23,7 +24,6 @@ from app import app
 class OurHouseTestCase(unittest.TestCase):
 
     def setUp(self):
-    	################### Initial Config ######################
     	self.app = Flask(__name__)
     	app.config.from_object(os.environ['APP_SETTINGS'])
     	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
