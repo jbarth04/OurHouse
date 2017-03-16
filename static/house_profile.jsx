@@ -2,9 +2,10 @@
 var HouseProfile = React.createClass({
 	generateInfo: function(){
 		info = [];
-		info.push(<li>Address: {this.props.Address1}</li>);
 		if (this.props.Address2 !=''){
-			info.push(<li>{this.props.Address2}</li>);
+			info.push(<li>Address: {this.props.Address1}, {this.props.Address2}</li>);
+		} else{
+			info.push(<li>Address: {this.props.Address1}</li>)
 		}
 		var distance = Number((this.props.Dist).toFixed(3));
 		info.push(<li>Distance from Campus Center: {distance}</li>);

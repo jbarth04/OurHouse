@@ -19,15 +19,18 @@ var house;
 /* Creates markers for all of the houses from the database */
 for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
-	// distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
 	distance = Number((houses[i].DistFromCC).toFixed(3));
-	infoMessage = "<p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p>"+
+	houseProfileURL = '/house_profile/'+houses[i].Id;
+	infoMessage = "<a class='markerLink' href="+ houseProfileURL + "><p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p></a>"+
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
 				  "<p>Distance from Campus Center: "+distance+" miles</p>";
 	marker = new google.maps.Marker({
 		position: house,
 		title: infoMessage
 	});
+	// google.maps.event.addListener(title, 'click', (function() {
+	// 	window.location.href = "/house_profile/"+houses[i].Id;
+	// }));
 	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		return function() {
 			infowindow.setContent(marker.title);
