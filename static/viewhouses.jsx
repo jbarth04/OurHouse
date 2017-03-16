@@ -27,10 +27,22 @@ var SingleListing = React.createClass({
 		}
 		return listing;
 	},
+	handleClick: function(){
+		var house = {house_id: this.props.id};
+		$.ajax({
+	        type: 'GET',
+	        url: '/house_profile',
+	        data: house,
+	        success: function(result) {
+	          console.log(result);
+	        }
+      })
+	},
     render: function() {
     	var listing = this.generateListing();
+    	var house_id = this.props.id;
         return (<div className={"houseListing"}>   
-        			<ul className={"houseInfo"}>    					
+        			<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
         			{listing}
         			</ul>
         		</div>);
@@ -48,7 +60,7 @@ var HousesComponent = React.createClass({
 			} else {
 				return (
     				<tbody>
-    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
+    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} id={house.Id}/>)}
 					</tbody>
 			);
 			}

@@ -3,6 +3,5 @@
 venv
 database.py
 models_noschema.py
-migrations
 migrations_w_schema
 secrets.py

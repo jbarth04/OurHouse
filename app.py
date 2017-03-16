@@ -70,6 +70,22 @@ def houses():
     jsonHouses = json.dumps(allHouses, default=defaultencode)
     return render_template('houses.html', rhouses=jsonHouses)
 
+@app.route("/house_profile", methods=['GET'])
+def viewhouse():
+    print "HERE"
+    print "about to get the id"
+    house_id = request.form['house_id']
+    print "got the id"
+    print house_id
+    ### Will want to cache the houses so this won't be a query every time
+    ## Or figure out a better way to avoid a read from the database
+    print house_id
+    house = House.query.filter_by(Id=house_id).first()
+    jsonHouse = json.dumps(house, default=defaultencode)
+    print "ABOUT TO SEND BACK"
+    return render_template('house_profile.html', house=jsonHouse)
+
+
 @app.route("/signup", methods=['GET', 'POST'])
 
 #FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
@@ -122,6 +138,9 @@ def newhome():
         DistFromCC = request.form['disttocc']
         #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
+        #If no landlord exists by that email
+        if someLandlord == None:
+            return jsonify([{'status':400, 'message':'Landlord does not match any on file, please check the email.'}]) 
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address

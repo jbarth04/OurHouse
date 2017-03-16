@@ -25,11 +25,13 @@ class OurHouseTestCase(unittest.TestCase):
 
     def setUp(self):
     	self.app = Flask(__name__)
-    	app.config.from_object(os.environ['APP_SETTINGS'])
-    	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    	db.init_app(self.app)
     	with self.app.app_context():
-			db.create_all()
+    		self.app.config.from_object(os.environ['APP_SETTINGS'])
+    		self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    		db.init_app(self.app)
+    		db.app = self.app
+    		db.create_all()
+    	return app
 
 
 
