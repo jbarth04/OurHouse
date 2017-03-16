@@ -74,7 +74,8 @@ def houses():
 def viewhouse():
     print "HERE"
     print "about to get the id"
-    house_id = request.form['house_id']
+    # house_id = request.form['house_id']
+    house_id = request.args.get('house_id')
     print "got the id"
     print house_id
     ### Will want to cache the houses so this won't be a query every time
