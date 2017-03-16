@@ -70,22 +70,15 @@ def houses():
     jsonHouses = json.dumps(allHouses, default=defaultencode)
     return render_template('houses.html', rhouses=jsonHouses)
 
-@app.route("/house_profile", methods=['GET'])
-def viewhouse():
-    print "HERE"
-    print "about to get the id"
-    # house_id = request.form['house_id']
-    house_id = request.args.get('house_id')
-    print "got the id"
-    print house_id
+@app.route("/house_profile/<arg1>", methods=['GET'])
+def viewhouse(arg1):
     ### Will want to cache the houses so this won't be a query every time
     ## Or figure out a better way to avoid a read from the database
-    print house_id
-    house = House.query.filter_by(Id=house_id).first()
-    jsonHouse = json.dumps(house, default=defaultencode)
-    print "ABOUT TO SEND BACK"
+    house = House.query.filter_by(Id=arg1).all()
+    singleHouse = [h.as_dict() for h in house]
+    jsonHouse = json.dumps(singleHouse, default=defaultencode)
+    #should send back the contact for the landlord too??
     return render_template('house_profile.html', house=jsonHouse)
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 

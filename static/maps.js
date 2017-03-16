@@ -19,10 +19,11 @@ var house;
 /* Creates markers for all of the houses from the database */
 for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
-	distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
+	// distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
+	distance = Number((houses[i].DistFromCC).toFixed(3));
 	infoMessage = "<p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p>"+
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
-				  "<p>Distance: "+distance+" miles</p>";
+				  "<p>Distance from Campus Center: "+distance+" miles</p>";
 	marker = new google.maps.Marker({
 		position: house,
 		title: infoMessage

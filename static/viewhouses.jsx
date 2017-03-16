@@ -29,14 +29,7 @@ var SingleListing = React.createClass({
 	},
 	handleClick: function(){
 		var house = {house_id: this.props.id};
-		$.ajax({
-	        type: 'GET',
-	        url: '/house_profile',
-	        data: house,
-	        success: function(result) {
-	          console.log(result);
-	        }
-      })
+		window.location.href = "/house_profile/"+this.props.id;
 	},
     render: function() {
     	var listing = this.generateListing();
