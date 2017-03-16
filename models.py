@@ -18,7 +18,11 @@ db = SQLAlchemy()
 
 class House(db.Model):
     __tablename__ = 'Houses'
-    __table_args__ = {u'schema': 'OurHouse'}
+    __table_args__ = (
+        db.UniqueConstraint('Latitude', 'Longitude', 'Address2'),
+        db.Index('ix_Houses_Latitude_Longitude_Address2', 'Latitude', 'Longitude', 'Address2'),
+        {u'schema': 'OurHouse'}
+    )
 
     Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
     LandlordId = db.Column(db.ForeignKey(u'OurHouse.Landlords.Id'), nullable=False, index=True)
@@ -78,7 +82,11 @@ class House(db.Model):
 
 class Landlord(db.Model):
     __tablename__ = 'Landlords'
-    __table_args__ = {u'schema': 'OurHouse'}
+    __table_args__ = (
+        db.UniqueConstraint('Email'),
+        db.Index('ix_Landlords_Email', 'Email'),
+        {u'schema': 'OurHouse'}
+    )
 
     Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
     FirstName = db.Column(db.String(50), nullable=False)
@@ -114,7 +122,11 @@ class Review(db.Model):
 
 class Student(db.Model):
     __tablename__ = 'Students'
-    __table_args__ = {u'schema': 'OurHouse'}
+    __table_args__ = (
+        db.UniqueConstraint('Email'),
+        db.Index('ix_Students_Email', 'Email'),
+        {u'schema': 'OurHouse'}
+    )
 
     Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
     FirstName = db.Column(db.String(50), nullable=False)

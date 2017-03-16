@@ -1,6 +1,0 @@
-PWD /Users/francesca/Documents/spring2017/comp120/comp120-s2017-team2
-INPUT /usr/local/texlive/2016/texmf.cnf
-INPUT /usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf
-INPUT /usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/francesca/Documents/spring2017/comp120/comp120-s2017-team2/app.py
-OUTPUT /Users/francesca/Documents/spring2017/comp120/comp120-s2017-team2/app.log
