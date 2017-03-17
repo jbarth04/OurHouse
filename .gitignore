@@ -5,3 +5,4 @@ database.py
 models_noschema.py
 migrations_w_schema
 secrets.py
+.env
