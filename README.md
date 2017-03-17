@@ -3,7 +3,7 @@
 ### Getting Started
 Note: This project is done using Python 2.7.13.
 
-Note2: migration logic taken from - 
+Note2: This project followed the practices outlined in the following tutorial - 
     https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
 1. Clone the repository.
@@ -26,71 +26,48 @@ Note2: migration logic taken from -
 
     $ export DATABASE_URL="postgresql://YOUR_USERNAME:YOUR_PASSWORD@localhost/YOUR_DB"
 
-    ^ this environment variable is also used for the database configuration
+    ^ this environment variable is used for the database configuration
 
-9. Initialize Alembic in order to run migrations:
-
-    $ python manage.py db init
-    
-      Creating directory /flask-by-example/migrations ... done
-      Creating directory /flask-by-example/migrations/versions ... done
-      Generating /flask-by-example/migrations/alembic.ini ... done
-      Generating /flask-by-example/migrations/env.py ... done
-      Generating /flask-by-example/migrations/README ... done
-      Generating /flask-by-example/migrations/script.py.mako ... done
-      Please edit configuration/connection/logging settings in
-      '/flask-by-example/migrations/alembic.ini' before proceeding.
-
-10. First migration by running the migrate command:
-
-    $ python manage.py db migrate
-
-      INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-      INFO  [alembic.runtime.migration] Will assume transactional DDL.
-      INFO  [alembic.autogenerate.compare] Detected added table 'results'
-        Generating /flask-by-example/migrations/versions/63dba2060f71_.py
-        ... done
-
-11. ALERT - CRUCIAL MIGRATION STEP: go into migrations/versions/ folder and open the file with the migration.  Open it in your favorite editor.  Now, also open the "working_migration.py" file located in the "working_migrations" folder (ignore the other migrations.)  Copy and paste the code defined in "def upgrade():" to your migration file (you can't miss the comments in "working_migration.py" telling you what to copy and paste)
-
-12. Apply the upgrades to the database using the db upgrade command:
+9. You should see a "migrations" file in your repository, which has scripts to create the database in PostgreSQL according your YOUR_DB variable specified in step 8.  Run the following command to initialize your database.
 
     $ python manage.py db upgrade
 
-      INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-      INFO  [alembic.runtime.migration] Will assume transactional DDL.
+      INFO  [alembic.runtime.migration] Context impl PostgresqlImpl. <br />
+      INFO  [alembic.runtime.migration] Will assume transactional DDL. <br />
       INFO  [alembic.runtime.migration] Running upgrade  -> 63dba2060f71, empty message
 
-13. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
+10. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
 
-14. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+11. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
-alembic==0.9.1
-appdirs==1.4.0
-click==6.7
-Flask==0.12
-Flask-Migrate==2.0.3
+alembic==0.9.1 <br />
+appdirs==1.4.0 <br />
+click==6.7 <br />
+Flask==0.12 <br />
+Flask-Migrate==2.0.3 <br />
 Flask-Script==2.0.5
-flask-sqlacodegen==1.1.6.1
-Flask-SQLAlchemy==2.1
-gunicorn==19.7.0
-inflect==0.2.5
-itsdangerous==0.24
-Jinja2==2.9.5
-Mako==1.0.6
-MarkupSafe==0.23
-packaging==16.8
-psycopg2==2.6.2
-pyparsing==2.1.10
-python-editor==1.0.3
-six==1.10.0
-sqlacodegen==1.1.6
-SQLAlchemy==1.1.5
-Werkzeug==0.11.15
+flask-sqlacodegen==1.1.6.1 <br />
+Flask-SQLAlchemy==2.1 <br />
+gunicorn==19.7.0 <br />
+inflect==0.2.5 <br />
+itsdangerous==0.24 <br />
+Jinja2==2.9.5 <br />
+Mako==1.0.6 <br />
+MarkupSafe==0.23 <br />
+packaging==16.8 <br />
+psycopg2==2.6.2 <br />
+pyparsing==2.1.10 <br />
+python-editor==1.0.3 <br />
+python-firebase==1.2 <br />
+requests==2.13.0 <br />
+six==1.10.0 <br />
+sqlacodegen==1.1.6 <br />
+SQLAlchemy==1.1.5 <br />
+Werkzeug==0.11.15 <br />
 
-Google Maps API
-React 0.13.2
-JSX 0.13.2
-Python 2.7.13
-postgres (PostgreSQL) 9.6.2
+Google Maps API <br />
+React 0.13.2 <br />
+JSX 0.13.2 <br />
+Python 2.7.13 <br />
+postgres (PostgreSQL) 9.6.2 <br />
