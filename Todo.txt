@@ -1,0 +1,15 @@
+List of task for OurHouse Project
+
+1) Change unique key on houses - should be on latitude, longitude, address1 AND address2
+
+2) Add amazon S3 storage bucket for images
+
+3) Add blueprints for modularity
+
+4) Use PostGIS for latitude and longitude columns on PostgreSQL database (not sure)?
+
+5) Add DateAvailable column to 'Houses' table for date when house is next available (e.g. June 1st 2017)
+
+6) Add LeaseTerm column to 'Houses' table for length of lease in months (e.g. year long?  6 months?)
+
+7) Add a many-to-many table that saves landlord ratings with LandlordId, StudentId of the rater, and an actual rating

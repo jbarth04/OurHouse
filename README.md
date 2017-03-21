@@ -49,6 +49,7 @@ Flask-Migrate==2.0.3 <br />
 Flask-Script==2.0.5
 flask-sqlacodegen==1.1.6.1 <br />
 Flask-SQLAlchemy==2.1 <br />
+Flask-Store==0.0.4.4 <br />
 gunicorn==19.7.0 <br />
 inflect==0.2.5 <br />
 itsdangerous==0.24 <br />

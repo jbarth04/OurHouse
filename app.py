@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
 from sqlalchemy import exc
+# from flask_store import Store
 
 import os
 
@@ -30,6 +31,26 @@ from models import Student
 from models import Landlord
 from models import House
 from models import Review
+
+############ Do the configuration for the S3 storage bucket #############
+
+# testing local
+
+from flask_store import Store
+from flask import request
+
+store = Store()
+
+app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
+app.config['STORE_PATH'] = '/Users/Josie/Desktop/'
+
+store.init_app(app)
+
+@app.route('/upload', methods=['POST', ])
+def upload():
+    provider = store.Provider(request.files.get('afile'))
+    provider.save()
+    return provider.absolute_url
 
 ###################### Routes #############################
 import json
