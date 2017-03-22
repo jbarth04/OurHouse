@@ -42,7 +42,7 @@ from models import Review
 # store = Store()
 
 # app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
-# app.config['STORE_PATH'] = '/Users/Josie/Desktop/'
+# app.config['STORE_PATH'] = '/some/path/here'
 
 # store.init_app(app)
 
