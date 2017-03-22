@@ -18,18 +18,21 @@ depends_on = None
 
 def upgrade():
 
-    # Step 1 - drop old unique index for houses (it wasn't actually unique)
-    op.drop_unique_constraint('uq_Houses_Latitude_Longitude_Address2', table_name='Houses', schema='OurHouse')
-    op.drop_index('ix_Houses_Latitude_Longitude_Address2', table_name='Houses', schema='OurHouse')
+    ## DOING A BLANK UPGRADE FOR NOW, SANITY ERROR CHECK FOR JOSIE 
+    pass
 
-    # Step 2 - create new unique index for houses
-    op.create_unique_constraint('uq_Houses_Latitude_Longitude_Address1_Address2', 'Houses', ['Latitude', 'Longitude', 'Address1', 'Address2'], schema='OurHouse')
-    op.create_index('ix_Houses_Latitude_Longitude_Address1_Address2', 'Houses', ['Latitude', 'Longitude', 'Address1', 'Address2'], unique=True, schema='OurHouse')
+    # # Step 1 - drop old unique index for houses (it wasn't actually unique)
+    # op.drop_unique_constraint('uq_Houses_Latitude_Longitude_Address2', table_name='Houses', schema='OurHouse')
+    # op.drop_index('ix_Houses_Latitude_Longitude_Address2', table_name='Houses', schema='OurHouse')
 
-    # Step 3 - add new columns 'DateAvailable' and 'LeaseTerm' to houses
-    # op.create_column 
-    # sa.Column('DateAvailable', sa.Date(), nullable=True)
-    # sa.Column('LeaseTerm', sa.SmallInteger(), nullable=True)    
+    # # Step 2 - create new unique index for houses
+    # op.create_unique_constraint('uq_Houses_Latitude_Longitude_Address1_Address2', 'Houses', ['Latitude', 'Longitude', 'Address1', 'Address2'], schema='OurHouse')
+    # op.create_index('ix_Houses_Latitude_Longitude_Address1_Address2', 'Houses', ['Latitude', 'Longitude', 'Address1', 'Address2'], unique=True, schema='OurHouse')
+
+    # # Step 3 - add new columns 'DateAvailable' and 'LeaseTerm' to houses
+    # # op.create_column 
+    # # sa.Column('DateAvailable', sa.Date(), nullable=True)
+    # # sa.Column('LeaseTerm', sa.SmallInteger(), nullable=True)    
 
 
 

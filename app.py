@@ -58,6 +58,7 @@ import json
 # http://stackoverflow.com/questions/1960516/python-json-serialize-a-decimal-
 # object
 # User: tesdal
+from decimal import Decimal
 class fakefloat(float):
     def __init__(self, value):
         self._value = value
@@ -210,6 +211,12 @@ def dbTest2():
     # db.session.add(house)
     # db.session.commit()
     return jsonify([])
+
+@app.route("/test3", methods=['GET'])
+def WTF():
+    return jsonify([{'status':200}])
+    # return jsonify([])
+
 ###############################################################################
 
 if __name__ == "__main__":
