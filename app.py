@@ -36,21 +36,21 @@ from models import Review
 
 # testing local
 
-from flask_store import Store
-from flask import request
+# from flask_store import Store
+# from flask import request
 
-store = Store()
+# store = Store()
 
-app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
-app.config['STORE_PATH'] = '/Users/Josie/Desktop/'
+# app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
+# app.config['STORE_PATH'] = '/Users/Josie/Desktop/'
 
-store.init_app(app)
+# store.init_app(app)
 
-@app.route('/upload', methods=['POST', ])
-def upload():
-    provider = store.Provider(request.files.get('afile'))
-    provider.save()
-    return provider.absolute_url
+# @app.route('/upload', methods=['POST', ])
+# def upload():
+#     provider = store.Provider(request.files.get('afile'))
+#     provider.save()
+#     return provider.absolute_url
 
 ###################### Routes #############################
 import json
@@ -79,7 +79,8 @@ def index():
         someStudent = Student.query.filter_by(Email=Email).first()
         someLandlord = Landlord.query.filter_by(Email=Email).first()
         if (someStudent == None and someLandlord == None) or Email == '':
-            return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
+            return jsonify([{'status':400}])
+            # return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
