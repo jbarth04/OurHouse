@@ -92,6 +92,22 @@ def houses():
     jsonHouses = json.dumps(allHouses, default=defaultencode)
     return render_template('houses.html', rhouses=jsonHouses)
 
+@app.route("/house_profile/<arg1>", methods=['GET'])
+def viewhouse(arg1):
+    ### Will want to cache the houses so this won't be a query every time
+    ## Or figure out a better way to avoid a read from the database
+    house = House.query.filter_by(Id=arg1).all()
+    singleHouse = [h.as_dict() for h in house]
+    sHouse = singleHouse[0]
+    jsonHouse = json.dumps(singleHouse, default=defaultencode)
+    #Getting the landlord associated with 
+    landlordID = sHouse['LandlordId']
+    landlord = Landlord.query.filter_by(Id=landlordID).all()
+    singleLandlord = [l.as_dict_JSON() for l in landlord]
+    jsonLandlord = json.dumps(singleLandlord, default=defaultencode)
+    #should send back the contact for the landlord too??
+    return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+
 @app.route("/signup", methods=['GET', 'POST'])
 
 #FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
@@ -144,6 +160,9 @@ def newhome():
         DistFromCC = request.form['disttocc']
         #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
+        #If no landlord exists by that email
+        if someLandlord == None:
+            return jsonify([{'status':400, 'message':'Landlord does not match any on file, please check the email.'}]) 
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
