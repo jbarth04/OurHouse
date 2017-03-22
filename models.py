@@ -105,6 +105,25 @@ class Landlord(db.Model):
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        landlord = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone,
+            IsActive = self.IsActive,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return landlord
+    def as_dict_JSON(self):
+        landlord = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone)
+        return landlord
 
 
 class Review(db.Model):

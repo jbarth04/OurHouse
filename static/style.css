@@ -90,3 +90,6 @@ input[type=button], input[type=submit], input[type=reset] {
 .filterLabel{
 	padding: 0.5vw;
 }
+.HouseInfoList{
+	list-style: none;
+}

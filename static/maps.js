@@ -2,10 +2,12 @@
 var TuftsLat = 42.4055218;
 var TuftsLng = -71.12003240000001;
 var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
+//Map will center on Brown and Brew for best view of available houses
+var MapCenter = new google.maps.LatLng(42.406824, -71.116478);
 var infowindow = new google.maps.InfoWindow();
 var mapOptions = {
 		zoom: 15,
-		center: TuftsLatLng,
+		center: MapCenter,
 		mapTypeId: 'roadmap'
 };
 var map = new google.maps.Map(document.getElementById('map-campus'),

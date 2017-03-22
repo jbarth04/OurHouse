@@ -33,13 +33,27 @@ var HouseProfile = React.createClass({
 		}
 		return info;
 	},
+	generateLandlordInfo: function(){
+		// landlordInfo = [];
+		// landlordInfo.push(<p>{this.props.LandlordEmail}</p>);
+		// landlordInfo.push(<p>{this.props.LandlordPhone}</p>);
+		// return landlordInfo;
+	},
 	render: function(){
 		profile = this.generateInfo();
+		landlordInfo = this.generateLandlordInfo();
 		return(
-			<ul>
+			<ul className="HouseInfoList">
 				{profile}
+				{landlordInfo}
 			</ul>
 		);
 	}
 });
-React.render(<HouseProfile Address1={house.Address1} Address2={house.Address2} Dist={house.DistFromCC} Rent={house.MonthlyRent} Parking={house.ParkingSpots} Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets} />, document.getElementById('HouseInfo'));
+React.render(<HouseProfile 
+	LandlordFName={landlord.FirstName} LandlordLName={landlord.LastName} 
+	LandlordEmail={landlord.Email} LandlordPhone={landlord.Phone} 
+	Address1={house.Address1} Address2={house.Address2} Dist={house.DistFromCC}
+	Rent={house.MonthlyRent} Parking={house.ParkingSpots} 
+	Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets} />, 
+	document.getElementById('HouseInfo'));

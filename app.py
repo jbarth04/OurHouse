@@ -76,9 +76,15 @@ def viewhouse(arg1):
     ## Or figure out a better way to avoid a read from the database
     house = House.query.filter_by(Id=arg1).all()
     singleHouse = [h.as_dict() for h in house]
+    sHouse = singleHouse[0]
     jsonHouse = json.dumps(singleHouse, default=defaultencode)
+    #Getting the landlord associated with 
+    landlordID = sHouse['LandlordId']
+    landlord = Landlord.query.filter_by(Id=landlordID).all()
+    singleLandlord = [l.as_dict_JSON() for l in landlord]
+    jsonLandlord = json.dumps(singleLandlord, default=defaultencode)
     #should send back the contact for the landlord too??
-    return render_template('house_profile.html', house=jsonHouse)
+    return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
 
 @app.route("/signup", methods=['GET', 'POST'])
 
