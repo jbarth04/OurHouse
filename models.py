@@ -124,6 +124,11 @@ class Landlord(db.Model):
             Email = self.Email,
             Phone = self.Phone)
         return landlord
+    def as_dict_cookie_JSON(self):
+        landlord = __builtin__.dict(
+            Id = self.Id, 
+            Type = 'Landlord')
+        return landlord
 
 
 class Review(db.Model):
@@ -164,3 +169,19 @@ class Student(db.Model):
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone,
+            IsActive = self.IsActive,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return student
+    def as_dict_cookie_JSON(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            Type = 'Student')
+        return student

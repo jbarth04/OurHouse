@@ -9,6 +9,6 @@ navbar_items = [
     	},
     	{
     		"text":"Logout",
-    		"url":"/"
+    		"url":"/logout"
     	}
     ];
