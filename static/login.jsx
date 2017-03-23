@@ -25,20 +25,6 @@ var LoginForm = React.createClass ({
         data: data,
         success: function(result) {
           if(result[0].status == 200){
-//             console.log(result[0]);
-//             console.log(result[0].Id, result[0].userType);
-//             // get the current date
-//             // make a date that is like 3 hours post 
-//             // set expiration to that 
-// //             function setCookie(cname, cvalue, exdays) {
-// //     var d = new Date();
-// //     d.setTime(d.getTime() + (exdays*24*60*60*1000));
-// //     var expires = "expires="+ d.toUTCString();
-// //     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-// // }
-//             document.cookie = "userId=" + result[0].Id + "; userType=" + result[0].userType + "; path=/";
-//             var x = document.cookie;
-//             console.log(x.userId);
             window.location.href = "/houses";
           }
           else if (result[0].status == 400){

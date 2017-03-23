@@ -101,10 +101,35 @@ def viewhouse(arg1):
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
     else:
         return redirect(url_for('index'))
+@app.route("/profile", methods=['GET'])
+def profile():
+    if 'username' in session:
+        email = session['username']
+        user = Student.query.filter_by(Email=email).first()
+        userType = "Student"
+        if user == None:
+            user = Landlord.query.filter_by(Email=email).first()
+            userType = "Landlord"
+        dictUser = user.as_dict_JSON()
+        dictUser['Type'] = userType
+        jsonUser = json.dumps(dictUser, default=defaultencode)
+        if userType == "Landlord":
+            landlordId = dictUser["Id"]
+            print landlordId
+            houses = House.query.filter_by(LandlordId=landlordId).all()
+            allHouses = [h.as_dict() for h in houses]
+            print allHouses
+            properties = json.dumps(allHouses, default=defaultencode)
+        else: 
+            properties = []
+        return render_template('profile.html', user=jsonUser, properties=properties)
+    else:
+        return redirect(url_for('index'))
 
 @app.route("/signup", methods=['GET', 'POST'])
 
 #FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
+#will need to check for users of other types!!!!
 def signup():
     if request.method == 'POST':
         if request.form['UserType'] == 'Landlord': 

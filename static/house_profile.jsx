@@ -43,7 +43,7 @@ var HouseProfile = React.createClass({
 		profile = this.generateInfo();
 		landlordInfo = this.generateLandlordInfo();
 		return(
-			<ul className="HouseInfoList">
+			<ul className="HouseInfoList, NoBulletsList">
 				{profile}
 				{landlordInfo}
 			</ul>
