@@ -115,10 +115,8 @@ def profile():
         jsonUser = json.dumps(dictUser, default=defaultencode)
         if userType == "Landlord":
             landlordId = dictUser["Id"]
-            print landlordId
             houses = House.query.filter_by(LandlordId=landlordId).all()
             allHouses = [h.as_dict() for h in houses]
-            print allHouses
             properties = json.dumps(allHouses, default=defaultencode)
         else: 
             properties = []
