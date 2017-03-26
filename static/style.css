@@ -3,6 +3,12 @@ body{
 	font-weight: 200;
 	font-family: Helvetica;
 }
+#index-background{
+	/*background-image: url({{ url_for('static', filename='images/test_house.jpg') }})*/
+	background-image: url('/static/images/test_house.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 div .houseListing{
 	height: 300px;
 	width: 300px;
@@ -33,6 +39,8 @@ div .houseListing{
 }
 .loginInput{
 	border-radius: 5px;
+	color: black;
+	font-weight: 100;
 }
 .newUserLink{
 	text-decoration: none;
@@ -56,11 +64,11 @@ div .houseListing{
 }
 #map-campus{
 	background-size: cover;
-	height: 500px;
+	height: 600px;
 	text-align: center;
   	overflow: hidden;
   	margin: 10px;
-  	margin-top: 4vw;
+  	margin-top: 4.5vw;
 }
 .markerLink{
 	text-decoration: none;
@@ -80,8 +88,15 @@ div .houseListing{
 	display: inline-block;
 	padding: 0.5vw;
 	text-decoration: none;
-	margin-top:10px;
-	/*margin: 0;*/
+	margin-top:13px;
+	font-size: 1.1vw;
+}
+.navbar-logo{
+	width: 70px;
+	height: auto;
+	margin: 0;
+	padding: 5px;
+	padding-left: 1vw;
 }
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #89B3EA;
