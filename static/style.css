@@ -15,12 +15,31 @@ div .houseListing{
 	margin: .5v;
 }	
 #Welcome-Header{
-	font-weight: 200;
-	font-family: Helvetica;
 	text-align: center;
-	background-color: gray;
-	margin: 15vw;
-	padding: 2vw;
+	background-color: #009598;
+	border-radius: 30px;
+ 	position: absolute;
+ 	width: 45vw;
+ 	height: 18vw;
+ 	z-index: 15;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin: -9vw 0 0 -22.5vw;
+ 	color:white;
+}
+.loginForm{
+	padding: 0.4vw;
+	display: block;
+}
+.loginInput{
+	border-radius: 5px;
+}
+.newUserLink{
+	text-decoration: none;
+	color: #E27C53;
+}
+.loginSubmitButton{
+	background-color: #E27C53;
 }
 .houseInfo{
 	margin:0;
@@ -91,6 +110,9 @@ input[type=button], input[type=submit], input[type=reset] {
 	padding: 0.5vw;
 }
 .HouseInfoList{
+}
+.landlordInfoBox{
+
 }
 .NoBulletsList{
 	list-style: none;
