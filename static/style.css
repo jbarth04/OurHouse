@@ -13,7 +13,7 @@ div .houseListing{
 #Header{ 
 	padding: 0.5vw;
 	margin: .5v;
-}	
+}
 #Welcome-Header{
 	text-align: center;
 	background-color: #009598;
@@ -38,6 +38,9 @@ div .houseListing{
 	text-decoration: none;
 	color: #E27C53;
 }
+.newPropForm{
+	padding: 1vw;
+}
 .loginSubmitButton{
 	background-color: #E27C53;
 }
@@ -51,20 +54,13 @@ div .houseListing{
 	padding-left: 0.5vw;
 	padding-right: 0.5vw;
 }
-#navbar{
-	background-color: #89B3EA;
-	margin: 0;
-	width: 100%;
-}
-#navbar ul {
-	margin: 0;
-}
 #map-campus{
 	background-size: cover;
 	height: 500px;
 	text-align: center;
   	overflow: hidden;
   	margin: 10px;
+  	margin-top: 4vw;
 }
 .markerLink{
 	text-decoration: none;
@@ -82,16 +78,11 @@ div .houseListing{
 }
 .navbar-links{
 	display: inline-block;
-	padding: 1vw;
+	padding: 0.5vw;
 	text-decoration: none;
-	margin: 0;
+	margin-top:10px;
+	/*margin: 0;*/
 }
-.navbar-link{
-	text-decoration: none;
-	color: white;
-	margin: 0;
-}
-
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #89B3EA;
     border: none;
@@ -109,11 +100,12 @@ input[type=button], input[type=submit], input[type=reset] {
 .filterLabel{
 	padding: 0.5vw;
 }
-.HouseInfoList{
-}
-.landlordInfoBox{
-
-}
 .NoBulletsList{
 	list-style: none;
+}
+.container{
+	margin-top: 4.5vw;
+}
+input, select{
+	margin-left: 1vw;
 }

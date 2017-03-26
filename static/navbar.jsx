@@ -7,9 +7,18 @@ var NavBar = React.createClass({
 
             navbar_links = this.generateItems();
             return(
-            	<ul>
-            	{navbar_links}
-            	</ul>
+                // {% extends "bootstrap/base.html" %}
+            	// {% block navbar %}
+                <nav className="navbar navbar-default navbar-fixed-top">
+                    <div className="container-fluid">
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                {navbar_links}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                // {% endblock %}
             );
         }
     });
