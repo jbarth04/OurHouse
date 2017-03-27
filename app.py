@@ -33,11 +33,6 @@ from models import Review
 
 ################## Config for Bootstrap ###################
 
-from flask_bootstrap import Bootstrap
-
-bootstrap = Bootstrap()
-bootstrap.init_app(app)
-
 ###################### Routes #############################
 import json
 #####################Decimal JSON encoding ################
