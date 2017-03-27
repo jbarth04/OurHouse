@@ -115,86 +115,89 @@ var AptForm = React.createClass ({
   render: function() {
     return (
     <form onSubmit={this.handleSubmit} className="newPropForm">
-      <div class="form-group">
+      <p className="newPropLabel">Landlord Information</p>
+      <div className="newPropFormLabel form-group">
         <label>
           Landlord First Name
-        <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordFName')} /><br/>
+        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordFName')} /><br/>
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label>
           Landlord Last Name
-        <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
+        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
         </label>
-      </div>
-      <div class="form-group">
+      </div><br />
+      <div className="newPropFormLabel form-group">
         <label>
           Landlord Email
-        <input type="text" value={this.state.landlord} onChange={this.handleChange('landlordEmail')} /><br/>
+        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordEmail')} /><br/>
         </label>
       </div>
-      <div class="form-group">
+      <p className="newPropLabel">Apartment Information</p>
+      <div className="newPropFormLabel form-group">
         <label>
           Address 1
-        <input type="text" value={this.state.address1} onChange={this.handleChange('address1')} /><br/>
+        <input className="new-prop" type="text" value={this.state.address1} onChange={this.handleChange('address1')} /><br/>
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label>
           Address 2
-        <input type="text" value={this.state.address2} onChange={this.handleChange('address2')} /><br/>
+        <input className="new-prop" type="text" value={this.state.address2} onChange={this.handleChange('address2')} /><br/>
         </label>
       </div>
-      <div class="form-group">
+      <br />
+      <div className="newPropFormLabel form-group">
         <label> 
           City
-          <select value={this.state.city} onChange={this.handleChange('city')}>
+          <select className="new-prop" value={this.state.city} onChange={this.handleChange('city')}>
             <option value="Somerville">Somerville</option>
             <option value="Medford">Medford</option>
           </select><br/> 
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
           State
-          <select value={this.state.state} onChange={this.handleChange('state')}>
+          <select className="new-prop" value={this.state.state} onChange={this.handleChange('state')}>
             <option value="Massachussetts">MA</option>
           </select><br/> 
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
           Country  
-            <select value={this.state.country} onChange={this.handleChange('country')}>
+            <select className="new-prop" value={this.state.country} onChange={this.handleChange('country')}>
             <option value="United States of America">USA</option>
           </select><br/> 
         </label>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label>
           Zipcode
-          <input type="text" value={this.state.zip} onChange={this.handleChange('zip')} /><br/>
+          <input className="new-prop" type="text" value={this.state.zip} onChange={this.handleChange('zip')} /><br/>
         </label>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label>
           Monthly rent 
-          <input type="text" value={this.state.rent} onChange={this.handleChange('rent')} /><br/>
+          <input className="new-prop" type="text" value={this.state.rent} onChange={this.handleChange('rent')} /><br/>
         </label>  
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
         Pets allowed? 
-          <select value={this.state.pets} onChange={this.handleChange('pets')}>
+          <select className="new-prop" value={this.state.pets} onChange={this.handleChange('pets')}>
             <option value ="true">Yes</option>
             <option value ="false">No</option>
           </select> <br/> 
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
         Bedrooms 
-          <select value={this.state.bedrooms} onChange={this.handleChange('bedrooms')}>
+          <select className="new-prop" value={this.state.bedrooms} onChange={this.handleChange('bedrooms')}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -204,10 +207,10 @@ var AptForm = React.createClass ({
           </select>
         </label><br/>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
           Parking
-          <select value={this.state.parking} onChange={this.handleChange('parking')}>
+          <select className="new-prop" value={this.state.parking} onChange={this.handleChange('parking')}>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -217,25 +220,26 @@ var AptForm = React.createClass ({
           </select><br/>
         </label> 
       </div>
-      <div class="form-group">
+      <br />
+      <div className="newPropFormLabel form-group">
         <label> 
         Utilities included? 
-        <select value={this.state.utilities} onChange={this.handleChange('utilities')}>
+        <select className="new-prop" value={this.state.utilities} onChange={this.handleChange('utilities')}>
           <option value ="true">Yes</option>
           <option value ="false">No</option>
         </select><br/> 
         </label>
       </div>
-      <div class="form-group">
+      <div className="newPropFormLabel form-group">
         <label> 
           Laundry included? 
-          <select value={this.state.laundry} onChange={this.handleChange('laundry')}> 
+          <select className="new-prop" value={this.state.laundry} onChange={this.handleChange('laundry')}> 
             <option value ="true">Yes</option>
             <option value ="false">No</option>
         </select><br/> 
         </label>
       </div>
-
+      <br />
     <input className="btn btn-primary"type="submit" value="Upload your house!"/>  
     </form>
     );

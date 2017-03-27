@@ -39,18 +39,18 @@ var LoginForm = React.createClass ({
         <div className="LoginForm">
           <h1>Welcome to Our House</h1>
           <form onSubmit={this.handleSubmit}>
-            <div class="form-group">
+            <div className="form-group">
               <label className="loginForm">
                 <input className="loginInput" type="text" value={this.state.email} placeholder="Email" onChange={this.handleChange('email')} />
               </label>
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label className="loginForm">
                 <input className="loginInput" type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange('password')} />
               </label>
             </div>
             <input className="btn btn-basic"type="submit" value="Submit" />
-          </form><br />
+          </form>
           New User? <a className="newUserLink" href="/signup">Sign Up!</a>
         </div>
       );

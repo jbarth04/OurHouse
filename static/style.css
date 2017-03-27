@@ -12,7 +12,7 @@ body{
 div .houseListing{
 	height: 300px;
 	width: 300px;
-	background-color: #fdff00;
+	background-color: #FFB094;
 	display: inline-block;
 	margin: 1.5vw;
 }
@@ -57,6 +57,7 @@ div .houseListing{
 	padding: 2vw;
 	text-align: left;
 	list-style: none;
+	font-size: 1.2vw;
 }
 #update-button{
 	padding-left: 0.5vw;
@@ -81,14 +82,14 @@ div .houseListing{
 	padding: 0.2vw;
 }
 #filterbar{
-	background-color: #89B3EA;
-	padding: 0.5vw;
+	background-color: #BAD6B9;
+	/*background-color: #00B2BC;*/
+	padding-top: 0.5vw;
 }
 .navbar-links{
 	display: inline-block;
-	padding: 0.5vw;
+	padding: 0.2vw;
 	text-decoration: none;
-	margin-top:13px;
 	font-size: 1.1vw;
 }
 .navbar-logo{
@@ -110,10 +111,13 @@ input[type=button], input[type=submit], input[type=reset] {
 
 .filterOption{
 	display: inline-block;
-	padding: 0.5vw;
+	/*padding: 0.5vw;*/
 }
 .filterLabel{
-	padding: 0.5vw;
+	padding: 0.3vw;
+}
+.filter-btn{
+	margin: 0.5vw;
 }
 .NoBulletsList{
 	list-style: none;
@@ -121,6 +125,13 @@ input[type=button], input[type=submit], input[type=reset] {
 .container{
 	margin-top: 4.5vw;
 }
-input, select{
+.new-prop{
 	margin-left: 1vw;
+}
+.newPropLabel{
+	font-size: 2vw;
+	font-weight: 300;
+}
+.newPropFormLabel{
+	display: inline-block;
 }
