@@ -40,6 +40,7 @@ def upload():
     return provider.absolute_url
 
 ###################### Import Blueprints #############################
+
 import serializeDecimalObject
 app.register_blueprint(serializeDecimalObject.serializeDecimalObject_page)
 
@@ -54,6 +55,8 @@ app.register_blueprint(house.house_page)
 
 # import tests
 # app.register_blueprint(tests.tests_page)
+
+###################### Run the app #############################
 
 if __name__ == "__main__":
     app.run()
