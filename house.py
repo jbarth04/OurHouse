@@ -1,3 +1,7 @@
+## house.py
+## contains routes pertaining to houses: homepage, uploading new house listing, 
+## house profile 
+
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime

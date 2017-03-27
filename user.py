@@ -1,3 +1,6 @@
+## user.py
+## contains routes pertaining to users: sign-up and user profile
+
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime

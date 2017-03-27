@@ -1,3 +1,6 @@
+## auth.py
+## contains routes for authentication: login and logout
+
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
