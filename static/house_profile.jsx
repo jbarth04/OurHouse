@@ -2,14 +2,14 @@
 var HouseProfile = React.createClass({
 	generateInfo: function(){
 		info = [];
+		info.push(<li>Rent/Month: ${this.props.Rent}</li>);
 		if (this.props.Address2 !=''){
-			info.push(<li>Address: {this.props.Address1}, {this.props.Address2}</li>);
+			info.push(<li>Address: {this.props.Address1}, {this.props.Address2} {this.props.City}, {this.props.State}</li>);
 		} else{
-			info.push(<li>Address: {this.props.Address1}</li>)
+			info.push(<li>Address: {this.props.Address1} {this.props.City}, {this.props.State}</li>)
 		}
 		var distance = Number((this.props.Dist).toFixed(3));
 		info.push(<li>Distance from Campus Center: {distance}</li>);
-		info.push(<li>Rent/Month: ${this.props.Rent}</li>);
 		info.push(<li>Number of Bedrooms: {this.props.Rooms}</li>);
 		if(this.props.Parking == 0){
 			info.push(<li>No Parking Available</li>)
@@ -34,16 +34,20 @@ var HouseProfile = React.createClass({
 		return info;
 	},
 	generateLandlordInfo: function(){
-		// landlordInfo = [];
-		// landlordInfo.push(<p>{this.props.LandlordEmail}</p>);
-		// landlordInfo.push(<p>{this.props.LandlordPhone}</p>);
-		// return landlordInfo;
+		landlordInfo = [];
+		landlordInfo.push(<p>{this.props.LandlordEmail}</p>);
+		landlordInfo.push(<p>{this.props.LandlordPhone}</p>);
+		return (
+			<div className="landlordInfoBox">
+				{landlordInfo}
+			</div>
+		);
 	},
 	render: function(){
 		profile = this.generateInfo();
 		landlordInfo = this.generateLandlordInfo();
 		return(
-			<ul className="HouseInfoList">
+			<ul className="HouseInfoList, NoBulletsList">
 				{profile}
 				{landlordInfo}
 			</ul>
@@ -53,7 +57,8 @@ var HouseProfile = React.createClass({
 React.render(<HouseProfile 
 	LandlordFName={landlord.FirstName} LandlordLName={landlord.LastName} 
 	LandlordEmail={landlord.Email} LandlordPhone={landlord.Phone} 
-	Address1={house.Address1} Address2={house.Address2} Dist={house.DistFromCC}
+	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
+	Dist={house.DistFromCC} Rooms={house.Rooms}
 	Rent={house.MonthlyRent} Parking={house.ParkingSpots} 
 	Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets} />, 
 	document.getElementById('HouseInfo'));

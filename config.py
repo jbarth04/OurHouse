@@ -12,7 +12,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    # SECRET_KEY = 'this-really-needs-to-be-changed'
+    # SECRET_KEY = os.environ['SESSIONS_KEY']
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 
@@ -28,7 +28,9 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+    SECRET_KEY = '\x9f\x04\xb4\x8a\x14\xb9\xd5Pn\xa0\xb4\xfe\xc3\xfdi\xfdn\xe28{\xd5\xc7\xcb\xde'
 
 
 class TestingConfig(Config):
     TESTING = True
+    SECRET_KEY = '\x9f\x04\xb4\x8a\x14\xb9\xd5Pn\xa0\xb4\xfe\xc3\xfdi\xfdn\xe28{\xd5\xc7\xcb\xde'

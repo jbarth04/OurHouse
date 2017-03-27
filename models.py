@@ -166,3 +166,22 @@ class Student(db.Model):
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone,
+            IsActive = self.IsActive,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return student
+    def as_dict_JSON(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone)
+        return student

@@ -23,7 +23,10 @@ for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
 	distance = Number((houses[i].DistFromCC).toFixed(3));
 	houseProfileURL = '/house_profile/'+houses[i].Id;
-	infoMessage = "<a class='markerLink' href="+ houseProfileURL + "><p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p></a>"+
+	infoMessage = "<a class='markerLink' href="+ houseProfileURL + 
+				  "><p>Address: "+ houses[i].Address1 + " " + houses[i].Address2
+				  + " " + houses[i].City + "<br>" + houses[i].State + ", " + 
+				  houses[i].Zipcode + "</p></a>"+
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
 				  "<p>Distance from Campus Center: "+distance+" miles</p>";
 	marker = new google.maps.Marker({

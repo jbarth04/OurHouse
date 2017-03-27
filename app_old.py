@@ -31,6 +31,14 @@ from models import Landlord
 from models import House
 from models import Review
 
+############ Do the configuration for bootstrap #############
+
+from flask_bootstrap import Bootstrap
+
+bootstrap = Bootstrap()
+
+bootstrap.init_app(app)
+
 ############ Do the configuration for the S3 storage bucket #############
 
 # testing local
@@ -90,7 +98,6 @@ def index():
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
-
 @app.route("/logout", methods=['GET'])
 def logout():
     session.pop('username', None)
@@ -124,7 +131,6 @@ def viewhouse(arg1):
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
     else:
         return redirect(url_for('index'))
-        
 @app.route("/profile", methods=['GET'])
 def profile():
     if 'username' in session:
@@ -176,7 +182,7 @@ def signup():
             return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
         return jsonify([{'status':200}])
     else:
-		return render_template('signup.html')
+        return render_template('signup.html')
 
 @app.route("/newhome", methods=['GET', 'POST'])
 def newhome():
@@ -189,7 +195,7 @@ def newhome():
         Address2 = request.form['address2'].encode('ascii', 'ignore')
         City = request.form['city'].encode('ascii', 'ignore')
         State = request.form['state'].encode('ascii', 'ignore')
-        Zipcode = request.form['zip']	# parseFloat deprecated 
+        Zipcode = request.form['zip']   # parseFloat deprecated 
         Rooms = int(request.form['bedrooms'])
         ParkingSpots = int(request.form['parking'])
         MonthlyRent = int(request.form['rent'])
@@ -213,14 +219,51 @@ def newhome():
         except exc.IntegrityError:
             return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
         return jsonify([{'status':200}])
-    else: 	
+    else:   
         if 'username' in session:
             return render_template('newhome.html')
         else:
             return redirect(url_for('index'))
 
-import tests
-app.register_blueprint(tests.tests_page)
+###############################################################################
+# For testing purposes
+
+@app.route("/test", methods=['GET'])
+def dbTest():
+    print "here"
+    # students = Student.query.first()
+    # # return jsonify(students)
+    # print students.FirstName
+    # return jsonify(students.FirstName)
+    houses = House.query.all()
+    allHouses = [h.as_dict() for h in houses]
+    jsonHouses = json.dumps(allHouses, default=defaultencode)
+    # jsonHouses = json.dumps(allHouses)
+    # allHouses = houses.as_d
+    print jsonHouses
+    return houses[0].City
+
+@app.route("/test2", methods=['GET'])
+def dbTest2():
+    print "here"
+
+    # Don't uncomment - Rachael was already added to database
+    # frankie = Landlord('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
+
+    # print frankie.FirstName
+    # db.session.add(frankie)
+    # db.session.commit()
+    ### Don't uncomment - No constraints yet on multiple houses
+    # house = House(1, '23 Sunset Rd.', 'apt 2', 'somerville', 'MA', 02144, 3, 4, 3000, True, True, True, 42.408890, -71.124639, 0.25)
+    # print house.City
+    # db.session.add(house)
+    # db.session.commit()
+    return jsonify([])
+
+@app.route("/test3", methods=['GET'])
+def WTF():
+    return jsonify([{'status':200}])
+###############################################################################
 
 if __name__ == "__main__":
     app.run()
