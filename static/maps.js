@@ -2,10 +2,12 @@
 var TuftsLat = 42.4055218;
 var TuftsLng = -71.12003240000001;
 var TuftsLatLng = new google.maps.LatLng(TuftsLat, TuftsLng);
+//Map will center on Brown and Brew for best view of available houses
+var MapCenter = new google.maps.LatLng(42.406824, -71.116478);
 var infowindow = new google.maps.InfoWindow();
 var mapOptions = {
 		zoom: 15,
-		center: TuftsLatLng,
+		center: MapCenter,
 		mapTypeId: 'roadmap'
 };
 var map = new google.maps.Map(document.getElementById('map-campus'),
@@ -19,14 +21,22 @@ var house;
 /* Creates markers for all of the houses from the database */
 for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
-	distance = distanceGeo(houses[i].Latitude, houses[i].Longitude);
-	infoMessage = "<p>Address: "+ houses[i].Address1 + houses[i].Address2 + houses[i].City + "<br>" + houses[i].State + ", " + houses[i].Zipcode + "</p>"+
+	distance = Number((houses[i].DistFromCC).toFixed(3));
+	houseProfileURL = '/house_profile/'+houses[i].Id;
+	infoMessage = "<a class='markerLink' href="+ houseProfileURL + 
+				  "><p>Address: "+ houses[i].Address1 + " " + houses[i].Address2
+				  + " " + houses[i].City + "<br>" + houses[i].State + ", " + 
+				  houses[i].Zipcode + "</p></a>"+
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
-				  "<p>Distance: "+distance+" miles</p>";
+				  "<p>Distance from Campus Center: "+distance+" miles</p>";
 	marker = new google.maps.Marker({
+		icon: "static/images/marker_small.png",
 		position: house,
 		title: infoMessage
 	});
+	// google.maps.event.addListener(title, 'click', (function() {
+	// 	window.location.href = "/house_profile/"+houses[i].Id;
+	// }));
 	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		return function() {
 			infowindow.setContent(marker.title);

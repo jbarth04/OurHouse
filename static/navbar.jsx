@@ -1,15 +1,27 @@
 var NavBar = React.createClass({
-		generateItems:function(){
-			var navbar = navbar_items.map((item) => <li id={item.text}  className="navbar-links"><NavBarLink url={item.url} text={item.text} /></li>);
+		generateItems:function(navbar_list){
+			var navbar = navbar_list.map((item) => <li id={item.text}  className="navbar-links"><NavBarLink url={item.url} text={item.text} /></li>);
 			return navbar;
 		},
         render: function() {
-
-            navbar_links = this.generateItems();
+            left_navbar_links = this.generateItems(left_navbar_items);
+            right_navbar_links = this.generateItems(right_navbar_items);
             return(
-            	<ul>
-            	{navbar_links}
-            	</ul>
+                <nav className="navbar navbar-default navbar-fixed-top">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
+                        </div>
+                        <div id="navbar" className="navbar-collapse collapse">
+                            <ul className="nav navbar-nav">
+                                {left_navbar_links}
+                            </ul>
+                            <ul className="nav navbar-nav navbar-right">
+                                {right_navbar_links}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             );
         }
     });
@@ -19,3 +31,23 @@ var NavBarLink = React.createClass({
 	}
 });
 React.render(<NavBar />, document.getElementById('navbar'));
+// <nav className="navbar navbar-default navbar-fixed-top">
+//                     <div className="container-fluid">
+//                         <div className="navbar-header">
+//                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+//                                 <span className="icon-bar"></span>
+//                                 <span className="icon-bar"></span>
+//                                 <span className="icon-bar"></span> 
+//                             </button>
+//                             <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
+//                         </div>
+//                         <div id="navbar" className="navbar-collapse collapse">
+//                             <ul className="nav navbar-nav">
+//                                 {left_navbar_links}
+//                             </ul>
+//                             <ul className="nav navbar-nav navbar-right">
+//                                 {right_navbar_links}
+//                             </ul>
+//                         </div>
+//                     </div>
+//                 </nav>

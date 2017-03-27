@@ -10,27 +10,32 @@ var SingleListing = React.createClass({
 		listing.push(<li className="info">Bedrooms: {this.props.rooms}</li>);
 		listing.push(<li className="info">Monthly Rent: ${this.props.rent}</li>);
 		listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
-		if(this.props.utilities == true){
-			listing.push(<li className="info">Utilities are included</li>);
-		} else {
-			listing.push(<li className="info">Utilities are not included</li>);
-		}
-		if(this.props.laundry == true){
-			listing.push(<li className="info">Laundry is included</li>);
-		} else {
-			listing.push(<li className="info">Laundry not included</li>);
-		}
-		if(this.props.pets == true){
-			listing.push(<li className="info">Pets allowed</li>);
-		} else {
-			listing.push(<li className="info">Not pets allowed</li>);
-		}
+		// if(this.props.utilities == true){
+		// 	listing.push(<li className="info">Utilities are included</li>);
+		// } else {
+		// 	listing.push(<li className="info">Utilities are not included</li>);
+		// }
+		// if(this.props.laundry == true){
+		// 	listing.push(<li className="info">Laundry is included</li>);
+		// } else {
+		// 	listing.push(<li className="info">Laundry not included</li>);
+		// }
+		// if(this.props.pets == true){
+		// 	listing.push(<li className="info">Pets allowed</li>);
+		// } else {
+		// 	listing.push(<li className="info">Not pets allowed</li>);
+		// }
 		return listing;
+	},
+	handleClick: function(){
+		var house = {house_id: this.props.id};
+		window.location.href = "/house_profile/"+this.props.id;
 	},
     render: function() {
     	var listing = this.generateListing();
+    	var house_id = this.props.id;
         return (<div className={"houseListing"}>   
-        			<ul className={"houseInfo"}>    					
+        			<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
         			{listing}
         			</ul>
         		</div>);
@@ -48,7 +53,7 @@ var HousesComponent = React.createClass({
 			} else {
 				return (
     				<tbody>
-    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} />)}
+    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} id={house.Id}/>)}
 					</tbody>
 			);
 			}
@@ -105,50 +110,49 @@ var FilterForm = React.createClass({
 	render: function() {
 		return(
 			<div className="filterOptions">
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Minimum Rent</label>
 					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
 					{this.generateSubMenu(filters.MinRent.submenu)}
 					</select>
 				</div>
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Maximum Rent</label>
 					<select id="MaxRent" value={this.state.MaxRent} onChange={this.handleChange('MaxRent')}>
 					{this.generateSubMenu(filters.MaxRent.submenu)}
 					</select>
 				</div>
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Distance from Campus Center</label>
 					<select id="Distance" value={this.state.Dist} onChange={this.handleChange('Dist')}>
 					{this.generateSubMenu(filters.Dist.submenu)}
 					</select>
 				</div>
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Number of Bedrooms</label>
 					<select id="NumRooms" value={this.state.NumRooms} onChange={this.handleChange('NumRooms')}>
 					{this.generateSubMenu(filters.NumRooms.submenu)}
 					</select>
 				</div>
-				<br />
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Laundry Included</label>
 					<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>
 					{this.generateSubMenu(filters.Laundry.submenu)}
 					</select>
 				</div>
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Utilities Included</label>
 					<select id="Utilities" value={this.state.Utilities} onChange={this.handleChange('Utilities')}>
 					{this.generateSubMenu(filters.Utilities.submenu)}
 					</select>
 				</div>
-				<div className = "filterOption">
+				<div className = "filterOption form-group">
 					<label className="filterLabel">Parking Spots</label>
 					<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
 					{this.generateSubMenu(filters.Parking.submenu)}
 					</select>
 				</div>
-				<button onClick={this.handleUpdate}>Update</button>
+				<button className="btn btn-default filter-btn" onClick={this.handleUpdate}>Update</button>
 			</div>
 		);
 		

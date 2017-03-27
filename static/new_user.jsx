@@ -20,7 +20,6 @@ var NewUserForm = React.createClass ({
       }.bind(this);
     },
     handleSubmit: function(event){
-
       data = this.state;
       $.ajax({
         type: 'POST',
@@ -43,30 +42,40 @@ var NewUserForm = React.createClass ({
         <div className="LoginForm">
           <h1>Welcome to Our House</h1>
           <form onSubmit={this.handleSubmit}>
-            <label className="loginForm">
-              First Name: <br />
-              <input type="text" value={this.state.FirstName} onChange={this.handleChange('FirstName')} />
-            </label> <br />
-            <label className="loginForm">
-              Last Name: <br />
-              <input type="text" value={this.state.LastName} onChange={this.handleChange('LastName')} />
-            </label> <br />
-            <label className="loginForm">
-              Email: <br />
-              <input type="text" value={this.state.Email} onChange={this.handleChange('Email')} />
-            </label> <br />
-            <label className="loginForm">
-              Phone Number: <br />
-              <input type="text" value={this.state.PhoneNum} onChange={this.handleChange('PhoneNum')} />
-            </label> <br />
-            <label className="loginForm">
-              Select One: <br />
-              <select id="UserType" value={this.state.Type} onChange={this.handleChange('UserType')}>
-                <option value="Student">Student</option>
-                <option value="Landlord">Landlord</option>
-              </select>
-            </label><br />
-            <input type="submit" value="Submit" />
+            <div class="form-group">
+              <label className="loginForm">
+                First Name: <br />
+                <input type="text" value={this.state.FirstName} onChange={this.handleChange('FirstName')} />
+              </label>
+            </div>
+            <div class="form-group">
+              <label className="loginForm">
+                Last Name: <br />
+                <input type="text" value={this.state.LastName} onChange={this.handleChange('LastName')} />
+              </label>
+            </div>
+            <div class="form-group">
+              <label className="loginForm">
+                Email: <br />
+                <input type="text" value={this.state.Email} onChange={this.handleChange('Email')} />
+              </label>
+            </div>
+            <div class="form-group">
+              <label className="loginForm">
+                Phone Number: <br />
+                <input type="text" value={this.state.PhoneNum} onChange={this.handleChange('PhoneNum')} />
+              </label> 
+            </div>
+            <div class="form-group">
+              <label className="loginForm">
+                Select One: <br />
+                <select id="UserType" value={this.state.Type} onChange={this.handleChange('UserType')}>
+                  <option value="Student">Student</option>
+                  <option value="Landlord">Landlord</option>
+                </select>
+              </label>
+            </div>
+            <input type="submit" value="Submit" className="btn btn-info"/>
           </form>
         </div>
       );

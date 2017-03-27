@@ -1,4 +1,4 @@
-navbar_items = [
+left_navbar_items = [
     	{
     		"text":"Home",
     		"url":"/houses"
@@ -7,8 +7,14 @@ navbar_items = [
     		"text":"List Your House",
     		"url":"/newhome"
     	},
-    	{
-    		"text":"Logout",
-    		"url":"/"
-    	}
+        {
+            "text":"Profile",
+            "url":"/profile"
+        }
     ];
+right_navbar_items = [
+        {
+            "text":"Logout",
+            "url":"/logout"
+        }
+];

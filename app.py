@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for 
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
@@ -31,6 +31,8 @@ from models import Landlord
 from models import House
 from models import Review
 
+################## Config for Bootstrap ###################
+
 ###################### Routes #############################
 import json
 #####################Decimal JSON encoding ################
@@ -53,26 +55,81 @@ def defaultencode(o):
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        #if they are already logged in/haven't logged out
+        if 'username' in session:
+            return jsonify([{'status':200}])
+        
         Email = request.form['email']
         #Will use firebase for authentication so not checking passwords here
         someStudent = Student.query.filter_by(Email=Email).first()
         someLandlord = Landlord.query.filter_by(Email=Email).first()
         if (someStudent == None and someLandlord == None) or Email == '':
             return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
+        session['username'] = Email
+        #maybe also set an expiration time
         return jsonify([{'status':200}])
     else:
         return render_template('index.html')
+@app.route("/logout", methods=['GET'])
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route("/houses", methods=['GET'])
 def houses():
-    houses = House.query.all()
-    allHouses = [h.as_dict() for h in houses]
-    jsonHouses = json.dumps(allHouses, default=defaultencode)
-    return render_template('houses.html', rhouses=jsonHouses)
+    if 'username' in session:
+        houses = House.query.all()
+        allHouses = [h.as_dict() for h in houses]
+        jsonHouses = json.dumps(allHouses, default=defaultencode)
+        return render_template('houses.html', rhouses=jsonHouses)
+    else:
+        return redirect(url_for('index'))
+
+@app.route("/house_profile/<arg1>", methods=['GET'])
+def viewhouse(arg1):
+    if 'username' in session:
+        ### Will want to cache the houses so this won't be a query every time
+        ## Or figure out a better way to avoid a read from the database
+        house = House.query.filter_by(Id=arg1).all()
+        singleHouse = [h.as_dict() for h in house]
+        sHouse = singleHouse[0]
+        jsonHouse = json.dumps(singleHouse, default=defaultencode)
+        #Getting the landlord associated with 
+        landlordID = sHouse['LandlordId']
+        landlord = Landlord.query.filter_by(Id=landlordID).all()
+        singleLandlord = [l.as_dict_JSON() for l in landlord]
+        jsonLandlord = json.dumps(singleLandlord, default=defaultencode)
+        #should send back the contact for the landlord too??
+        return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+    else:
+        return redirect(url_for('index'))
+@app.route("/profile", methods=['GET'])
+def profile():
+    if 'username' in session:
+        email = session['username']
+        user = Student.query.filter_by(Email=email).first()
+        userType = "Student"
+        if user == None:
+            user = Landlord.query.filter_by(Email=email).first()
+            userType = "Landlord"
+        dictUser = user.as_dict_JSON()
+        dictUser['Type'] = userType
+        jsonUser = json.dumps(dictUser, default=defaultencode)
+        if userType == "Landlord":
+            landlordId = dictUser["Id"]
+            houses = House.query.filter_by(LandlordId=landlordId).all()
+            allHouses = [h.as_dict() for h in houses]
+            properties = json.dumps(allHouses, default=defaultencode)
+        else: 
+            properties = []
+        return render_template('profile.html', user=jsonUser, properties=properties)
+    else:
+        return redirect(url_for('index'))
 
 @app.route("/signup", methods=['GET', 'POST'])
 
 #FUNCTION TO SUBMIT NEW USER, will need to handle postgres errors 
+#will need to check for users of other types!!!!
 def signup():
     if request.method == 'POST':
         if request.form['UserType'] == 'Landlord': 
@@ -122,6 +179,9 @@ def newhome():
         DistFromCC = request.form['disttocc']
         #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
+        #If no landlord exists by that email
+        if someLandlord == None:
+            return jsonify([{'status':400, 'message':'Landlord does not match any on file, please check the email.'}]) 
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
@@ -132,7 +192,10 @@ def newhome():
             return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
         return jsonify([{'status':200}])
     else: 	
-        return render_template('newhome.html')
+        if 'username' in session:
+            return render_template('newhome.html')
+        else:
+            return redirect(url_for('index'))
 
 ###############################################################################
 # For testing purposes
@@ -169,6 +232,10 @@ def dbTest2():
     # db.session.add(house)
     # db.session.commit()
     return jsonify([])
+
+@app.route("/test3", methods=['GET'])
+def WTF():
+    return jsonify([{'status':200}])
 ###############################################################################
 
 if __name__ == "__main__":
