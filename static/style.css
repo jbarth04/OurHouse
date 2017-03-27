@@ -3,17 +3,23 @@ body{
 	font-weight: 200;
 	font-family: Helvetica;
 }
+#index-background{
+	/*background-image: url({{ url_for('static', filename='images/test_house.jpg') }})*/
+	background-image: url('/static/images/test_house.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 div .houseListing{
 	height: 300px;
 	width: 300px;
-	background-color: #fdff00;
+	background-color: #FFB094;
 	display: inline-block;
 	margin: 1.5vw;
 }
 #Header{ 
 	padding: 0.5vw;
 	margin: .5v;
-}	
+}
 #Welcome-Header{
 	text-align: center;
 	background-color: #009598;
@@ -33,10 +39,15 @@ div .houseListing{
 }
 .loginInput{
 	border-radius: 5px;
+	color: black;
+	font-weight: 100;
 }
 .newUserLink{
 	text-decoration: none;
 	color: #E27C53;
+}
+.newPropForm{
+	padding: 1vw;
 }
 .loginSubmitButton{
 	background-color: #E27C53;
@@ -46,25 +57,19 @@ div .houseListing{
 	padding: 2vw;
 	text-align: left;
 	list-style: none;
+	font-size: 1.2vw;
 }
 #update-button{
 	padding-left: 0.5vw;
 	padding-right: 0.5vw;
 }
-#navbar{
-	background-color: #89B3EA;
-	margin: 0;
-	width: 100%;
-}
-#navbar ul {
-	margin: 0;
-}
 #map-campus{
 	background-size: cover;
-	height: 500px;
+	height: 600px;
 	text-align: center;
   	overflow: hidden;
   	margin: 10px;
+  	margin-top: 4.5vw;
 }
 .markerLink{
 	text-decoration: none;
@@ -77,21 +82,24 @@ div .houseListing{
 	padding: 0.2vw;
 }
 #filterbar{
-	background-color: #89B3EA;
-	padding: 0.5vw;
+	background-color: #BAD6B9;
+	/*background-color: #00B2BC;*/
+	padding-top: 0.5vw;
 }
 .navbar-links{
 	display: inline-block;
-	padding: 1vw;
+	padding: 0.2vw;
 	text-decoration: none;
-	margin: 0;
+	font-size: 1.1vw;
+	/*font-size: 130%;*/
 }
-.navbar-link{
-	text-decoration: none;
-	color: white;
+.navbar-logo{
+	width: 70px;
+	height: auto;
 	margin: 0;
+	padding: 5px;
+	padding-left: 1vw;
 }
-
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #89B3EA;
     border: none;
@@ -104,16 +112,37 @@ input[type=button], input[type=submit], input[type=reset] {
 
 .filterOption{
 	display: inline-block;
-	padding: 0.5vw;
+	/*padding: 0.5vw;*/
 }
 .filterLabel{
-	padding: 0.5vw;
+	padding: 0.3vw;
 }
-.HouseInfoList{
-}
-.landlordInfoBox{
-
+.filter-btn{
+	margin: 0.5vw;
 }
 .NoBulletsList{
 	list-style: none;
+}
+.container{
+	margin-top: 4.5vw;
+}
+.new-prop{
+	margin-left: 1vw;
+}
+.newPropLabel{
+	font-size: 2vw;
+	font-weight: 300;
+}
+.newPropFormLabel{
+	display: inline-block;
+}
+.propertiesTable{
+	width: 30vw;
+	margin: 2vw auto;
+}
+.tableCenter{
+	text-align: center;
+}
+.tableCenter th{
+	text-align: center;
 }
