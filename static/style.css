@@ -91,6 +91,7 @@ div .houseListing{
 	padding: 0.2vw;
 	text-decoration: none;
 	font-size: 1.1vw;
+	/*font-size: 130%;*/
 }
 .navbar-logo{
 	width: 70px;
@@ -134,4 +135,14 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 .newPropFormLabel{
 	display: inline-block;
+}
+.propertiesTable{
+	width: 30vw;
+	margin: 2vw auto;
+}
+.tableCenter{
+	text-align: center;
+}
+.tableCenter th{
+	text-align: center;
 }

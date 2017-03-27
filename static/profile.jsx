@@ -9,7 +9,9 @@ var Profile = React.createClass({
 	render: function(){
 		profile = this.generateInfo();
 		return(
+			
 			<ul className="Info, NoBulletsList">
+			<p className="newPropLabel">Personal Information</p>
 				{profile}
 			</ul>
 		);
@@ -26,12 +28,18 @@ var Properties = React.createClass({
 	render: function(){
 		properties = [];
 		{props.map((house) => properties.push(this.generatePropList(house.Address1, house.Address2, "Feature Coming Soon")))};
-		return(<table>
-			<tr>
-				<th>Address</th>
-				<th>Status</th>
-			</tr>
-			{properties}
+		return(
+			<table className="table propertiesTable">
+				<p className="newPropLabel">Properties</p>
+				<thead className="tableCenter">
+					<tr className="tableCenter">
+						<th className="tableCenter">Address</th>
+						<th className="tableCenter">Status</th>
+					</tr>
+				</thead>
+				<tbody className="tableCenter">
+					{properties}
+				</tbody>
 			</table>
 		);
 	}

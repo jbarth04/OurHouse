@@ -134,7 +134,6 @@ var FilterForm = React.createClass({
 					{this.generateSubMenu(filters.NumRooms.submenu)}
 					</select>
 				</div>
-				<br />
 				<div className = "filterOption form-group">
 					<label className="filterLabel">Laundry Included</label>
 					<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>

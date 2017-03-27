@@ -10,7 +10,7 @@ var NavBar = React.createClass({
                 <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <img className="navbar-brand navbar-logo" src={"static/images/logo1.png"}></img>
+                            <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav">
@@ -31,3 +31,23 @@ var NavBarLink = React.createClass({
 	}
 });
 React.render(<NavBar />, document.getElementById('navbar'));
+// <nav className="navbar navbar-default navbar-fixed-top">
+//                     <div className="container-fluid">
+//                         <div className="navbar-header">
+//                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+//                                 <span className="icon-bar"></span>
+//                                 <span className="icon-bar"></span>
+//                                 <span className="icon-bar"></span> 
+//                             </button>
+//                             <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
+//                         </div>
+//                         <div id="navbar" className="navbar-collapse collapse">
+//                             <ul className="nav navbar-nav">
+//                                 {left_navbar_links}
+//                             </ul>
+//                             <ul className="nav navbar-nav navbar-right">
+//                                 {right_navbar_links}
+//                             </ul>
+//                         </div>
+//                     </div>
+//                 </nav>
