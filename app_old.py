@@ -33,11 +33,11 @@ from models import Review
 
 ############ Do the configuration for bootstrap #############
 
-from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 
-bootstrap = Bootstrap()
+# bootstrap = Bootstrap()
 
-bootstrap.init_app(app)
+# bootstrap.init_app(app)
 
 ############ Do the configuration for the S3 storage bucket #############
 
