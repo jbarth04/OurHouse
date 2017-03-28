@@ -33,7 +33,7 @@ def houses():
         jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
         return render_template('houses.html', rhouses=jsonHouses)
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth_page.index'))
 
 @house_page.route("/house_profile/<arg1>", methods=['GET'])
 def viewhouse(arg1):
@@ -52,7 +52,7 @@ def viewhouse(arg1):
         #should send back the contact for the landlord too??
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth_page.index'))
 
 @house_page.route("/newhome", methods=['GET', 'POST'])
 def newhome():
@@ -93,4 +93,4 @@ def newhome():
         if 'username' in session:
             return render_template('newhome.html')
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('auth_page.index'))
