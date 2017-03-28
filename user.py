@@ -91,9 +91,28 @@ def editProfile():
             dictUser['Type'] = userType
             jsonUser = json.dumps(dictUser, default=serializeDecimalObject.defaultencode)
             return render_template('edit_profile.html', user=jsonUser)
-        else:
-            print "PUTTED"
-            #need to figure out how to update users in sqlalchemy
+        elif request.method == 'PUT':
+            print "CHANGING HERE"
+            NewFirstName = request.form['FirstName']
+            NewLastName = request.form['LastName']
+            NewPhoneNum = request.form['PhoneNum']
+            NewEmail = request.form['Email']
+            email = session['username']
+            user = Student.query.filter_by(Email=email).first()
+            if user == None:
+                user = Landlord.query.filter_by(Email=email).first()
+            #May want better logic about what to change -- does it make a difference?
+            #If a user changes their email to a new email that already exists, what happens??
+            user.FirstName = NewFirstName
+            user.LastName = NewLastName
+            user.Phone = NewPhoneNum
+            user.Email = NewEmail
+            try:
+                db.session.commit()
+            except exc.IntegrityError:
+                return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
+            session['username'] = NewEmail
+            return jsonify([{'status':200}])
     else:
         return redirect(url_for('auth_page.index'))
 
