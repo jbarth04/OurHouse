@@ -10,6 +10,7 @@ from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, Nu
 from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+# from flask_store.sqla import FlaskStoreType
 import __builtin__
 
 # create the database, to be imported later in app.py

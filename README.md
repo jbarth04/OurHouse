@@ -8,27 +8,41 @@ Note2: This project followed the practices outlined in the following tutorial -
 
 1. Clone the repository.
 
-2. We suggest that you set up a virtual environment. To do so, install virtualenv by running `pip install virtualenv` in the root directory of the application. Once virtualenv has been successfully installed, run `virtualenv venv`. 
+2. We suggest that you set up a virtual environment. To do so, install virtualenv by running `pip install virtualenv` in the root directory of the application. Once virtualenv has been successfully installed, run `virtualenv venv`.
 
 3. Ensure that Python 2.7.13 is the version of Python within the virtual environment. 
 
-4. To start up the virtual environment, run `. venv/bin/activate`.
+4. To start up the virtual environment, run `. venv/bin/activate`.  You will need to have your virtual environment running for the entirety of configuring and running this application.  If you see a little (venv) icon next to your user in your terminal, then your virtual environment is running, example:
 
-5. To set up the environment, begin the virtual environment, locate the file requirements.txt, and run `pip install -r requirements.txt`.
+    (venv) Foo-MacBook-Pro-5:MyFolder Foo$
 
-6. In your project folder, run the following command (this is a database config variable)
+5. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`.
+
+6a. In your project folder, run the following command (see config.py to view different classes of configuration)
 
     $ export APP_SETTINGS="config.DevelopmentConfig"
 
+6b. Even though you are using the DevelopmentConfig class, which has a SESSIONS_KEY set, since ProductionConfig and StagingConfig use an environment variable, Python raises an error if a variable is not set, even if you don't actually use it.  Thus, export a dummy SESSIONS_KEY: 
+
+    $ export SESSIONS_KEY=""
+
 7. You must have PostgreSQL locally on your system (if not, download it, create a user, and create a database)
 
-8. Once you have PostgreSQL setup, run the following commanding (changing anything in caps with your info)
+8a. Once you have PostgreSQL setup, run the following command to set up the environment variable is used for the database configuration. Change anything in caps with your info:
 
     $ export DATABASE_URL="postgresql://YOUR_USERNAME:YOUR_PASSWORD@localhost/YOUR_DB"
 
-    ^ this environment variable is used for the database configuration
+    If your database doesn't require you to create a password, then simply execute:
 
-9. You should see a "migrations" file in your repository, which has scripts to create the database in PostgreSQL according your YOUR_DB variable specified in step 8.  Run the following command to initialize your database.
+    $ export DATABASE_URL="postgresql://YOUR_USERNAME@localhost/YOUR_DB"
+
+8b. To make sure that you have these environment variables set up properly, run 
+
+    $ printenv
+
+    in your terminal.  Note that every time you close your terminal, you will have you export APP_SETTINGS and DATABASE_URL (steps 6 through 8b)
+
+9. You should see a "migrations" file in your repository, which has scripts to create the database in PostgreSQL according your YOUR_DB variable specified in step 8a.  Run the following command to initialize your database.
 
     $ python manage.py db upgrade
 
