@@ -12,7 +12,6 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    # SECRET_KEY = os.environ['SESSIONS_KEY']
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
     S3_LOCATION = 'http://your-amazon-site.amazonaws.com/'
@@ -24,11 +23,13 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
+    SECRET_KEY = os.environ['SESSIONS_KEY']
 
 
 class StagingConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+    SECRET_KEY = os.environ['SESSIONS_KEY']
 
 
 class DevelopmentConfig(Config):
