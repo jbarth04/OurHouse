@@ -75,4 +75,4 @@ def profile():
             properties = []
         return render_template('profile.html', user=jsonUser, properties=properties)
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('auth_page.index'))
