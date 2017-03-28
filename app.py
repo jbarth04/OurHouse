@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from decimal import Decimal
 from sqlalchemy import exc
+# from flask_store import Store
 
 import os
 
@@ -31,7 +32,25 @@ from models import Landlord
 from models import House
 from models import Review
 
-################## Config for Bootstrap ###################
+############ Do the configuration for the S3 storage bucket #############
+
+# testing local
+
+# from flask_store import Store
+# from flask import request
+
+# store = Store()
+
+# app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
+# app.config['STORE_PATH'] = '/some/path/here'
+
+# store.init_app(app)
+
+# @app.route('/upload', methods=['POST', ])
+# def upload():
+#     provider = store.Provider(request.files.get('afile'))
+#     provider.save()
+#     return provider.absolute_url
 
 ###################### Routes #############################
 import json
@@ -39,6 +58,7 @@ import json
 # http://stackoverflow.com/questions/1960516/python-json-serialize-a-decimal-
 # object
 # User: tesdal
+from decimal import Decimal
 class fakefloat(float):
     def __init__(self, value):
         self._value = value
@@ -69,7 +89,10 @@ def index():
         #maybe also set an expiration time
         return jsonify([{'status':200}])
     else:
-        return render_template('index.html')
+        if 'username' in session:
+            return redirect(url_for('houses'))
+        else:
+            return render_template('index.html')
 @app.route("/logout", methods=['GET'])
 def logout():
     session.pop('username', None)

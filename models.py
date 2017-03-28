@@ -19,8 +19,8 @@ db = SQLAlchemy()
 class House(db.Model):
     __tablename__ = 'Houses'
     __table_args__ = (
-        db.UniqueConstraint('Latitude', 'Longitude', 'Address2'),
-        db.Index('ix_Houses_Latitude_Longitude_Address2', 'Latitude', 'Longitude', 'Address2'),
+        db.UniqueConstraint('Latitude', 'Longitude', 'Address1', 'Address2'),
+        db.Index('ix_Houses_Latitude_Longitude_Address1_Address2', 'Latitude', 'Longitude', 'Address1', 'Address2'),
         {u'schema': 'OurHouse'}
     )
 
@@ -40,6 +40,8 @@ class House(db.Model):
     Latitude = db.Column(db.Numeric, nullable=False)
     Longitude = db.Column(db.Numeric, nullable=False)
     DistFromCC = db.Column(db.Float, nullable=False)
+    DateAvailable = db.Column(db.Date)
+    LeaseTerm = db.Column(db.SmallInteger)
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
