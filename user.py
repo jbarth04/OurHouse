@@ -76,3 +76,25 @@ def profile():
         return render_template('profile.html', user=jsonUser, properties=properties)
     else:
         return redirect(url_for('auth_page.index'))
+
+@user_page.route("/profile/edit", methods=['GET', 'PUT'])
+def editProfile():
+    if 'username' in session:
+        if request.method == 'GET':
+            email = session['username']
+            user = Student.query.filter_by(Email=email).first()
+            userType = "Student"
+            if user == None:
+                user = Landlord.query.filter_by(Email=email).first()
+                userType = "Landlord"
+            dictUser = user.as_dict_JSON()
+            dictUser['Type'] = userType
+            jsonUser = json.dumps(dictUser, default=serializeDecimalObject.defaultencode)
+            return render_template('edit_profile.html', user=jsonUser)
+        else:
+            print "PUTTED"
+            #need to figure out how to update users in sqlalchemy
+    else:
+        return redirect(url_for('auth_page.index'))
+
+

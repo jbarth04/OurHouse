@@ -9,11 +9,16 @@ left_navbar_items = [
     	},
         {
             "text":"Profile",
-            "url":"/profile",
-            "dropdown": [{
-                "text":"Edit Profile",
-                "url":"/profile/edit"
-            }]
+            "dropdown": [
+                {
+                    "text":"View Profile",
+                    "url":"/profile"
+                },
+                {
+                    "text":"Edit Profile",
+                    "url":"/profile/edit"
+                }
+            ]
         }
     ];
 right_navbar_items = [

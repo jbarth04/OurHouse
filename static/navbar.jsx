@@ -41,8 +41,7 @@ var NavBarDropdown = React.createClass({
     generateDropdowns:function(dropdownArr){
         links = [];
         for(var i = 0; i < dropdownArr.length; i++){
-            console.log(i);
-            links.push(<li><a href="#">{dropdownArr[i].text}</a></li>);
+            links.push(<li><a href={dropdownArr[i].url}>{dropdownArr[i].text}</a></li>);
         }
         return links;
     },
@@ -63,34 +62,6 @@ var NavBarDropdown = React.createClass({
     }
 });
 React.render(<NavBar />, document.getElementById('navbar'));
-
-// <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
-//         <span class="caret"></span></a>
-//         <ul class="dropdown-menu">
-//           <li><a href="#">Page 1-1</a></li>
-//           <li><a href="#">Page 1-2</a></li>
-//           <li><a href="#">Page 1-3</a></li>
-//         </ul>
-
-
-
-
-
-
-//DROPDOWN NAV BAR CODE:
-// <li class="dropdown">
-//         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
-//         <span class="caret"></span></a>
-//         <ul class="dropdown-menu">
-//           <li><a href="#">Page 1-1</a></li>
-//           <li><a href="#">Page 1-2</a></li>
-//           <li><a href="#">Page 1-3</a></li>
-//         </ul>
-//       </li>
-
-
-
-
 
 // COLLAPSE NAV BAR CODE:
 // <nav className="navbar navbar-default navbar-fixed-top">
