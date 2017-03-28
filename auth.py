@@ -41,7 +41,10 @@ def index():
         #maybe also set an expiration time
         return jsonify([{'status':200}])
     else:
-        return render_template('index.html')
+        if 'username' in session:
+            return redirect(url_for('house_page.houses'))
+        else:
+            return render_template('index.html')
 
 # Logout route
 @auth_page.route("/logout", methods=['GET'])
