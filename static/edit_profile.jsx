@@ -22,7 +22,7 @@ var EditUserForm = React.createClass ({
       console.log("CHANGING");
       $.ajax({
         type: 'PUT',
-        url: '/profile/edit',
+        url: '/profile_edit',
         data: data,
         success: function(result) {
           if(result[0].status == 200){
@@ -40,6 +40,7 @@ var EditUserForm = React.createClass ({
       return(
         <div className="EditProfileForm">
           <h2>Edit Profile</h2>
+          <p>Email: {this.state.Email}</p>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label className="loginForm">
@@ -51,12 +52,6 @@ var EditUserForm = React.createClass ({
               <label className="loginForm">
                 Last Name: <br />
                 <input type="text" value={this.state.LastName} onChange={this.handleChange('LastName')} />
-              </label>
-            </div>
-            <div className="form-group">
-              <label className="loginForm">
-                Email: <br />
-                <input type="text" value={this.state.Email} onChange={this.handleChange('Email')} />
               </label>
             </div>
             <div className="form-group">

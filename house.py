@@ -56,6 +56,7 @@ def viewhouse(arg1):
 
 @house_page.route("/newhome", methods=['GET', 'POST'])
 def newhome():
+    #TOODshould there be a sessions check here?? Probably...
     if request.method == 'POST':
         #May not need to format types of input
         LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
@@ -83,7 +84,7 @@ def newhome():
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
-        #Will need to readjust once unique key is handled 
+        #Will need to read just once unique key is handled 
         try:
             db.session.commit() 
         except exc.IntegrityError:
@@ -94,3 +95,12 @@ def newhome():
             return render_template('newhome.html')
         else:
             return redirect(url_for('auth_page.index'))
+@house_page.route("/house_profile/edit/<arg1>", methods=['GET', 'PUT'])
+def editHouse(arg1):
+    if 'username' in session:
+        if request.method == 'GET':
+            print "HERE"
+        elif request.method == 'PUT':
+            print "PUT"
+    else:
+        return redirect(url_for('auth_page.index'))

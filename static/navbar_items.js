@@ -16,7 +16,7 @@ left_navbar_items = [
                 },
                 {
                     "text":"Edit Profile",
-                    "url":"/profile/edit"
+                    "url":"/profile_edit"
                 }
             ]
         }

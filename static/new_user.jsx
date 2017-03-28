@@ -81,5 +81,4 @@ var NewUserForm = React.createClass ({
       );
     }
 });
-// React.render(<WelcomeHeader />, document.getElementById('Welcome-Header'));
 React.render(<NewUserForm />, document.getElementById('Signup-Header'));
