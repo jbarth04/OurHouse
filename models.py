@@ -185,3 +185,11 @@ class Student(db.Model):
             Email = self.Email,
             Phone = self.Phone)
         return student
+
+# class HousePhoto(db.Model):
+#     __tablename__ = 'HousePhotos'
+#     __table_args__ = {u'schema': 'OurHouse'}
+
+#     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
+#     RelativePath = db.Column(db.FlaskStoreType())
+#     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
