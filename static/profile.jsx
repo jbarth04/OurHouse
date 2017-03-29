@@ -20,12 +20,11 @@ var Profile = React.createClass({
 
 var Properties = React.createClass({
 	generatePropList: function(houseId, Address1, Address2, Status){
-		house_edit_url = "/house_profile/edit/"+houseId
 		return (<tr>
 			<th>
 				{Address1} 
 				{Address2}
-				<button type="button" className="btn btn-default btn-xs edit-btn" href="/house_profile/edit/">Edit</button>
+				<a href = {"/house_profile_edit/"+houseId} className="btn btn-xs btn-default edit-btn">Edit</a>
 			</th>
 			<th>{Status}</th>
 			</tr>);

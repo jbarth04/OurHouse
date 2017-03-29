@@ -1,11 +1,8 @@
 var Header = React.createClass({
   render: function() {
-    return (<h1>List Your House on Our House!</h1>);
+    return (<h1>Edit Your House</h1>);
   }
 });
-
-var TuftsLat = 42.4055218;
-var TuftsLng = -71.12003240000001;
 
 var AptForm = React.createClass ({
   
@@ -14,21 +11,19 @@ var AptForm = React.createClass ({
       landlordFName:'',
       landlordLName:'',
       landlordEmail:'',
-      address1:'',
-      address2:'',
-      city:'Medford',
-      state:'MA',
-      country:'USA',
-      zip:'',
-      rent:'',
-      utilities:'true',
-      bedrooms:'1',
-      parking:'true',
-      pets:'true',
-      laundry:'true',
-      latitude:'',
-      longitude:'', 
-      disttocc:''};
+      address1:house.Address1,
+      address2:house.address2,
+      city:house.City,
+      state:house.State,
+      country:house.Country,
+      zip:house.Zipcode,
+      rent:house.Rent,
+      utilities:house.UtilitiesIncluded,
+      bedrooms:house.Rooms,
+      parking:house.ParkingSpots,
+      pets:house.Pets,
+      laundry:house.Laundry
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

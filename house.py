@@ -27,6 +27,7 @@ import serializeDecimalObject
 
 @house_page.route("/houses", methods=['GET'])
 def houses():
+    # return render_template('houses.html')
     if 'username' in session:
         houses = House.query.all()
         allHouses = [h.as_dict() for h in houses]
@@ -95,11 +96,19 @@ def newhome():
             return render_template('newhome.html')
         else:
             return redirect(url_for('auth_page.index'))
-@house_page.route("/house_profile/edit/<arg1>", methods=['GET', 'PUT'])
+@house_page.route("/house_profile_edit/<arg1>", methods=['GET', 'PUT'])
 def editHouse(arg1):
     if 'username' in session:
         if request.method == 'GET':
-            print "HERE"
+            house = House.query.filter_by(Id=arg1).all()
+            singleHouse = [h.as_dict() for h in house]
+            sHouse = singleHouse[0]
+            jsonHouse = json.dumps(singleHouse, default=serializeDecimalObject.defaultencode)
+            landlordID = sHouse['LandlordId']
+            landlord = Landlord.query.filter_by(Id=landlordID).all()
+            singleLandlord = [l.as_dict_JSON() for l in landlord]
+            jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
+            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord)
         elif request.method == 'PUT':
             print "PUT"
     else:

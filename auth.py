@@ -29,17 +29,17 @@ def index():
         #if they are already logged in/haven't logged out
         if 'username' in session:
             return jsonify([{'status':200}])
-        
-        Email = request.form['email']
-        #Will use firebase for authentication so not checking passwords here
-        someStudent = Student.query.filter_by(Email=Email).first()
-        someLandlord = Landlord.query.filter_by(Email=Email).first()
-        if (someStudent == None and someLandlord == None) or Email == '':
-            return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
-        
-        session['username'] = Email
-        #maybe also set an expiration time
-        return jsonify([{'status':200}])
+        else:
+            Email = request.form['email']
+            #Will use firebase for authentication so not checking passwords here
+            someStudent = Student.query.filter_by(Email=Email).first()
+            someLandlord = Landlord.query.filter_by(Email=Email).first()
+            if (someStudent == None and someLandlord == None) or Email == '':
+                return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
+            else:
+                session['username'] = Email
+                #maybe also set an expiration time
+                return jsonify([{'status':200}])
     else:
         if 'username' in session:
             return redirect(url_for('house_page.houses'))
