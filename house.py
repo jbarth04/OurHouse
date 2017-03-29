@@ -110,6 +110,26 @@ def editHouse(arg1):
             jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
             return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord)
         elif request.method == 'PUT':
-            print "PUT"
+            HouseId = request.form['houseId']
+            newRooms = int(request.form['bedrooms'])
+            newParkingSpots = int(request.form['parking'])
+            newMonthlyRent = int(request.form['rent'])
+            newUtilitiesIncluded = True if request.form['utilities'] == 'true' else False
+            newLaundry = True if request.form['laundry'] == 'true' else False
+            newPets = True if request.form['pets'] == 'true' else False
+            house = House.query.filter_by(Id=HouseId).first()
+            #May want better logic about what to change -- does it make a difference?
+            house.Rooms = newRooms
+            house.ParkingSpots = newParkingSpots
+            house.MonthlyRent = newMonthlyRent
+            house.UtilitiesIncluded = newUtilitiesIncluded
+            house.Laundry = newLaundry
+            house.Pets = newPets
+            try:
+                db.session.commit()
+            except exc.IntegrityError:
+                return jsonify([{'status':400, 'message':'Uh OH!!!!'}])
+            return jsonify([{'status':200}])
+
     else:
         return redirect(url_for('auth_page.index'))
