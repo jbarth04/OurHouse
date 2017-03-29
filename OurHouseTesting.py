@@ -25,7 +25,7 @@ class OurHouseTestCase(unittest.TestCase):
 		return self.app.post(('/'), data=dict(email=email), follow_redirects=True)
 
     def test_empty_db(self):
-    	print "EMPTY"
+    	# print "EMPTY"
     	with app.app_context():
     		houses = House.query.all()
     		landlords = Landlord.query.all()
@@ -37,7 +37,7 @@ class OurHouseTestCase(unittest.TestCase):
 	    	self.assertEquals(reviews, [])
 
     def test_add_student(self):
-    	print "ADD STUDENT"
+    	# print "ADD STUDENT"
     	with app.app_context():
 	    	FirstName = "Bob"
 	    	LastName = "Job"
@@ -50,7 +50,7 @@ class OurHouseTestCase(unittest.TestCase):
 	    	student_dict = student.as_dict()
 	    	self.assertEquals(student_dict['Email'], Email)
 	def test_add_landlord(self):
-		print "ADD LANDLORD"
+		# print "ADD LANDLORD"
 		with app.app_context():
 			FirstName = "Frank"
 			LastName = "Tank"
