@@ -52,11 +52,28 @@ Note2: This project followed the practices outlined in the following tutorial -
 
 10. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
 
-11. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+11a. If you intend on exploiting upload photos functionality, then you will need to create an Amazon Web Services (AWS) S3 bucket and add export S3_ACCESS_KEY and S3_SECRET_KEY to your environment:
+
+    $ export S3_ACCESS_KEY="your_access_key_here" (e.g. "ABCDEFG12345")
+
+    $ export S3_SECRET_KEY="your_access_key_here" (e.g. "ABCDEFG12345")
+
+    See the following link for more information on accessing these keys:
+
+    https://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/
+
+11b. If you don't intend uploading photos, then simply export dummy environment variables:
+
+    $ export S3_ACCESS_KEY=""
+
+    $ export S3_SECRET_KEY=""
+
+12. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
 appdirs==1.4.0 <br />
+boto==2.46.1 <br />
 click==6.7 <br />
 Flask==0.12 <br />
 Flask-Migrate==2.0.3 <br />

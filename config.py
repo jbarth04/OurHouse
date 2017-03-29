@@ -3,6 +3,9 @@
 
 # $ export APP_SETTINGS="config.DevelopmentConfig"
 # $ export DATABASE_URL="postgresql://yourUsername:yourPassword@localhost/yourDB"
+# $ export SESSIONS_KEY=""
+# $ export S3_ACCESS_KEY="ABCDEFG12345"
+# $ export S3_SECRET_KEY="ABCDEFG12345"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -12,14 +15,18 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
+
+    # Database configuration
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
-    S3_LOCATION = 'http://your-amazon-site.amazonaws.com/'
-    S3_KEY = 'YOURAMAZONKEY'
-    S3_SECRET = 'YOURAMAZONSECRET'
-    S3_UPLOAD_DIRECTORY = 'what_directory_on_s3'
-    S3_BUCKET = 's3_bucket_name'
-
+    # S3 bucket configuration - for static content
+    STORE_PROVIDER = 'flask_store.providers.s3.S3Provider'
+    STORE_DOMAIN = 'http://ourhouse-s2017.amazonaws.com/'
+    STORE_S3_REGION = 'us-west-2'
+    STORE_S3_BUCKET = 'ourhouse-s2017'
+    STORE_S3_ACCESS_KEY = os.environ['S3_ACCESS_KEY']
+    STORE_S3_SECRET_KEY = os.environ['S3_SECRET_KEY']
+    # STORE_PATH = '/some/place/in/bucket'
 
 class ProductionConfig(Config):
     DEBUG = False
