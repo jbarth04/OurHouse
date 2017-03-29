@@ -21,12 +21,12 @@ class Config(object):
 
     # S3 bucket configuration - for static content
     STORE_PROVIDER = 'flask_store.providers.s3.S3Provider'
-    STORE_DOMAIN = 'http://ourhouse-s2017.amazonaws.com/'
+    STORE_DOMAIN = 'http://s3-us-west-2.amazonaws.com/ourhouse-s2017/'
     STORE_S3_REGION = 'us-west-2'
     STORE_S3_BUCKET = 'ourhouse-s2017'
     STORE_S3_ACCESS_KEY = os.environ['S3_ACCESS_KEY']
     STORE_S3_SECRET_KEY = os.environ['S3_SECRET_KEY']
-    # STORE_PATH = '/some/place/in/bucket'
+    # STORE_PATH = ''
 
 class ProductionConfig(Config):
     DEBUG = False
