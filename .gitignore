@@ -7,3 +7,4 @@ migrations_w_schema
 secrets.py
 .env
 test.txt
+tests.py
