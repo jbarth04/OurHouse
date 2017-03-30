@@ -52,4 +52,5 @@ def logout():
     session.pop('username', None)
 
     # changed  from just 'index', which raised an error when refactoring to blueprints
+    print 'in logout'
     return redirect(url_for('auth_page.index'))

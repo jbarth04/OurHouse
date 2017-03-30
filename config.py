@@ -6,6 +6,7 @@
 # $ export SESSIONS_KEY=""
 # $ export S3_ACCESS_KEY="ABCDEFG12345"
 # $ export S3_SECRET_KEY="ABCDEFG12345"
+# $ export CDN_DOMAIN="abcde12345.cloudfront.net"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -27,6 +28,9 @@ class Config(object):
     STORE_S3_ACCESS_KEY = os.environ['S3_ACCESS_KEY']
     STORE_S3_SECRET_KEY = os.environ['S3_SECRET_KEY']
     # STORE_PATH = ''
+
+    # Amazon cloud storage
+    CDN_DOMAIN = os.environ['CDN_DOMAIN']
 
 class ProductionConfig(Config):
     DEBUG = False

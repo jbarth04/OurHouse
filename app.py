@@ -35,6 +35,12 @@ db.init_app(app)
 #     provider.save()
 #     return provider.absolute_url
 
+############ Do the configuration for the CDN Amazon Cloud Storage #############
+from flask_cdn import CDN
+
+cdn = CDN()
+cdn.init_app(app)
+
 ###################### Import Blueprints #############################
 
 import serializeDecimalObject
@@ -53,6 +59,11 @@ app.register_blueprint(house.house_page)
 # app.register_blueprint(tests.tests_page)
 
 ###################### Run the app #############################
+
+# @app.after_request
+# def add_header(response):
+#     response.cache_control.max_age = 300
+#     return response
 
 if __name__ == "__main__":
     app.run()

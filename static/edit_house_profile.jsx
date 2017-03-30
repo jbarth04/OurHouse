@@ -48,6 +48,9 @@ var AptForm = React.createClass ({
         type: 'PUT',
         url: put_url,
         data: data,
+        headers: {
+            'Cache-Control': 'max-age=1000' 
+        },
         success: function(result) {
           if(result[0].status == 200){
             window.location.href = "/houses";
