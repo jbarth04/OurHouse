@@ -32,6 +32,15 @@ class Config(object):
     # Amazon cloud storage
     CDN_DOMAIN = os.environ['CDN_DOMAIN']
 
+    COMPRESS_MIMETYPES = [
+                            'text/html',
+                            'text/css',
+                            'text/xml',
+                            'text/jsx',
+                            'application/json',
+                            'application/javascript'
+                         ]
+
 class ProductionConfig(Config):
     DEBUG = False
     SECRET_KEY = os.environ['SESSIONS_KEY']

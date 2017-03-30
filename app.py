@@ -41,6 +41,12 @@ from flask_cdn import CDN
 cdn = CDN()
 cdn.init_app(app)
 
+########## Do the configuration for Flask-Compress, works with gzip ###########
+from flask_compress import Compress
+
+compress = Compress()
+compress.init_app(app)
+
 ###################### Import Blueprints #############################
 
 import serializeDecimalObject

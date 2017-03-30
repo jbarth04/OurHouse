@@ -89,6 +89,7 @@ boto==2.46.1 <br />
 click==6.7 <br />
 Flask==0.12 <br />
 Flask-CDN==1.5.3 <br />
+Flask-Compress==1.4.0 <br />
 Flask-Migrate==2.0.3 <br />
 Flask-Script==2.0.5 <br />
 flask-sqlacodegen==1.1.6.1 <br />
