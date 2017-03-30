@@ -30,9 +30,27 @@ from app import mc
 @house_page.route("/houses", methods=['GET'])
 def houses():
     if 'username' in session:
-        houses = House.query.all()
-        allHouses = [h.as_dict() for h in houses]
-        jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
+        if mc.get("Houses") == True:
+            print "GRABBING FROM CACHE"
+            HouseIds = mc.get("AllIds")
+            allHouses = []
+            print HouseIds
+            for hId in HouseIds:
+                allHouses.append(mc.get(str(hId)))
+            jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
+        elif mc.get("Houses") == None:
+            print "ABOUT TO CACHE"
+            houses = House.query.all()
+            allHouses = [h.as_dict() for h in houses]
+            allIds = []
+            for h in allHouses:
+                #caching all the houses from the DB
+                print h['Id']
+                mc.set(str(h['Id']), h)
+                allIds.append(h['Id'])
+            mc.set("AllIds", allIds)
+            mc.set("Houses", True)
+            jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
         return render_template('houses.html', rhouses=jsonHouses)
     else:
         return redirect(url_for('auth_page.index'))
