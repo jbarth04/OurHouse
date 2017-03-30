@@ -60,10 +60,10 @@ app.register_blueprint(house.house_page)
 
 ###################### Run the app #############################
 
-# @app.after_request
-# def add_header(response):
-#     response.cache_control.max_age = 300
-#     return response
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 300
+    return response
 
 if __name__ == "__main__":
     app.run()
