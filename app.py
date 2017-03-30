@@ -56,6 +56,10 @@ app.register_blueprint(house.house_page)
 # import tests
 # app.register_blueprint(tests.tests_page)
 
+
+import pylibmc
+mc = pylibmc.Client(["127.0.0.1"], binary=True, behaviors={"tcp_nodelay":True,
+	"ketama":True})
 ###################### Run the app #############################
 
 if __name__ == "__main__":

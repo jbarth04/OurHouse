@@ -25,9 +25,10 @@ import json
 
 import serializeDecimalObject
 
+from app import mc
+
 @house_page.route("/houses", methods=['GET'])
 def houses():
-    # return render_template('houses.html')
     if 'username' in session:
         houses = House.query.all()
         allHouses = [h.as_dict() for h in houses]
