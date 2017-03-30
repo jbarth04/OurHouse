@@ -61,6 +61,8 @@ class House(db.Model):
         self.Latitude = Latitude
         self.Longitude = Longitude
         self.DistFromCC = DistFromCC
+        self.DateAvailable = DateAvailable
+        self.LeaseTerm = LeaseTerm 
 
     def as_dict(self):
         house = __builtin__.dict(
@@ -79,7 +81,10 @@ class House(db.Model):
             Pets = self.Pets,
             Latitude = self.Latitude,
             Longitude = self.Longitude,
-            DistFromCC = self.DistFromCC)
+            DistFromCC = self.DistFromCC,
+            DateAvailable = self.DateAvailable, 
+            LeaseTerm = self.LeaseTerm)
+
         return house
 
 class Landlord(db.Model):

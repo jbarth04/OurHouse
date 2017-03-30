@@ -10,7 +10,7 @@ var NavBar = React.createClass({
                 <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
+                            <img className="navbar-brand navbar-logo" src={"static/images/logo1.png"}></img>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav">
