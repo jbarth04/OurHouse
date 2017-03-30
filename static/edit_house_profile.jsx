@@ -38,9 +38,7 @@ var AptForm = React.createClass ({
   },
 
   handleSubmit: function(event) {
-    console.log("SUBMIT");
     houseid = house.Id;
-    console.log(houseid);
     put_url = /house_profile_edit/+houseid;
     data = this.state;
     data.houseId = houseid;
