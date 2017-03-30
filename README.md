@@ -68,7 +68,19 @@ Note2: This project followed the practices outlined in the following tutorial -
 
     $ export S3_SECRET_KEY=""
 
-12. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+12a. If you intend on using Amazon Web Services Content Delivery Network, you must go to AWS and create a CloudFront distribution, and export CDN_DOMAIN to your environment:
+
+    $ export CDN_DOMAIN="abcde12345.cloudfront.net"
+
+    See the following link for more information on creating an AWS CDN:
+
+    https://devcenter.heroku.com/articles/using-amazon-cloudfront-cdn
+
+12b. If you don't intend on using a CDN, then simply export dummy a environment variable:
+
+    $ export CDN_DOMAIN=""
+
+13. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
