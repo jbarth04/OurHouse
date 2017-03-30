@@ -27,6 +27,7 @@ import serializeDecimalObject
 
 @house_page.route("/houses", methods=['GET'])
 def houses():
+    # return render_template('houses.html')
     if 'username' in session:
         houses = House.query.all()
         allHouses = [h.as_dict() for h in houses]
@@ -56,6 +57,7 @@ def viewhouse(arg1):
 
 @house_page.route("/newhome", methods=['GET', 'POST'])
 def newhome():
+    #TOODshould there be a sessions check here?? Probably...
     if request.method == 'POST':
         #May not need to format types of input
         LandlordFName = request.form['landlordFName'].encode('ascii', 'ignore')
@@ -83,7 +85,7 @@ def newhome():
         house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
-        #Will need to readjust once unique key is handled 
+        #Will need to read just once unique key is handled 
         try:
             db.session.commit() 
         except exc.IntegrityError:
@@ -94,3 +96,40 @@ def newhome():
             return render_template('newhome.html')
         else:
             return redirect(url_for('auth_page.index'))
+@house_page.route("/house_profile_edit/<arg1>", methods=['GET', 'PUT'])
+def editHouse(arg1):
+    if 'username' in session:
+        if request.method == 'GET':
+            house = House.query.filter_by(Id=arg1).all()
+            singleHouse = [h.as_dict() for h in house]
+            sHouse = singleHouse[0]
+            jsonHouse = json.dumps(singleHouse, default=serializeDecimalObject.defaultencode)
+            landlordID = sHouse['LandlordId']
+            landlord = Landlord.query.filter_by(Id=landlordID).all()
+            singleLandlord = [l.as_dict_JSON() for l in landlord]
+            jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
+            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+        elif request.method == 'PUT':
+            HouseId = request.form['houseId']
+            newRooms = int(request.form['bedrooms'])
+            newParkingSpots = int(request.form['parking'])
+            newMonthlyRent = int(request.form['rent'])
+            newUtilitiesIncluded = True if request.form['utilities'] == 'true' else False
+            newLaundry = True if request.form['laundry'] == 'true' else False
+            newPets = True if request.form['pets'] == 'true' else False
+            house = House.query.filter_by(Id=HouseId).first()
+            #May want better logic about what to change -- does it make a difference?
+            house.Rooms = newRooms
+            house.ParkingSpots = newParkingSpots
+            house.MonthlyRent = newMonthlyRent
+            house.UtilitiesIncluded = newUtilitiesIncluded
+            house.Laundry = newLaundry
+            house.Pets = newPets
+            try:
+                db.session.commit()
+            except exc.IntegrityError:
+                return jsonify([{'status':400, 'message':'Uh OH!!!!'}])
+            return jsonify([{'status':200}])
+
+    else:
+        return redirect(url_for('auth_page.index'))
