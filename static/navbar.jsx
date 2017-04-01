@@ -17,9 +17,14 @@ var NavBar = React.createClass({
                 <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <img className="navbar-brand navbar-logo" src={"./static/images/logo1.png"}></img>
+                            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#OHnavbar">
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>                        
+                            </button>
+                            <img className="navbar-brand navbar-logo OurHouseLogo" src="static/images/logo1.png" alt="logo for OurHouse"></img>
                         </div>
-                        <div id="navbar" className="navbar-collapse collapse">
+                        <div id="OHnavbar" className="collapse navbar-collapse">
                             <ul className="nav navbar-nav">
                                 {left_navbar_links}
                             </ul>
