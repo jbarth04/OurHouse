@@ -65,26 +65,37 @@ div .houseListing{
 }
 #map-campus{
 	background-size: cover;
-	height: 600px;
-	text-align: center;
+	height: 700px;
+	text-align: right;
   	overflow: hidden;
   	margin: 10px;
   	margin-top: 4.5vw;
+  	width: 60vw;
+  	display: inline-block;
+  	float: right;
 }
 .markerLink{
 	text-decoration: none;
 }
 #view-houses{
 	text-align: center;
+	overflow-y: scroll;
+	height: 400px;
 }
 .filter-option{
-	display: inline-block;
 	padding: 0.2vw;
+}
+.filterOptions{
+	text-align: left;
 }
 #filterbar{
 	background-color: #BAD6B9;
 	/*background-color: #00B2BC;*/
 	padding-top: 0.5vw;
+	display: inline-block;
+	width: 30vw;
+	margin-left: 60px;
+	margin-top: 80px;
 }
 .navbar-links{
 	display: inline-block;
@@ -111,14 +122,14 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 .filterOption{
-	display: inline-block;
+	/*display: inline-block;*/
 	/*padding: 0.5vw;*/
 }
 .filterLabel{
-	padding: 0.3vw;
+	/*padding: 0.3vw;*/
 }
 .filter-btn{
-	margin: 0.5vw;
+	margin-bottom: 0.5vw;
 }
 .NoBulletsList{
 	list-style: none;

@@ -110,6 +110,7 @@ var FilterForm = React.createClass({
 	render: function() {
 		return(
 			<div className="filterOptions">
+				Filters: <br/>
 				<div className = "filterOption form-group">
 					<label className="filterLabel">Minimum Rent</label>
 					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
