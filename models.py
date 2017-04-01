@@ -24,7 +24,7 @@ class House(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     LandlordId = db.Column(db.ForeignKey(u'OurHouse.Landlords.Id'), nullable=False, index=True)
     Address1 = db.Column(db.String(120), nullable=False)
     Address2 = db.Column(db.String(120))
@@ -32,7 +32,7 @@ class House(db.Model):
     State = db.Column(db.String(2), nullable=False)
     Zipcode = db.Column(db.String(5), nullable=False)
     Rooms = db.Column(db.Integer, nullable=False)
-    ParkingSpots = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    ParkingSpots = db.Column(db.Integer, nullable=False)
     MonthlyRent = db.Column(db.Integer, nullable=False)
     UtilitiesIncluded = db.Column(db.Boolean, nullable=False)
     Laundry = db.Column(db.Boolean, nullable=False)
@@ -90,7 +90,7 @@ class Landlord(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False)
@@ -132,7 +132,7 @@ class Review(db.Model):
     __tablename__ = 'Reviews'
     __table_args__ = {u'schema': 'OurHouse'}
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
     Stars = db.Column(db.String, nullable=False)
@@ -149,7 +149,7 @@ class Student(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)

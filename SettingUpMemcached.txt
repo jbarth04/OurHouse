@@ -1,0 +1,17 @@
+To do memcached locally:
+
+- If not done so by requirements.txt, you'll need to run 
+$ pip install pylibmc
+
+- If you do not have libmemcached yet, you'll need to run 
+$ brew install libmemcached
+
+- If when you rerun pip install pylibmc you get a clang error with linking to libmemcached, 
+run the following:
+$ brew link libmemcached
+$ export LIBMEMCACHED=/usr/local
+$ pip install pylibmc --install-option="--with-libmemcached=/usr/local/Cellar/libm\u200cemcached/1.0.18/"
+
+(You may only need the last command. Unsure if the previous are needed)
+
+Then you need to start memcached. Info on memcached commands found here: https://mfitzp.io/article/control-memcached-from-the-command-line/
