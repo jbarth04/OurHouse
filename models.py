@@ -185,3 +185,43 @@ class Student(db.Model):
             Email = self.Email,
             Phone = self.Phone)
         return student
+
+class Developer(db.Model):
+    __tablename__ = 'Developers'
+    __table_args__ = (
+        db.UniqueConstraint('Email'),
+        db.Index('ix_Students_Email', 'Email'),
+        {u'schema': 'OurHouse'}
+    )
+
+    Id = db.Column(db.Integer, primary_key=True)
+    ProjectName = db.Column(db.String(50), nullable=False)
+    Email = db.Column(db.String(62), nullable=False, unique=True)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
+    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Email = Email
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone,
+            IsActive = self.IsActive,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return student
+    def as_dict_JSON(self):
+        student = __builtin__.dict(
+            Id = self.Id, 
+            FirstName =  self.FirstName,
+            LastName = self.LastName,
+            Email = self.Email,
+            Phone = self.Phone)
+        return student
