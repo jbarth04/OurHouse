@@ -9,6 +9,10 @@ from sqlalchemy import exc
 
 import os
 
+import hashlib
+import base64 
+import random
+
 # import created database in models.py and import the tables
 from models import db
 from models import Student
@@ -18,10 +22,51 @@ from models import Review
 
 from flask import Blueprint
 
-house_page = Blueprint('house_page', __name__)
+developer_page = Blueprint('developer_page', __name__)
 
 import json
 
 import serializeDecimalObject
 
-@devloper_page.route("/developer", methods=['GET', 'PUT'])
+@developer_page.route("/developer", methods=['GET'])
+def dev_home():
+	return render_template('newhome.html')
+
+@developer_page.route("/houseData", methods=['GET'])
+def get_houses():
+	#check API Key in db
+	#filter on num bedrooms 
+	#return that info in a JSON Object 
+	return jsonify([])
+@developer_page.route("/reviewData", methods=['GET'])
+def get_review():
+	#check API key in db
+	#get house ID from request
+	#get the reviews from there 
+	#return reviews for that house
+	return jsonify([])
+@developer_page.route("/landlordStats", methods=['GET'])
+def get_landlord():
+	#check that API key in db
+	#
+	#
+	return jsonify([])
+@developer_page.route("/generateAPIkey", methods=['GET', 'POST'])
+def generate_key():
+	if request.method == 'POST':
+		projectName = request.form['ProjectName']
+		email = request.form['Email']
+		key = generate_hash_key()
+		#store these in the DB
+		#store the key
+		return jsonify([{'status':201, 'key':key}])
+	elif request.method == 'GET':
+		return render_template('generateKey.html')
+
+def generate_hash_key():
+    """
+    @return: A hashkey for use to authenticate agains the API. 
+    from https://github.com/haukurk/flask-restapi-recipe
+    """
+    return base64.b64encode(hashlib.sha256(str(random.getrandbits(256))).digest(),
+                            random.choice(['rA', 'aZ', 'gQ', 'hH', 'hG', 'aR', 'DD'])).rstrip('==')
