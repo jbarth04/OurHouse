@@ -188,40 +188,34 @@ class Student(db.Model):
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
-    __table_args__ = (
-        db.UniqueConstraint('Email'),
-        db.Index('ix_Students_Email', 'Email'),
-        {u'schema': 'OurHouse'}
-    )
+    __table_args__ = {u'schema': 'OurHouse'}
 
     Id = db.Column(db.Integer, primary_key=True)
     ProjectName = db.Column(db.String(50), nullable=False)
-    Email = db.Column(db.String(62), nullable=False, unique=True)
+    Email = db.Column(db.String(62), nullable=False)
+    Key = db.Column(db.String(128), nullable=False, unique=True)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
 
-    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
-        self.FirstName = FirstName
-        self.LastName = LastName
+    def __init__(self, ProjectName, Email, Key, CreatedAt, UpdatedAt):
+        self.ProjectName = ProjectName
         self.Email = Email
+        self.Key = Key
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
     def as_dict(self):
-        student = __builtin__.dict(
+        dev = __builtin__.dict(
             Id = self.Id, 
-            FirstName =  self.FirstName,
-            LastName = self.LastName,
+            ProjectName =  self.ProjectName,
             Email = self.Email,
-            Phone = self.Phone,
-            IsActive = self.IsActive,
+            Key = self.Key,
             CreatedAt = self.CreatedAt,
             UpdatedAt = self.UpdatedAt)
-        return student
+        return dev
     def as_dict_JSON(self):
-        student = __builtin__.dict(
+        dev = __builtin__.dict(
             Id = self.Id, 
-            FirstName =  self.FirstName,
-            LastName = self.LastName,
+            ProjectName =  self.ProjectName,
             Email = self.Email,
-            Phone = self.Phone)
-        return student
+            Key = self.Key)
+        return dev

@@ -19,6 +19,7 @@ from models import Student
 from models import Landlord
 from models import House
 from models import Review
+from models import Developer
 
 from flask import Blueprint
 
@@ -34,10 +35,19 @@ def dev_home():
 
 @developer_page.route("/houseData", methods=['GET'])
 def get_houses():
-	#check API Key in db
-	#filter on num bedrooms 
+	APIKey = request.form['APIKey']
+	developer = Developer.query.filter_by(Key=APIKey).first()
+	if developer == None:
+		return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
+	FilterBy = request.form['FilterBy']
+	FilterValue = request.form['FilterValue']
+	kwarg = {FilterBy:FilterValue}
+	#number of responses back 
+	houses = House.query.filter_by(**kwargs).all()
 	#return that info in a JSON Object 
-	return jsonify([])
+	allHouses = [h.as_dict() for h in houses]
+	jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
+	return jsonify(jsonHouses)
 @developer_page.route("/reviewData", methods=['GET'])
 def get_review():
 	#check API key in db
@@ -57,8 +67,12 @@ def generate_key():
 		projectName = request.form['ProjectName']
 		email = request.form['Email']
 		key = generate_hash_key()
-		#store these in the DB
-		#store the key
+		developer = Developer(projectName, email, key, datetime.now(), datetime.now())
+		db.session.add(developer)
+		try:
+			db.session.commit()
+		except exc.IntegrityError:
+			return jsonify([{'status':400, 'message':'Error: Unable to generate key for you at this time'}])
 		return jsonify([{'status':201, 'key':key}])
 	elif request.method == 'GET':
 		return render_template('generateKey.html')

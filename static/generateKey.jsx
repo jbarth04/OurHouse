@@ -25,7 +25,8 @@ var KeyForm = React.createClass ({
         data: data,
         success: function(result) {
           if(result[0].status == 201){
-            alert(result[0].key)
+          	message = "Your API Key for OurHouse is : " + result[0].key;
+            alert(message);
           }
           else if (result[0].status == 400){
             alert(result[0].message);

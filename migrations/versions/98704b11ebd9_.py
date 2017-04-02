@@ -22,10 +22,11 @@ def upgrade():
     sa.Column('Id', sa.Integer(), nullable=False),
     sa.Column('ProjectName', sa.String(length=50), nullable=False),
     sa.Column('Email', sa.String(length=62), nullable=False),
+    sa.Column('Key', sa.String(length=128), nullable=False),
     sa.Column('CreatedAt', sa.DateTime(timezone=True), nullable=False),
     sa.Column('UpdatedAt', sa.DateTime(timezone=True), nullable=False),
     sa.PrimaryKeyConstraint('Id'),
-    sa.UniqueConstraint('Email'),
+    sa.UniqueConstraint('Key'),
     schema='OurHouse'
     )
     # ### end Alembic commands ###
