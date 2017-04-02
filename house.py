@@ -90,7 +90,7 @@ def newhome():
             db.session.commit() 
         except exc.IntegrityError:
             return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
-        return jsonify([{'status':200}])
+        return jsonify([{'status':201}])
     else:   
         if 'username' in session:
             return render_template('newhome.html')

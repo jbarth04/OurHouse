@@ -68,7 +68,7 @@ div .houseListing{
 	height: 600px;
 	text-align: center;
   	overflow: hidden;
-  	margin: 10px;
+  	margin: 20px;
   	margin-top: 4.5vw;
 }
 .markerLink{
@@ -90,7 +90,7 @@ div .houseListing{
 	display: inline-block;
 	padding: 0.2vw;
 	text-decoration: none;
-	font-size: 1.1vw;
+	/*font-size: 1.1vw;*/
 	/*font-size: 130%;*/
 }
 .navbar-logo{

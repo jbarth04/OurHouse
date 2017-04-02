@@ -50,7 +50,7 @@ def signup():
             db.session.commit()
         except exc.IntegrityError:
             return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
-        return jsonify([{'status':200}])
+        return jsonify([{'status':201}])
     else:
         return render_template('signup.html')
 
