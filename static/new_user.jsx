@@ -26,7 +26,7 @@ var NewUserForm = React.createClass ({
         url: '/signup',
         data: data,
         success: function(result) {
-          if(result[0].status == 200){
+          if(result[0].status == 201){
             window.location.href = "/";
           }
           else if (result[0].status == 400){

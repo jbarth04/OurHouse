@@ -53,6 +53,9 @@ app.register_blueprint(user.user_page)
 import house
 app.register_blueprint(house.house_page)
 
+import developer
+app.register_blueprint(developer.developer_page)
+
 # import tests
 # app.register_blueprint(tests.tests_page)
 

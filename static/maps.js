@@ -8,7 +8,8 @@ var infowindow = new google.maps.InfoWindow();
 var mapOptions = {
 		zoom: 15,
 		center: MapCenter,
-		mapTypeId: 'roadmap'
+		mapTypeId: 'roadmap',
+		mapTypeControl: false
 };
 var map = new google.maps.Map(document.getElementById('map-campus'),
 							  mapOptions);
