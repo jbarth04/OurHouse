@@ -173,9 +173,9 @@ var Developer = React.createClass ({
             </tbody>
         </table>
         <p>Each query requires that you select a field to filter on, a value for that field, and the number of results you want to see at a time. Let's walk through an example. Let's say you want information for 10 houses in our database that have three bedrooms. Your URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/houseData/&ltYour API Key goes here&gt/&ltFilter By Field&gt=&ltFilter Value&gt/&ltNumber of Responses&gt</code><br /><br />
+        <code>https://ourhouse-stage.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>And a curl command would looke like this:</p>
-        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/houseData/&ltYour API Key goes here&gt/&ltFilter By Field&gt=&ltFilter Value&gt/&ltNumber of Responses&gt</code><br /><br />
+        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>An example URL would look like this:</p>
         <code>https://ourhouse-stage.herokuapp.com/houseData/ABCDEFG1234/Zipcode=02155/3</code>
         <br /><br />
@@ -206,9 +206,9 @@ var Developer = React.createClass ({
           </tbody>
         </table>
         <p>Your URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/reviewData/&ltYour API Key goes here&gt/HouseID=&ltHouse Id&gt/&ltNumber of Responses&gt</code><br /><br />
+        <code>https://ourhouse-stage.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>A curl command would look like this:</p>
-        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/reviewData/&ltYour API Key goes here&gt/HouseID=&ltHouse Id&gt/&ltNumber of Responses&gt</code><br /><br />
+        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>An example URL would look like this:</p>
         <code>https://ourhouse-stage.herokuapp.com/reviewData/ABCDEFG1234/HouseID=3/3</code>
         <br /><br />
@@ -296,9 +296,9 @@ var Developer = React.createClass ({
             </tbody>
           </table>
           <p>Your URL would look like this:</p>
-          <code>https://ourhouse-stage.herokuapp.com/statistics/&ltYour API Key goes here&gt/&ltData Type&gt/&ltFilter By Field&gt=&ltFilter Value&gt</code><br /><br />
+          <code>https://ourhouse-stage.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
           <p>A curl command would look like this:</p>
-          <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/statistics/&ltYour API Key goes here&gt/&ltData Type&gt/&ltFilter By Field&gt=&ltFilter Value&gt</code><br /><br />
+          <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
           <p>An example URL would look like this:</p>
           <code>https://ourhouse-stage.herokuapp.com/statistics/ABCDEFG1234/House/Zipcode=02155</code>
           <br /><br />
