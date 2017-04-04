@@ -55,7 +55,7 @@ class ProductionConfig(Config):
     user = os.environ.get('MEMCACHIER_USERNAME', '')
     passwd = os.environ.get('MEMCACHIER_PASSWORD', '')
 
-    mc = pylibmc.Client(servers, binary=True,
+    CACHE_CONFIG = pylibmc.Client(servers, binary=True,
                     username=user, password=passwd,
                     behaviors={
                       # Faster IO
@@ -87,7 +87,7 @@ class StagingConfig(Config):
     user = os.environ.get('MEMCACHIER_USERNAME', '')
     passwd = os.environ.get('MEMCACHIER_PASSWORD', '')
 
-    mc = pylibmc.Client(servers, binary=True,
+    CACHE_CONFIG = pylibmc.Client(servers, binary=True,
                     username=user, password=passwd,
                     behaviors={
                       # Faster IO
