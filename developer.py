@@ -69,12 +69,11 @@ def get_landlord(APIKey, Type1, FilterBy, FilterValue):
 			houses = House.query.filter_by(**kwargs).all()
 			landlordIds = [h.LandlordId for h in houses]
 			numLandlords = len(set(landlordIds))
-			return jsonify([numLandlords])
+			return jsonify([{"numberLandlords":numLandlords}])
 		if Type1 == "House":
 			houses = House.query.filter_by(**kwargs).all()
 			numHouses = len(houses)
-			print numHouses
-			return jsonify([numHouses])
+			return jsonify([{"numberHouses":numHouses}])
 		
 @developer_page.route("/generateAPIkey", methods=['GET', 'POST'])
 def generate_key():
