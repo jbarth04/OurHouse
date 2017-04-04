@@ -16,7 +16,11 @@ Note2: This project followed the practices outlined in the following tutorial -
 
     (venv) Foo-MacBook-Pro-5:MyFolder Foo$
 
-5. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`.
+5a. In order to install one of the dependencies (pylibmc) to set up caching, you must have libmemached installed.  Run the following command in your terminal.  For troubleshooting and more information, see SettingUpMemcached.txt
+
+    $ brew install libmemcached
+
+5b. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`.
 
 6a. In your project folder, run the following command (see config.py to view different classes of configuration)
 
@@ -52,7 +56,7 @@ Note2: This project followed the practices outlined in the following tutorial -
 
 10. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
 
-11a. If you intend on exploiting upload photos functionality, then you will need to create an Amazon Web Services (AWS) S3 bucket and add export S3_ACCESS_KEY and S3_SECRET_KEY to your environment:
+11a. If you intend on exploiting upload photos functionality, then you will need to create an Amazon Web Services (AWS) S3 bucket and add export S3_ACCESS_KEY and S3_SECRET_KEY to your environment, and you need to change STORE_PROVIDER, STORE_DOMAIN, STORE_S3_REGION, and STORE_S3_BUCKET with your own credentials:
 
     $ export S3_ACCESS_KEY="your_access_key_here" (e.g. "ABCDEFG12345")
 
@@ -80,7 +84,29 @@ Note2: This project followed the practices outlined in the following tutorial -
 
     $ export CDN_DOMAIN=""
 
-13. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+13a. If you intend on deploying to heroku and setting up Memcache, you must configure a MemCachier add-on to your application, and export the following variables.  Note, Memcache is still configured to work locally:
+
+    $ export MEMCACHIER_SERVERS="mc3.dev.ec2.memcachier.com:11211"
+    $ export MEMCACHIER_USERNAME="abcde12345"
+    $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
+
+13b. If you don't intend on deploying to heroku and setting up Memcache, then export dummy variables.  Note, Memcache is still configured to work locally:
+
+    $ export MEMCACHIER_SERVERS=""
+    $ export MEMCACHIER_USERNAME=""
+    $ export MEMCACHIER_PASSWORD=""
+
+14. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+
+15. In your first tab, activate Memcache by running:
+
+    $ memcached -d -m memory -l 127.0.0.1
+
+16. In your second tab, active Postgres by running:
+
+    $ postgres -D /usr/local/var/postgres
+
+17. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
@@ -104,6 +130,7 @@ MarkupSafe==0.23 <br />
 packaging==16.8 <br />
 psycopg2==2.6.2 <br />
 pyparsing==2.1.10 <br />
+pylibmc==1.5.2 <br />
 python-editor==1.0.3 <br />
 python-firebase==1.2 <br />
 requests==2.13.0 <br />

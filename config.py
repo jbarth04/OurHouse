@@ -7,11 +7,14 @@
 # $ export S3_ACCESS_KEY="ABCDEFG12345"
 # $ export S3_SECRET_KEY="ABCDEFG12345"
 # $ export CDN_DOMAIN="abcde12345.cloudfront.net"
-# $ export FIREBASE_SECRET="abcde12345"
-# $ export FIREBASE_DOMAIN="https://your_storage.firebaseio.com"
+# $ export MEMCACHIER_SERVERS="mc3.dev.ec2.memcachier.com:11211"
+# $ export MEMCACHIER_USERNAME="abcde12345"
+# $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+import pylibmc # for caching
 
 
 class Config(object):
@@ -44,13 +47,35 @@ class Config(object):
                             'application/javascript'
                          ]
 
-    #Firebase Authentication
-    FIREBASE_SECRET = os.environ['FIREBASE_SECRET']
-    FIREBASE_DOMAIN = os.environ['FIREBASE_DOMAIN']
-
 class ProductionConfig(Config):
     DEBUG = False
     SECRET_KEY = os.environ['SESSIONS_KEY']
+
+    servers = os.environ.get('MEMCACHIER_SERVERS', '').split(',')
+    user = os.environ.get('MEMCACHIER_USERNAME', '')
+    passwd = os.environ.get('MEMCACHIER_PASSWORD', '')
+
+    mc = pylibmc.Client(servers, binary=True,
+                    username=user, password=passwd,
+                    behaviors={
+                      # Faster IO
+                      "tcp_nodelay": True,
+
+                      # Keep connection alive
+                      'tcp_keepalive': True,
+
+                      # Timeout for set/get requests
+                      'connect_timeout': 2000, # ms
+                      'send_timeout': 750 * 1000, # us
+                      'receive_timeout': 750 * 1000, # us
+                      '_poll_timeout': 2000, # ms
+
+                      # Better failover
+                      'ketama': True,
+                      'remove_failed': 1,
+                      'retry_timeout': 2,
+                      'dead_timeout': 30,
+                    })
 
 
 class StagingConfig(Config):
@@ -58,13 +83,82 @@ class StagingConfig(Config):
     DEBUG = True
     SECRET_KEY = os.environ['SESSIONS_KEY']
 
+    servers = os.environ.get('MEMCACHIER_SERVERS', '').split(',')
+    user = os.environ.get('MEMCACHIER_USERNAME', '')
+    passwd = os.environ.get('MEMCACHIER_PASSWORD', '')
+
+    mc = pylibmc.Client(servers, binary=True,
+                    username=user, password=passwd,
+                    behaviors={
+                      # Faster IO
+                      "tcp_nodelay": True,
+
+                      # Keep connection alive
+                      'tcp_keepalive': True,
+
+                      # Timeout for set/get requests
+                      'connect_timeout': 2000, # ms
+                      'send_timeout': 750 * 1000, # us
+                      'receive_timeout': 750 * 1000, # us
+                      '_poll_timeout': 2000, # ms
+
+                      # Better failover
+                      'ketama': True,
+                      'remove_failed': 1,
+                      'retry_timeout': 2,
+                      'dead_timeout': 30,
+                    })
+
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
     SECRET_KEY = '\x9f\x04\xb4\x8a\x14\xb9\xd5Pn\xa0\xb4\xfe\xc3\xfdi\xfdn\xe28{\xd5\xc7\xcb\xde'
 
+    CACHE_CONFIG = pylibmc.Client(["127.0.0.1"], binary=True, 
+                                    behaviors={
+                                      # Faster IO
+                                      "tcp_nodelay": True,
+
+                                      # Keep connection alive
+                                      'tcp_keepalive': True,
+
+                                      # Timeout for set/get requests
+                                      'connect_timeout': 2000, # ms
+                                      'send_timeout': 750 * 1000, # us
+                                      'receive_timeout': 750 * 1000, # us
+                                      '_poll_timeout': 2000, # ms
+
+                                      # Better failover
+                                      'ketama': True,
+                                      'remove_failed': 1,
+                                      'retry_timeout': 2,
+                                      'dead_timeout': 30,
+                                    })
+
 
 class TestingConfig(Config):
     TESTING = True
     SECRET_KEY = '\x9f\x04\xb4\x8a\x14\xb9\xd5Pn\xa0\xb4\xfe\xc3\xfdi\xfdn\xe28{\xd5\xc7\xcb\xde'
+
+    CACHE_CONFIG = pylibmc.Client(["127.0.0.1"], binary=True, 
+                                    behaviors={
+                                      # Faster IO
+                                      "tcp_nodelay": True,
+
+                                      # Keep connection alive
+                                      'tcp_keepalive': True,
+
+                                      # Timeout for set/get requests
+                                      'connect_timeout': 2000, # ms
+                                      'send_timeout': 750 * 1000, # us
+                                      'receive_timeout': 750 * 1000, # us
+                                      '_poll_timeout': 2000, # ms
+
+                                      # Better failover
+                                      'ketama': True,
+                                      'remove_failed': 1,
+                                      'retry_timeout': 2,
+                                      'dead_timeout': 30,
+                                    })
+

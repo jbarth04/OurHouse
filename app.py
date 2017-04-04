@@ -47,6 +47,10 @@ from flask_compress import Compress
 compress = Compress()
 compress.init_app(app)
 
+########## Do the configuration Memcache ###########
+import pylibmc
+mc = app.config['CACHE_CONFIG']
+
 ###################### Import Blueprints #############################
 
 import serializeDecimalObject
@@ -61,8 +65,8 @@ app.register_blueprint(user.user_page)
 import house
 app.register_blueprint(house.house_page)
 
-# import tests
-# app.register_blueprint(tests.tests_page)
+# import developer
+# app.register_blueprint(developer.developer_page)
 
 ###################### Run the app #############################
 

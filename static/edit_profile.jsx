@@ -19,7 +19,6 @@ var EditUserForm = React.createClass ({
     },
     handleSubmit: function(event){
       data = this.state;
-      console.log("CHANGING");
       $.ajax({
         type: 'PUT',
         url: '/profile_edit',
