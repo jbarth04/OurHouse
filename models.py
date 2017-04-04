@@ -45,7 +45,7 @@ class House(db.Model):
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
-    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC):
+    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm):
         self.LandlordId = LandlordId
         self.Address1 = Address1
         self.Address2 = Address2
@@ -61,6 +61,8 @@ class House(db.Model):
         self.Latitude = Latitude
         self.Longitude = Longitude
         self.DistFromCC = DistFromCC
+        self.DateAvailable = DateAvailable
+        self.LeaseTerm = LeaseTerm 
 
     def as_dict(self):
         house = __builtin__.dict(
@@ -79,7 +81,10 @@ class House(db.Model):
             Pets = self.Pets,
             Latitude = self.Latitude,
             Longitude = self.Longitude,
-            DistFromCC = self.DistFromCC)
+            DistFromCC = self.DistFromCC,
+            DateAvailable = str(self.DateAvailable), 
+            LeaseTerm = self.LeaseTerm)
+
         return house
 
 class Landlord(db.Model):
@@ -136,7 +141,10 @@ class Review(db.Model):
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
     Stars = db.Column(db.String, nullable=False)
-    Comment = db.Column(db.String(2048))
+    Comment = db.Column(db.String(4096))
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
 
@@ -197,7 +205,11 @@ class Student(db.Model):
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
-    __table_args__ = {u'schema': 'OurHouse'}
+    (
+        db.UniqueConstraint('Key'),
+        db.Index('ix_Developers_Key', 'Key'),
+        {u'schema': 'OurHouse'}
+    )
 
     Id = db.Column(db.Integer, primary_key=True)
     ProjectName = db.Column(db.String(50), nullable=False)
