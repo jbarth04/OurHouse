@@ -139,7 +139,29 @@ class Review(db.Model):
     Comment = db.Column(db.String(2048))
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
-
+    
+    def __init__(self, HouseId, StudentId, Stars, Comment, House, Student):
+        self.HouseId = HouseId
+        self.StudentId = StudentId
+        self.Stars = Stars
+        self.Comment = Comment
+        self.House = House
+        self.Student = Student
+        # self.CreatedAt = CreatedAt
+        # self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        review = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            StudentId = self.StudentId,
+            Stars = self.Stars,
+            Comment = self.Comment,
+            House = self.House,
+            Student = self.Student
+            # CreatedAt = self.CreatedAt,
+            # UpdatedAt = self.UpdatedAt
+            )
+        return review
 
 class Student(db.Model):
     __tablename__ = 'Students'

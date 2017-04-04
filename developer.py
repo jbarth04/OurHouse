@@ -33,23 +33,34 @@ import serializeDecimalObject
 def dev_home():
 	return render_template('newhome.html')
 
-@developer_page.route("/houseData", methods=['GET'])
-def get_houses():
-	APIKey = request.form['APIKey']
-	developer = Developer.query.filter_by(Key=APIKey).first()
-	if developer == None:
-		return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
-	FilterBy = request.form['FilterBy']
-	FilterValue = request.form['FilterValue']
-	kwarg = {FilterBy:FilterValue}
-	#number of responses back 
-	houses = House.query.filter_by(**kwargs).all()
-	#return that info in a JSON Object 
-	allHouses = [h.as_dict() for h in houses]
-	jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
-	return jsonify(jsonHouses)
-@developer_page.route("/reviewData", methods=['GET'])
-def get_review():
+@developer_page.route("/houseData/<APIKey>/<FilterBy>=<FilterValue>/<NumResponses>", methods=['GET'])
+def get_houses(APIKey, FilterBy, FilterValue, NumResponses):
+	if request.method == 'GET':
+		developer = Developer.query.filter_by(Key=APIKey).first()
+		if developer == None:
+			return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
+		kwargs = {FilterBy:FilterValue}
+		houses = House.query.filter_by(**kwargs).limit(NumResponses).all()
+		#return that info in a JSON Object 
+		allHouses = [h.as_dict() for h in houses]
+		jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
+		jsonHouses.replace('\\"',"\"")
+		jsonHouses.replace("u\'","\'")
+		return jsonHouses
+@developer_page.route("/reviewData/<APIKey>/HouseID=<HouseId>/<NumResponses>", methods=['GET'])
+def get_review(HouseId, NumResponses):
+	if request.method ==  'GET':
+		developer = Developer.query.filter_by(Key=APIKey).first()
+		if developer == None:
+			return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
+		# kwargs = {FilterBy:FilterValue}
+		reviews = Review.query.filter_by(HouseId=HouseId).limit(NumResponses).all()
+		#return that info in a JSON Object 
+		allHouses = [h.as_dict() for h in houses]
+		jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
+		jsonHouses.replace('\\"',"\"")
+		jsonHouses.replace("u\'","\'")
+		return jsonHouses
 	#check API key in db
 	#get house ID from request
 	#get the reviews from there 
