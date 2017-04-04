@@ -147,7 +147,36 @@ class Review(db.Model):
 
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
-
+    
+    def __init__(self, HouseId, StudentId, Stars, Comment, CreatedAt, UpdatedAt):
+        self.HouseId = HouseId
+        self.StudentId = StudentId
+        self.Stars = Stars
+        self.Comment = Comment
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        review = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            StudentId = self.StudentId,
+            Stars = self.Stars,
+            Comment = self.Comment,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt
+            )
+        return review
+    def as_dict_JSON(self):
+        review = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            StudentId = self.StudentId,
+            Stars = self.Stars,
+            Comment = self.Comment,
+            CreatedAt = str(self.CreatedAt),
+            UpdatedAt = str(self.UpdatedAt)
+            )
+        return review
 
 class Student(db.Model):
     __tablename__ = 'Students'
