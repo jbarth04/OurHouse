@@ -196,12 +196,16 @@ class Student(db.Model):
 
 # class HousePhoto(db.Model):
 #     __tablename__ = 'HousePhotos'
-#     __table_args__ = {u'schema': 'OurHouse'}
+#     __table_args__ = (
+#         db.UniqueConstraint('RelativePath'),
+#         db.Index('ix_HousePhotos_RelativePath', 'RelativePath'),
+#         {u'schema': 'OurHouse'}
+#     )
 
 #     Id = db.Column(db.Integer, primary_key=True)
 #     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
 #     RelativePath = db.Column(FlaskStoreType())
-#     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
+#     House = db.relationship(u'House', primaryjoin='HousePhoto.HouseId == House.Id', backref=u'housephotos')
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
