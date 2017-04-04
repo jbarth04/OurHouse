@@ -75,12 +75,18 @@ def newhome():
         Latitude = request.form['latitude']
         Longitude = request.form['longitude']
         DistFromCC = request.form['disttocc']
+        DayAvailable = int(request.form['availableday'])
+        MonthAvailable = int(request.form['availablemonth'])
+        YearAvailable = int(request.form['availableyear'])
+        DateAvailable = datetime(YearAvailable, MonthAvailable, DayAvailable, 0, 0)
+        LeaseTerm = int(request.form['leaseterm'])
         #Finding corresponding landlord based on email
         someLandlord = Landlord.query.filter_by(Email=LandlordEmail).first()
         #If no landlord exists by that email
         if someLandlord == None:
             return jsonify([{'status':400, 'message':'Landlord does not match any on file, please check the email.'}]) 
-        house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC)
+        house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm)
+        print house
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
         #Will need to readjust once unique key is handled 

@@ -56,6 +56,8 @@ app.register_blueprint(house.house_page)
 # import tests
 # app.register_blueprint(tests.tests_page)
 
+###################### Mail testing ############################
+
 ###################### Run the app #############################
 
 if __name__ == "__main__":
