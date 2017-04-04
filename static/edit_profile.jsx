@@ -19,11 +19,13 @@ var EditUserForm = React.createClass ({
     },
     handleSubmit: function(event){
       data = this.state;
-      console.log("CHANGING");
       $.ajax({
         type: 'PUT',
         url: '/profile_edit',
         data: data,
+        headers: {
+            'Cache-Control': 'max-age=1000' 
+        },
         success: function(result) {
           if(result[0].status == 200){
             window.location.href = "/houses";

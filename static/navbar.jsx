@@ -14,7 +14,7 @@ var NavBar = React.createClass({
             left_navbar_links = this.generateItems(left_navbar_items);
             right_navbar_links = this.generateItems(right_navbar_items);
             return(
-                <nav className="navbar navbar-default navbar-fixed-top">
+                <nav className="navbar navbar-default navbar-fixed-top transparent">
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#OHnavbar">

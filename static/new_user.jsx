@@ -24,6 +24,9 @@ var NewUserForm = React.createClass ({
       $.ajax({
         type: 'POST',
         url: '/signup',
+        headers: { 
+            'Cache-Control':'max-age:500'
+        },
         data: data,
         success: function(result) {
           if(result[0].status == 201){

@@ -26,7 +26,6 @@ import json
 @auth_page.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #if they are already logged in/haven't logged out
         if 'username' in session:
             return jsonify([{'status':200}])
         else:
@@ -52,4 +51,5 @@ def logout():
     session.pop('username', None)
 
     # changed  from just 'index', which raised an error when refactoring to blueprints
+    print 'in logout'
     return redirect(url_for('auth_page.index'))

@@ -38,16 +38,17 @@ var AptForm = React.createClass ({
   },
 
   handleSubmit: function(event) {
-    console.log("SUBMIT");
     houseid = house.Id;
-    console.log(houseid);
-    put_url = /house_profile_edit/+houseid;
+    put_url = "/house_profile_edit="+houseid;
     data = this.state;
     data.houseId = houseid;
     $.ajax({
         type: 'PUT',
         url: put_url,
         data: data,
+        headers: {
+            'Cache-Control': 'max-age=1000' 
+        },
         success: function(result) {
           if(result[0].status == 200){
             window.location.href = "/houses";

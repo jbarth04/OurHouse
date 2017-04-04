@@ -19,3 +19,10 @@ List of task for OurHouse Project
 ^DONE
 
 7) Add a many-to-many table that saves landlord ratings with LandlordId, StudentId of the rater, and an actual rating
+
+8) Error on parking 0 spots
+
+9) When you add a house, use must do a refresh (both hard and normal) in order to see their new house listing on the house homepage
+
+10) When you login but close the browser tab without logging out, then when you open up our app,
+ you can't log out (even when you do a hard refresh)

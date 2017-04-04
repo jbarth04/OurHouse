@@ -8,27 +8,45 @@ Note2: This project followed the practices outlined in the following tutorial -
 
 1. Clone the repository.
 
-2. We suggest that you set up a virtual environment. To do so, install virtualenv by running `pip install virtualenv` in the root directory of the application. Once virtualenv has been successfully installed, run `virtualenv venv`. 
+2. We suggest that you set up a virtual environment. To do so, install virtualenv by running `pip install virtualenv` in the root directory of the application. Once virtualenv has been successfully installed, run `virtualenv venv`.
 
 3. Ensure that Python 2.7.13 is the version of Python within the virtual environment. 
 
-4. To start up the virtual environment, run `. venv/bin/activate`.
+4. To start up the virtual environment, run `. venv/bin/activate`.  You will need to have your virtual environment running for the entirety of configuring and running this application.  If you see a little (venv) icon next to your user in your terminal, then your virtual environment is running, example:
 
-5. To set up the environment, begin the virtual environment, locate the file requirements.txt, and run `pip install -r requirements.txt`.
+    (venv) Foo-MacBook-Pro-5:MyFolder Foo$
 
-6. In your project folder, run the following command (this is a database config variable)
+5a. In order to install one of the dependencies (pylibmc) to set up caching, you must have libmemached installed.  Run the following command in your terminal.  For troubleshooting and more information, see SettingUpMemcached.txt
+
+    $ brew install libmemcached
+
+5b. To install the necessary dependencies, while your venv is running, locate the file requirements.txt, and run `pip install -r requirements.txt`.
+
+6a. In your project folder, run the following command (see config.py to view different classes of configuration)
 
     $ export APP_SETTINGS="config.DevelopmentConfig"
 
+6b. Even though you are using the DevelopmentConfig class, which has a SESSIONS_KEY set, since ProductionConfig and StagingConfig use an environment variable, Python raises an error if a variable is not set, even if you don't actually use it.  Thus, export a dummy SESSIONS_KEY: 
+
+    $ export SESSIONS_KEY=""
+
 7. You must have PostgreSQL locally on your system (if not, download it, create a user, and create a database)
 
-8. Once you have PostgreSQL setup, run the following commanding (changing anything in caps with your info)
+8a. Once you have PostgreSQL setup, run the following command to set up the environment variable is used for the database configuration. Change anything in caps with your info:
 
     $ export DATABASE_URL="postgresql://YOUR_USERNAME:YOUR_PASSWORD@localhost/YOUR_DB"
 
-    ^ this environment variable is used for the database configuration
+    If your database doesn't require you to create a password, then simply execute:
 
-9. You should see a "migrations" file in your repository, which has scripts to create the database in PostgreSQL according your YOUR_DB variable specified in step 8.  Run the following command to initialize your database.
+    $ export DATABASE_URL="postgresql://YOUR_USERNAME@localhost/YOUR_DB"
+
+8b. To make sure that you have these environment variables set up properly, run 
+
+    $ printenv
+
+    in your terminal.  Note that every time you close your terminal, you will have you export APP_SETTINGS and DATABASE_URL (steps 6 through 8b)
+
+9. You should see a "migrations" file in your repository, which has scripts to create the database in PostgreSQL according your YOUR_DB variable specified in step 8a.  Run the following command to initialize your database.
 
     $ python manage.py db upgrade
 
@@ -38,13 +56,66 @@ Note2: This project followed the practices outlined in the following tutorial -
 
 10. Open PostgreSQL and look for schema 'OurHouse', your tables should be there
 
-11. To start the server locally, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+11a. If you intend on exploiting upload photos functionality, then you will need to create an Amazon Web Services (AWS) S3 bucket and add export S3_ACCESS_KEY and S3_SECRET_KEY to your environment, and you need to change STORE_PROVIDER, STORE_DOMAIN, STORE_S3_REGION, and STORE_S3_BUCKET with your own credentials:
+
+    $ export S3_ACCESS_KEY="your_access_key_here" (e.g. "ABCDEFG12345")
+
+    $ export S3_SECRET_KEY="your_access_key_here" (e.g. "ABCDEFG12345")
+
+    See the following link for more information on accessing these keys:
+
+    https://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/
+
+11b. If you don't intend uploading photos, then simply export dummy environment variables:
+
+    $ export S3_ACCESS_KEY=""
+
+    $ export S3_SECRET_KEY=""
+
+12a. If you intend on using Amazon Web Services Content Delivery Network, you must go to AWS and create a CloudFront distribution, and export CDN_DOMAIN to your environment:
+
+    $ export CDN_DOMAIN="abcde12345.cloudfront.net"
+
+    See the following link for more information on creating an AWS CDN:
+
+    https://devcenter.heroku.com/articles/using-amazon-cloudfront-cdn
+
+12b. If you don't intend on using a CDN, then simply export dummy a environment variable:
+
+    $ export CDN_DOMAIN=""
+
+13a. If you intend on deploying to heroku and setting up Memcache, you must configure a MemCachier add-on to your application, and export the following variables.  Note, Memcache is still configured to work locally:
+
+    $ export MEMCACHIER_SERVERS="mc3.dev.ec2.memcachier.com:11211"
+    $ export MEMCACHIER_USERNAME="abcde12345"
+    $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
+
+13b. If you don't intend on deploying to heroku and setting up Memcache, then export dummy variables.  Note, Memcache is still configured to work locally:
+
+    $ export MEMCACHIER_SERVERS=""
+    $ export MEMCACHIER_USERNAME=""
+    $ export MEMCACHIER_PASSWORD=""
+
+14. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+
+15. In your first tab, activate Memcache by running:
+
+    $ memcached -d -m memory -l 127.0.0.1
+
+16. In your second tab, active Postgres by running:
+
+    $ postgres -D /usr/local/var/postgres
+
+17. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
 appdirs==1.4.0 <br />
+boto==2.46.1 <br />
 click==6.7 <br />
 Flask==0.12 <br />
+Flask-CDN==1.5.3 <br />
+Flask-Compress==1.4.0 <br />
 Flask-Migrate==2.0.3 <br />
 Flask-Script==2.0.5 <br />
 flask-sqlacodegen==1.1.6.1 <br />
@@ -59,6 +130,7 @@ MarkupSafe==0.23 <br />
 packaging==16.8 <br />
 psycopg2==2.6.2 <br />
 pyparsing==2.1.10 <br />
+pylibmc==1.5.2 <br />
 python-editor==1.0.3 <br />
 python-firebase==1.2 <br />
 requests==2.13.0 <br />

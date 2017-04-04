@@ -24,7 +24,7 @@ var Properties = React.createClass({
 			<th>
 				{Address1} 
 				{Address2}
-				<a href = {"/house_profile_edit/"+houseId} className="btn btn-xs btn-default edit-btn">Edit</a>
+				<a href = {"/house_profile_edit="+houseId} className="btn btn-xs btn-default edit-btn">Edit</a>
 			</th>
 			<th>{Status}</th>
 			</tr>);
