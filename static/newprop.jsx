@@ -91,9 +91,12 @@ var AptForm = React.createClass ({
         type: 'POST',
         url: '/newhome',
         data: apartment,
+        headers: {
+            'Cache-Control':'max-age=500'
+        },
         success: function(result) {
           console.log(result);
-          if(result[0].status == 200){
+          if(result[0].status == 201){
             alert('Thank you for uploading your apartment!');
             window.location.href = "/houses";
           }
@@ -244,30 +247,6 @@ var AptForm = React.createClass ({
     </form>
     );
   }
-  //   distanceGeo: function(lat2, lon2){
-
-  //   console.log(lat2);
-  //   Number.prototype.toRad = function() {
-  //       return this * Math.PI / 180;
-  //   }
-
-  //   var lat1 = TuftsLat; 
-  //   var lon1 = TuftsLng; 
-
-  //   var R = 6371; // km 
-  //   var x1 = lat2-lat1;
-  //   var dLat = x1.toRad();  
-  //   var x2 = lon2-lon1;
-  //   var dLon = x2.toRad();  
-  //   var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-  //         Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
-  //         Math.sin(dLon/2) * Math.sin(dLon/2);  
-  //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  //   var d = R * c; 
-  //   d /= 1.60934;
-  //   return(d);
-
-  // }
 });
 
 

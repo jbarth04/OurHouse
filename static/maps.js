@@ -8,7 +8,8 @@ var infowindow = new google.maps.InfoWindow();
 var mapOptions = {
 		zoom: 15,
 		center: MapCenter,
-		mapTypeId: 'roadmap'
+		mapTypeId: 'roadmap',
+		mapTypeControl: false
 };
 var map = new google.maps.Map(document.getElementById('map-campus'),
 							  mapOptions);
@@ -22,7 +23,7 @@ var house;
 for (var i = 0; i < houses.length; i++) {
 	house = new google.maps.LatLng(houses[i].Latitude, houses[i].Longitude);
 	distance = Number((houses[i].DistFromCC).toFixed(3));
-	houseProfileURL = '/house_profile/'+houses[i].Id;
+	houseProfileURL = '/house_profile='+houses[i].Id;
 	infoMessage = "<a class='markerLink' href="+ houseProfileURL + 
 				  "><p>Address: "+ houses[i].Address1 + " " + houses[i].Address2
 				  + " " + houses[i].City + "<br>" + houses[i].State + ", " + 

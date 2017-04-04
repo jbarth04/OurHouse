@@ -22,22 +22,34 @@ db.init_app(app)
 
 ############ Do the configuration for the S3 storage bucket #############
 
-# testing local
-from flask_store import Store
-from flask import request
+# from flask_store import Store
+# from flask import request
 
-store = Store()
+# store = Store()
 
-app.config['STORE_DOMAIN'] = 'http://127.0.0.1:5000'
-app.config['STORE_PATH'] = '/some/path/here/'
+# store.init_app(app)
 
-store.init_app(app)
+# @app.route('/upload', methods=['POST', ])
+# def upload():
+#     provider = store.Provider(request.files.get('afile'))
+#     provider.save()
+#     return provider.absolute_url
 
-@app.route('/upload', methods=['POST', ])
-def upload():
-    provider = store.Provider(request.files.get('afile'))
-    provider.save()
-    return provider.absolute_url
+############ Do the configuration for the CDN Amazon Cloud Storage #############
+from flask_cdn import CDN
+
+cdn = CDN()
+cdn.init_app(app)
+
+########## Do the configuration for Flask-Compress, works with gzip ###########
+from flask_compress import Compress
+
+compress = Compress()
+compress.init_app(app)
+
+########## Do the configuration Memcache ###########
+import pylibmc
+mc = app.config['CACHE_CONFIG']
 
 ###################### Import Blueprints #############################
 
@@ -53,10 +65,15 @@ app.register_blueprint(user.user_page)
 import house
 app.register_blueprint(house.house_page)
 
-# import tests
-# app.register_blueprint(tests.tests_page)
+# import developer
+# app.register_blueprint(developer.developer_page)
 
 ###################### Run the app #############################
+
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 300
+    return response
 
 if __name__ == "__main__":
     app.run()

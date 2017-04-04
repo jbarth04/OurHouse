@@ -15,20 +15,11 @@
       <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
   </head>
   <body>
-    <div id ="navbar"></div>
-    <!-- <div id="HouseHeader"></div> -->
-    <div id="HouseInfo" class="belowcontainer jumbotron"></div>
+    <div id="navbar"></div>
+    <div id="keyForm"></div>
+    <footer class="footer" id="footerbar"></footer>
   </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
-<script type="text/javascript">
-  house_arr = {{ house | safe}};
-  landlord_arr = {{landlord | safe}};
-  house = house_arr[0];
-  landlord = landlord_arr[0];
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
-<script type="text/jsx" src="{{ url_for('static', filename = 'house_profile.jsx') }}"></script>
-<script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+<script type="text/jsx" src="{{ url_for('static', filename = 'generateKey.jsx') }}"></script>

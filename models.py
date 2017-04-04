@@ -7,9 +7,9 @@
 
 # coding: utf-8
 from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, Numeric, String
-from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+from flask_store.sqla import FlaskStoreType
 import __builtin__
 
 # create the database, to be imported later in app.py
@@ -185,3 +185,46 @@ class Student(db.Model):
             Email = self.Email,
             Phone = self.Phone)
         return student
+
+# class HousePhoto(db.Model):
+#     __tablename__ = 'HousePhotos'
+#     __table_args__ = {u'schema': 'OurHouse'}
+
+#     Id = db.Column(db.Integer, primary_key=True)
+#     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
+#     RelativePath = db.Column(FlaskStoreType())
+#     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
+
+class Developer(db.Model):
+    __tablename__ = 'Developers'
+    __table_args__ = {u'schema': 'OurHouse'}
+
+    Id = db.Column(db.Integer, primary_key=True)
+    ProjectName = db.Column(db.String(50), nullable=False)
+    Email = db.Column(db.String(62), nullable=False)
+    Key = db.Column(db.String(128), nullable=False, unique=True)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
+    def __init__(self, ProjectName, Email, Key, CreatedAt, UpdatedAt):
+        self.ProjectName = ProjectName
+        self.Email = Email
+        self.Key = Key
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        dev = __builtin__.dict(
+            Id = self.Id, 
+            ProjectName =  self.ProjectName,
+            Email = self.Email,
+            Key = self.Key,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return dev
+    def as_dict_JSON(self):
+        dev = __builtin__.dict(
+            Id = self.Id, 
+            ProjectName =  self.ProjectName,
+            Email = self.Email,
+            Key = self.Key)
+        return dev

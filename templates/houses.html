@@ -9,28 +9,35 @@
 
       <!-- Optional theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
   </head>
   <body>
     <div id="navbar"></div>
-  	<div id="map-campus" class="container-fluid">
-  		<div id="welcome"></div>
-  	</div>
-  	<div id="filterbar" class="text-center"></div>
-      <div id="view-houses"></div>
+    <div class="container"id="homepage">
+  	        <div id="map-campus" class="container">
+              <div id="welcome"></div>
+  	        </div>
+            <div id="FilterHouses">
+    	          <div id="filterbar" class="container-fluid text-center"></div>
+                <div class="clear"></div>
+                <div id="view-houses" class="container-fluid"></div>
+            </div>
+          </div>
+    <!-- TODO -->
+    <!-- <footer class="footer " id="footerbar"></footer> --> 
   </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyCe1TyZZdi-2EGFlwk7t8153ZsgsK0QIqA"></script>
 <script type="text/javascript">
     houses = {{ rhouses | safe}};
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyCe1TyZZdi-2EGFlwk7t8153ZsgsK0QIqA"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+<!-- <script type="text/jsx" src="{{ url_for('static', filename = 'footer.jsx') }}"></script> -->
 <script type="text/jsx" src="{{ url_for('static', filename = 'viewhouses.jsx') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'maps.js') }}"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
