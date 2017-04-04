@@ -68,6 +68,8 @@ app.register_blueprint(house.house_page)
 # import developer
 # app.register_blueprint(developer.developer_page)
 
+###################### Mail testing ############################
+
 ###################### Run the app #############################
 
 # @app.after_request
