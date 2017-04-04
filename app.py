@@ -65,8 +65,8 @@ app.register_blueprint(user.user_page)
 import house
 app.register_blueprint(house.house_page)
 
-# import developer
-# app.register_blueprint(developer.developer_page)
+import developer
+app.register_blueprint(developer.developer_page)
 
 ###################### Run the app #############################
 
@@ -84,6 +84,7 @@ app.register_blueprint(house.house_page)
 # def add_header(response):
 #     response.cache_control.max_age = 300
 #     return response
+
 
 if __name__ == "__main__":
     app.run()

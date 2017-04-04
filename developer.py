@@ -48,13 +48,14 @@ def get_houses(APIKey, FilterBy, FilterValue, NumResponses):
 @developer_page.route("/reviewData/<APIKey>/HouseID=<HouseId>/<NumResponses>", methods=['GET'])
 def get_review(APIKey, HouseId, NumResponses):
 	if request.method ==  'GET':
+		print "HERE"
 		developer = Developer.query.filter_by(Key=APIKey).first()
 		if developer == None:
 			return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
 		# kwargs = {FilterBy:FilterValue}
 		reviews = Review.query.filter_by(HouseId=HouseId).limit(NumResponses).all()
 		#return that info in a JSON Object 
-		allReviews = [r.as_dict() for r in reviews]
+		allReviews = [r.as_dict_JSON() for r in reviews]
 		jsonReviews = json.dumps(allReviews, default=serializeDecimalObject.defaultencode)
 		return jsonReviews
 
@@ -75,7 +76,7 @@ def get_landlord(APIKey, Type1, FilterBy, FilterValue):
 			numHouses = len(houses)
 			return jsonify([{"numberHouses":numHouses}])
 		
-@developer_page.route("/generateAPIkey", methods=['GET', 'POST'])
+@developer_page.route("/generateAPIkey", methods=['POST'])
 def generate_key():
 	if request.method == 'POST':
 		projectName = request.form['ProjectName']
@@ -88,8 +89,6 @@ def generate_key():
 		except exc.IntegrityError:
 			return jsonify([{'status':400, 'message':'Error: Unable to generate key for you at this time'}])
 		return jsonify([{'status':201, 'key':key}])
-	elif request.method == 'GET':
-		return render_template('generateKey.html')
 
 def generate_hash_key():
     """

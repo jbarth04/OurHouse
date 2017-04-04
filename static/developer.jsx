@@ -213,7 +213,7 @@ var Developer = React.createClass ({
         <code>https://ourhouse-stage.herokuapp.com/reviewData/ABCDEFG1234/HouseID=3/3</code>
         <br /><br />
         <p>And the response to that example request would look like this:</p>
-        <code>WAITING FOR NEW REVIEW TABLE</code>
+        <code>{'[{"Comment": "What an amazing house and landlord! Landlord is responsive to issues about the house. Bit of a walk from campus but great location for scitech/halligan/the gym", "StudentId": 1, "HouseId": 1, "Stars": "5", "UpdatedAt": "2017-04-04 17:31:05.401063-04:00", "Id": 1, "CreatedAt": "2017-04-04 17:31:05.401054-04:00"}]'}</code>
         <h3>Getting statistics about the property in an area</h3>
         <p>We’ve also provided a route that allows you to make structured queries to learn statistics about the properties in a certain area.</p>
         <p>For example, you can query to get the number of houses/landlords in a certain area, the number of houses with certain features, etc.</p>
