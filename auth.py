@@ -22,6 +22,12 @@ auth_page = Blueprint('auth_page', __name__)
 
 import json
 
+########## Do the configuration for firebase to do authentication ###########
+# from firebase import firebase
+# from firebase.firebase import FirebaseApplication, FirebaseAuthentication
+
+# firebase = firebase.FirebaseApplication('https://your_storage.firebaseio.com', None)
+
 # Login route
 @auth_page.route("/", methods=['GET', 'POST'])
 def index():

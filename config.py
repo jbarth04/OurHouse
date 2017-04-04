@@ -7,6 +7,8 @@
 # $ export S3_ACCESS_KEY="ABCDEFG12345"
 # $ export S3_SECRET_KEY="ABCDEFG12345"
 # $ export CDN_DOMAIN="abcde12345.cloudfront.net"
+# $ export FIREBASE_SECRET="abcde12345"
+# $ export FIREBASE_DOMAIN="https://your_storage.firebaseio.com"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -32,6 +34,7 @@ class Config(object):
     # Amazon cloud storage
     CDN_DOMAIN = os.environ['CDN_DOMAIN']
 
+    # For Flask-Compression types
     COMPRESS_MIMETYPES = [
                             'text/html',
                             'text/css',
@@ -40,6 +43,10 @@ class Config(object):
                             'application/json',
                             'application/javascript'
                          ]
+
+    #Firebase Authentication
+    FIREBASE_SECRET = os.environ['FIREBASE_SECRET']
+    FIREBASE_DOMAIN = os.environ['FIREBASE_DOMAIN']
 
 class ProductionConfig(Config):
     DEBUG = False
