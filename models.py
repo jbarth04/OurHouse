@@ -205,6 +205,7 @@ class Student(db.Model):
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
+    __table_args__ =
     (
         db.UniqueConstraint('Key'),
         db.Index('ix_Developers_Key', 'Key'),
