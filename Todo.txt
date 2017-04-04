@@ -8,6 +8,8 @@ List of task for OurHouse Project
 
 3) Add blueprints for modularity
 
+^ DONE
+
 4) Use PostGIS for latitude and longitude columns on PostgreSQL database (not sure)?
 
 5) Add DateAvailable column to 'Houses' table for date when house is next available (e.g. June 1st 2017)
@@ -22,7 +24,13 @@ List of task for OurHouse Project
 
 8) Error on parking 0 spots
 
+^ DONE
+
 9) When you add a house, use must do a refresh (both hard and normal) in order to see their new house listing on the house homepage
 
 10) When you login but close the browser tab without logging out, then when you open up our app,
  you can't log out (even when you do a hard refresh)
+
+11) When logged in as a student, remove "list your house"
+
+12) Need to add DateAvailable and LeaseTerm to edit house profile 
