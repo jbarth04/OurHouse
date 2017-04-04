@@ -136,7 +136,10 @@ class Review(db.Model):
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
     Stars = db.Column(db.String, nullable=False)
-    Comment = db.Column(db.String(2048))
+    Comment = db.Column(db.String(4096))
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
 
@@ -197,7 +200,11 @@ class Student(db.Model):
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
-    __table_args__ = {u'schema': 'OurHouse'}
+    (
+        db.UniqueConstraint('Key'),
+        db.Index('ix_Developers_Key', 'Key'),
+        {u'schema': 'OurHouse'}
+    )
 
     Id = db.Column(db.Integer, primary_key=True)
     ProjectName = db.Column(db.String(50), nullable=False)

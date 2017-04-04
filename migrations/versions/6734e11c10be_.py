@@ -28,6 +28,7 @@ def upgrade():
 
     # Step 3 - add new columns 'DateAvailable' and 'LeaseTerm' to Houses table
     op.add_column('Houses', sa.Column('DateAvailable', sa.Date(), nullable=True), schema='OurHouse')
+    op.add_column('Houses', sa.Column('DateAvailable', sa.Date(), nullable=True), schema='OurHouse')
     op.add_column('Houses', sa.Column('LeaseTerm', sa.SmallInteger(), nullable=True), schema='OurHouse') 
 
 
