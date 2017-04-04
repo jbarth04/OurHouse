@@ -31,7 +31,7 @@ import serializeDecimalObject
 
 @developer_page.route("/developer", methods=['GET'])
 def dev_home():
-	return render_template('newhome.html')
+	return render_template('developer.html')
 
 @developer_page.route("/houseData/<APIKey>/<FilterBy>=<FilterValue>/<NumResponses>", methods=['GET'])
 def get_houses(APIKey, FilterBy, FilterValue, NumResponses):
@@ -44,11 +44,9 @@ def get_houses(APIKey, FilterBy, FilterValue, NumResponses):
 		#return that info in a JSON Object 
 		allHouses = [h.as_dict() for h in houses]
 		jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
-		jsonHouses.replace('\\"',"\"")
-		jsonHouses.replace("u\'","\'")
 		return jsonHouses
 @developer_page.route("/reviewData/<APIKey>/HouseID=<HouseId>/<NumResponses>", methods=['GET'])
-def get_review(HouseId, NumResponses):
+def get_review(APIKey, HouseId, NumResponses):
 	if request.method ==  'GET':
 		developer = Developer.query.filter_by(Key=APIKey).first()
 		if developer == None:
@@ -56,22 +54,28 @@ def get_review(HouseId, NumResponses):
 		# kwargs = {FilterBy:FilterValue}
 		reviews = Review.query.filter_by(HouseId=HouseId).limit(NumResponses).all()
 		#return that info in a JSON Object 
-		allHouses = [h.as_dict() for h in houses]
-		jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
-		jsonHouses.replace('\\"',"\"")
-		jsonHouses.replace("u\'","\'")
-		return jsonHouses
-	#check API key in db
-	#get house ID from request
-	#get the reviews from there 
-	#return reviews for that house
-	return jsonify([])
-@developer_page.route("/landlordStats", methods=['GET'])
-def get_landlord():
-	#check that API key in db
-	#
-	#
-	return jsonify([])
+		allReviews = [r.as_dict() for r in reviews]
+		jsonReviews = json.dumps(allReviews, default=serializeDecimalObject.defaultencode)
+		return jsonReviews
+
+@developer_page.route("/statistics/<APIKey>/<Type1>/<FilterBy>=<FilterValue>", methods=['GET'])
+def get_landlord(APIKey, Type1, FilterBy, FilterValue):
+	if request.method ==  'GET':
+		developer = Developer.query.filter_by(Key=APIKey).first()
+		if developer == None:
+			return jsonify([{'status':400, 'message':"This is either not a valid API key or we just don't like you"}])
+		kwargs = {FilterBy:FilterValue}
+		if Type1 == "Landlord":
+			houses = House.query.filter_by(**kwargs).all()
+			landlordIds = [h.LandlordId for h in houses]
+			numLandlords = len(set(landlordIds))
+			return jsonify([numLandlords])
+		if Type1 == "House":
+			houses = House.query.filter_by(**kwargs).all()
+			numHouses = len(houses)
+			print numHouses
+			return jsonify([numHouses])
+		
 @developer_page.route("/generateAPIkey", methods=['GET', 'POST'])
 def generate_key():
 	if request.method == 'POST':
