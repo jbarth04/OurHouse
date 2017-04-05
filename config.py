@@ -1,5 +1,5 @@
 # Comp120 Web Engineering
-# Run these two commands in your terminal to add necessary environment variables
+# Run these commands in your terminal to add necessary environment variables
 
 # $ export APP_SETTINGS="config.DevelopmentConfig"
 # $ export DATABASE_URL="postgresql://yourUsername:yourPassword@localhost/yourDB"
@@ -7,6 +7,7 @@
 # $ export S3_ACCESS_KEY="ABCDEFG12345"
 # $ export S3_SECRET_KEY="ABCDEFG12345"
 # $ export CDN_DOMAIN="abcde12345.cloudfront.net"
+# $ export IS_CDN_ENABLED="True"
 # $ export MEMCACHIER_SERVERS="mc3.dev.ec2.memcachier.com:11211"
 # $ export MEMCACHIER_USERNAME="abcde12345"
 # $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
@@ -34,8 +35,9 @@ class Config(object):
     STORE_S3_SECRET_KEY = os.environ['S3_SECRET_KEY']
     # STORE_PATH = ''
 
-    # Amazon cloud storage
+    # Amazon cloud storage: Content Delivery Network
     CDN_DOMAIN = os.environ['CDN_DOMAIN']
+    IS_CDN_ENABLED = os.environ['IS_CDN_ENABLED']
 
     # For Flask-Compression types
     COMPRESS_MIMETYPES = [

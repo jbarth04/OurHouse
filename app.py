@@ -38,8 +38,9 @@ db.init_app(app)
 ############ Do the configuration for the CDN Amazon Cloud Storage #############
 from flask_cdn import CDN
 
-cdn = CDN()
-cdn.init_app(app)
+if app.config['IS_CDN_ENABLED'] == 'True':
+    cdn = CDN()
+    cdn.init_app(app)
 
 ########## Do the configuration for Flask-Compress, works with gzip ###########
 from flask_compress import Compress
