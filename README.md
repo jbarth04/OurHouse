@@ -76,6 +76,8 @@ Note2: This project followed the practices outlined in the following tutorial -
 
     $ export CDN_DOMAIN="abcde12345.cloudfront.net"
 
+    $ export IS_CDN_ENABLED="True"
+
     See the following link for more information on creating an AWS CDN:
 
     https://devcenter.heroku.com/articles/using-amazon-cloudfront-cdn
@@ -83,6 +85,8 @@ Note2: This project followed the practices outlined in the following tutorial -
 12b. If you don't intend on using a CDN, then simply export dummy a environment variable:
 
     $ export CDN_DOMAIN=""
+
+    $ export IS_CDN_ENABLED="False"
 
 13a. If you intend on deploying to heroku and setting up Memcache, you must configure a MemCachier add-on to your application, and export the following variables.  Note, Memcache is still configured to work locally:
 
