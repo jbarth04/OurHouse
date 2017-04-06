@@ -11,6 +11,8 @@ var HouseProfile = React.createClass({
 		var distance = Number((this.props.Dist).toFixed(3));
 		info.push(<li>Distance from Campus Center: {distance}</li>);
 		info.push(<li>Number of Bedrooms: {this.props.Rooms}</li>);
+		info.push(<li>Date Available: {this.props.DateAvailable}</li>);
+		info.push(<li>Length of Lease: {this.props.LeaseTerm} months </li>);
 		if(this.props.Parking == 0){
 			info.push(<li>No Parking Available</li>)
 		} else {
@@ -60,5 +62,6 @@ React.render(<HouseProfile
 	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
 	Dist={house.DistFromCC} Rooms={house.Rooms}
 	Rent={house.MonthlyRent} Parking={house.ParkingSpots} 
-	Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets} />, 
+	Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets}
+	DateAvailable={house.DateAvailable} LeaseTerm={house.LeaseTerm} />, 
 	document.getElementById('HouseInfo'));

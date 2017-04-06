@@ -23,6 +23,7 @@ var NavBar = React.createClass({
                                 <span className="icon-bar"></span>                        
                             </button>
                             <img className="navbar-brand navbar-logo OurHouseLogo" src="static/images/logo1.png" alt="logo for OurHouse"></img>
+
                         </div>
                         <div id="OHnavbar" className="collapse navbar-collapse">
                             <ul className="nav navbar-nav">

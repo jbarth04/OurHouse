@@ -8,3 +8,4 @@ secrets.py
 .env
 test.txt
 tests.py
+old_tests.py
