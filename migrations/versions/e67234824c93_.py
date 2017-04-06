@@ -19,6 +19,11 @@ depends_on = None
 def upgrade():
 
     # Step 1: add server defaults to LeaseTerm and DateAvailable columns to 'Houses' table
+
+    op.execute('UPDATE "OurHouse"."Houses" SET "LeaseTerm" = 0 WHERE "LeaseTerm" IS NULL')
+
+    op.execute('UPDATE "OurHouse"."Houses" SET "DateAvailable" = now() WHERE "DateAvailable" IS NULL')
+
     op.alter_column('Houses', 'LeaseTerm',
                      server_default="0", nullable=False, schema='OurHouse')
 
