@@ -1,6 +1,11 @@
+# UNIT TESTS
+
+# You must run the following commands in your terminal in order to have access
+# to these environment variables:
 # $ export APP_SETTINGS="config.DevelopmentConfig"
- # $ export DATABASE_URL="postgresql://username@localhost/OurHouseUnitTest"
- # Exectute: CREATE SCHEMA "OurHouse"
+# $ export DATABASE_URL="postgresql://username@localhost/OurHouseUnitTest"
+# Exectute, in Postgres for your OurHouseUnitTest database: CREATE SCHEMA "OurHouse"
+
 import os
 from app import app, db
 import unittest

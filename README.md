@@ -148,3 +148,25 @@ React 0.13.2 <br />
 JSX 0.13.2 <br />
 Python 2.7.13 <br />
 postgres (PostgreSQL) 9.6.2 <br />
+
+############# Unit Tests ###############
+
+If you're interested in running unit tests on our code, please see OurHouseTesting.py and read the following instructions (these instructions assume you've already installed and setup postgres):
+
+0. Make sure your virtual environment is activated and you've followed steps 1-5 and step 7 in the README instructions above
+
+1. In postgres, create a new database called 'OurHouseUnitTest'
+
+2. Using the postgres command line or on your favorite postgres GUI, execute the following query in your OurHouseUnitTest database:
+
+   CREATE SCHEMA "OurHouse"
+
+3. You must run the following commands in your terminal in order to have access to these environment variables, change anything in caps with your info:
+
+    $ export APP_SETTINGS="config.DevelopmentConfig"
+
+    $ export DATABASE_URL="postgresql://YOUR_USERNAME:YOUR_PASSWORD@localhost/OurHouseUnitTest"
+
+4. In your terminal, run:
+
+    $ python OurHouseTesting.py
