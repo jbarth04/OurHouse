@@ -42,6 +42,9 @@ class House(db.Model):
     DistFromCC = db.Column(db.Float, nullable=False)
     DateAvailable = db.Column(db.Date)
     LeaseTerm = db.Column(db.SmallInteger)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    IsActive = db.Column(db.Boolean, nullable=False)
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
