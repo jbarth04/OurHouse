@@ -27,6 +27,8 @@ import serializeDecimalObject
 def upload_photo():
     if request.method == 'POST':
 
+        # TODO probs need to do sessions stuff here
+
         # Step 1: check if the post request has the file part
         if 'File' not in request.files:
             return jsonify([{'status':400, 'message':'Must attach a file to upload'}])
@@ -50,11 +52,12 @@ def upload_photo():
         provider.save()
         return jsonify([{'status':200, 'AbsoluteURL': provider.absolute_url}])
 
-@photo_page.route('/get_photo=<arg1>', methods=['GET', ])
-def get_photo(arg1):
+@photo_page.route('/get_photos/houseid=<HouseId>', methods=['GET', ])
+def get_photos(HouseId):
 
+    # TODO probs need to do sessions stuff here
 
-    photos = Photo.query.filter_by(HouseId=arg1).all()
+    photos = Photo.query.filter_by(HouseId=HouseId).all()
 
     # TODO, query if there are no photos associated a house
     if photos == None:
