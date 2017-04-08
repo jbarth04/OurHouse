@@ -36,7 +36,8 @@ def upload_photo():
         HouseId = int(request.form['HouseId'])
         RelativePath = request.files.get('File')
 
-        # Step 2: upload relative path to database
+        # Step 2: upload relative path to database, note - Flask automatically
+        #         uploads the image to S3 bucket     
         photo = Photo(HouseId, RelativePath, datetime.now(), datetime.now())
         db.session.add(photo)
 
@@ -46,11 +47,9 @@ def upload_photo():
             mc.delete("AllIds") # flush cache, it's now stale
         except exc.IntegrityError:
             return jsonify([{'status':400, 'message':'This HouseId is not valid'}])
-
-        # Step 3: save image to S3 bucket
-        provider = store.Provider(RelativePath)
-        provider.save()
-        return jsonify([{'status':200, 'AbsoluteURL': provider.absolute_url}])
+        else:
+            # Step 3: Return success status 
+            return jsonify([{'status':200, 'message': 'Your image was successfully saved!'}])
 
 @photo_page.route('/get_photos/houseid=<HouseId>', methods=['GET', ])
 def get_photos(HouseId):
@@ -77,8 +76,8 @@ def get_photos(HouseId):
 
 
 
-# @app.route('/upload', methods=['POST', ])
-# def upload():
-#     provider = store.Provider(request.files.get('afile'))
-#     provider.save()
-#     return provider.absolute_url
+@photo_page.route('/upload', methods=['POST', ])
+def upload():
+    provider = store.Provider(request.files.get('afile'))
+    provider.save()
+    return provider.absolute_url
