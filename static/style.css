@@ -13,7 +13,7 @@ body{
 div .houseListing{
 	height: 300px;
 	width: 300px;
-	background-color: #FFB094;
+	background-color: #E8FEFF;
 	display: inline-block;
 	margin: 1.5vw;
 }
@@ -24,6 +24,8 @@ div .houseListing{
 #homepage{
 	margin:0;
 	padding:0;
+	margin-top: -20px;
+
 }
 #Welcome-Header{
 	text-align: center;

@@ -37,7 +37,6 @@ var KeyForm = React.createClass ({
   },
 
   render: function() {
-    console.log("got called");
     return (
     <form onSubmit={this.handleSubmit} className="newPropForm">
       <p className="newPropLabel">Get API Key</p>
