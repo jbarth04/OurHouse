@@ -31,7 +31,7 @@
   house = house_arr[0];
   landlord = landlord_arr[0];
   user = {{ usertype | safe}};
-  reviews = [];
+  reviews = {{ reviews | safe}};
   // reviews = [{"Comment":"hi", "Stars":"5", "UpdatedAt":"NOW"}];
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>

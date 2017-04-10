@@ -101,15 +101,16 @@ var ReviewForm = React.createClass({
     	console.log(this.state);
     	$.ajax({
     		type: 'POST',
-    		url: '/review',
+    		url: '/reviews',
     		data: data,
     		success: function(result) {
-    			if(result[0].status == 200){
-    				console.log("SUCCESS");
-    				// Review posted!
+    			console.log(result)
+    			if(result.status == 200){
+    				console.log(result);
+    				location.reload();
     			}
-    			else if (result[0].status == 400){
-    				alert(result[0].message);
+    			else if (result.status == 400){
+    				console.log(result.message);
     			}
     		}
     	})

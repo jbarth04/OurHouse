@@ -30,13 +30,22 @@ from app import mc
 @review_page.route("/reviews", methods=['POST'])
 def reviews():
     if 'username' in session and request.method == 'POST':
-        print "GOT A POST"
-        #get student's id from the sessions
         Comment = request.form['Comment']
         Stars = request.form["Stars"]
-        HouseId = request.form["HouseId"]
+        HouseId = request.form["House"]
         StudentEmail = session["username"]
-        return jsonify({"status": 200})
+        student = Student.query.filter_by(Email=StudentEmail).first()
+        house = House.query.filter_by(Id=HouseId).first()
+        if student == None:
+            return jsonify({"status": 404, "message":"User is not a student so unauthorized to write revew."})
+        else:
+            review = Review(house.Id, student.Id, Stars, Comment, datetime.now(), datetime.now())
+            db.session.add(review)
+            try:
+                db.session.commit() 
+            except exc.IntegrityError:
+                return jsonify([{'status':400, 'message':"Opps you can't post that!"}])
+            return jsonify({"status": 200})
     else :
         return jsonify({"status": 404})
         
