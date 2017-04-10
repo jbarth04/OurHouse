@@ -37,6 +37,10 @@ def index():
                 return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
             else:
                 session['username'] = Email
+                if someStudent == None and someLandlord != None:
+                    session['usertype'] = "Landlord"
+                else:
+                    session['usertype'] = "Student"
                 #maybe also set an expiration time
                 return jsonify([{'status':200}])
     else:
@@ -49,7 +53,7 @@ def index():
 @auth_page.route("/logout", methods=['GET'])
 def logout():
     session.pop('username', None)
-
+    session.pop('usertype', None)
     # changed  from just 'index', which raised an error when refactoring to blueprints
     print 'in logout'
     return redirect(url_for('auth_page.index'))

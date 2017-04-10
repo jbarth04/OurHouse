@@ -61,6 +61,9 @@ app.register_blueprint(developer.developer_page)
 import photo
 app.register_blueprint(photo.photo_page)
 
+import review
+app.register_blueprint(review.review_page)
+
 ###################### Run the app #############################
 
 if __name__ == "__main__":

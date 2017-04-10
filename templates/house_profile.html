@@ -18,6 +18,9 @@
     <div id ="navbar"></div>
     <!-- <div id="HouseHeader"></div> -->
     <div id="HouseInfo" class="belowcontainer jumbotron"></div>
+    <div id="HouseReviews" class = "container">    </div>
+    <div id="ReviewForm" class="container"></div>
+
   </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
@@ -27,6 +30,9 @@
   landlord_arr = {{landlord | safe}};
   house = house_arr[0];
   landlord = landlord_arr[0];
+  user = {{ usertype | safe}};
+  reviews = [];
+  // reviews = [{"Comment":"hi", "Stars":"5", "UpdatedAt":"NOW"}];
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'house_profile.jsx') }}"></script>

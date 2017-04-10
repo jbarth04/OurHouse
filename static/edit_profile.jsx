@@ -40,7 +40,7 @@ var EditUserForm = React.createClass ({
 
     render: function(){
       return(
-        <div className="EditProfileForm">
+        <div className="EditProfileForm Form">
           <h2>Edit Profile</h2>
           <p>Email: {this.state.Email}</p>
           <form onSubmit={this.handleSubmit}>
@@ -62,7 +62,7 @@ var EditUserForm = React.createClass ({
                 <input type="text" value={this.state.PhoneNum} onChange={this.handleChange('PhoneNum')} />
               </label> 
             </div>
-            <input type="submit" value="Update" className="btn btn-info"/>
+            <input type="submit" value="Update" className="btn btn-red"/>
           </form>
         </div>
       );

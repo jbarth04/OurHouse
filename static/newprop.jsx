@@ -116,6 +116,7 @@ var AptForm = React.createClass ({
 
   render: function() {
     return (
+      <div className="Form">
     <form onSubmit={this.handleSubmit} className="newPropForm">
       <p className="newPropLabel">Landlord Information</p>
       <div className="newPropFormLabel form-group">
@@ -312,8 +313,9 @@ var AptForm = React.createClass ({
         </label>
       </div>
       <br />
-    <input className="btn btn-primary"type="submit" value="Upload your house!"/>  
+    <input className="btn btn-red"type="submit" value="Upload your house!"/>  
     </form>
+    </div>
     );
   }
 });
