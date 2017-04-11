@@ -57,6 +57,32 @@ app.register_blueprint(house.house_page)
 # app.register_blueprint(tests.tests_page)
 
 ###################### Mail testing ############################
+from flask_mail import Message, Mail
+
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+	MAIL_USERNAME = 'comp120frhj@gmail.com',
+	MAIL_PASSWORD = 'ladyengineering'
+	)
+
+mail = Mail(app)
+
+@app.route('/contactlandlord', methods=['POST']) 
+
+def sendMessage(): 
+		if request.method == 'POST':
+			LandlordEmail = request.form['landlordemail']
+			UserEmail = request.form['useremail']
+			EmailMessage = request.form['message']
+			msg = Message('Someone is interested in your property!', sender=('The OurHouse Team', 
+			'comp120frhj@gmail.com'), recipients=['rachael.robinson95@gmail.com'])
+			msg.body = EmailMessage
+			mail.send(msg)
+			return "Sent"
 
 ###################### Run the app #############################
 
