@@ -29,7 +29,7 @@ var SingleListing = React.createClass({
 	},
 	handleClick: function(){
 		var house = {house_id: this.props.id};
-		window.location.href = "/house_profile/"+this.props.id;
+		window.location.href = "/house_profile="+this.props.id;
 	},
     render: function() {
     	var listing = this.generateListing();
@@ -110,6 +110,7 @@ var FilterForm = React.createClass({
 	render: function() {
 		return(
 			<div className="filterOptions">
+				Filters: <br/>
 				<div className = "filterOption form-group">
 					<label className="filterLabel">Minimum Rent</label>
 					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>

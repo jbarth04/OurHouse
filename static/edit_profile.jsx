@@ -1,12 +1,10 @@
-// frankie = Student('Frankie', 'Robinson', 'frankie.robinson95@gamil.com', 1112223334, True, datetime.now(), datetime.now())
-var NewUserForm = React.createClass ({
+var EditUserForm = React.createClass ({
     getInitialState: function(){
       return{
-        FirstName:'',
-        LastName:'',
-        Email:'',
-        PhoneNum: '',
-        UserType: 'Student',
+        FirstName:user.FirstName,
+        LastName:user.LastName,
+        Email:user.Email,
+        PhoneNum: user.Phone,
         //We will need a way to deal with passwords
       };
       this.handleChange = this.handleChange.bind(this);
@@ -22,15 +20,15 @@ var NewUserForm = React.createClass ({
     handleSubmit: function(event){
       data = this.state;
       $.ajax({
-        type: 'POST',
-        url: '/signup',
-        headers: { 
-            'Cache-Control':'max-age:500'
-        },
+        type: 'PUT',
+        url: '/profile_edit',
         data: data,
+        headers: {
+            'Cache-Control': 'max-age=1000' 
+        },
         success: function(result) {
-          if(result[0].status == 201){
-            window.location.href = "/";
+          if(result[0].status == 200){
+            window.location.href = "/houses";
           }
           else if (result[0].status == 400){
             alert(result[0].message);
@@ -42,8 +40,9 @@ var NewUserForm = React.createClass ({
 
     render: function(){
       return(
-        <div className="LoginForm">
-          <h1>Welcome to Our House</h1>
+        <div className="EditProfileForm">
+          <h2>Edit Profile</h2>
+          <p>Email: {this.state.Email}</p>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label className="loginForm">
@@ -59,29 +58,14 @@ var NewUserForm = React.createClass ({
             </div>
             <div className="form-group">
               <label className="loginForm">
-                Email: <br />
-                <input type="text" value={this.state.Email} onChange={this.handleChange('Email')} />
-              </label>
-            </div>
-            <div className="form-group">
-              <label className="loginForm">
                 Phone Number: <br />
                 <input type="text" value={this.state.PhoneNum} onChange={this.handleChange('PhoneNum')} />
               </label> 
             </div>
-            <div className="form-group">
-              <label className="loginForm">
-                Select One: <br />
-                <select id="UserType" value={this.state.Type} onChange={this.handleChange('UserType')}>
-                  <option value="Student">Student</option>
-                  <option value="Landlord">Landlord</option>
-                </select>
-              </label>
-            </div>
-            <input type="submit" value="Submit" className="btn btn-info"/>
+            <input type="submit" value="Update" className="btn btn-info"/>
           </form>
         </div>
       );
     }
 });
-React.render(<NewUserForm />, document.getElementById('Signup-Header'));
+React.render(<EditUserForm />, document.getElementById('EditUserForm'));

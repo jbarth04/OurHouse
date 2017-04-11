@@ -7,9 +7,9 @@
 
 # coding: utf-8
 from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, Numeric, String
-from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
+from flask_store.sqla import FlaskStoreType
 import __builtin__
 
 # create the database, to be imported later in app.py
@@ -24,7 +24,7 @@ class House(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     LandlordId = db.Column(db.ForeignKey(u'OurHouse.Landlords.Id'), nullable=False, index=True)
     Address1 = db.Column(db.String(120), nullable=False)
     Address2 = db.Column(db.String(120))
@@ -32,7 +32,7 @@ class House(db.Model):
     State = db.Column(db.String(2), nullable=False)
     Zipcode = db.Column(db.String(5), nullable=False)
     Rooms = db.Column(db.Integer, nullable=False)
-    ParkingSpots = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    ParkingSpots = db.Column(db.Integer, nullable=False)
     MonthlyRent = db.Column(db.Integer, nullable=False)
     UtilitiesIncluded = db.Column(db.Boolean, nullable=False)
     Laundry = db.Column(db.Boolean, nullable=False)
@@ -95,7 +95,7 @@ class Landlord(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False)
@@ -137,14 +137,46 @@ class Review(db.Model):
     __tablename__ = 'Reviews'
     __table_args__ = {u'schema': 'OurHouse'}
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
     Stars = db.Column(db.String, nullable=False)
-    Comment = db.Column(db.String(2048))
+    Comment = db.Column(db.String(4096))
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
-
+    
+    def __init__(self, HouseId, StudentId, Stars, Comment, CreatedAt, UpdatedAt):
+        self.HouseId = HouseId
+        self.StudentId = StudentId
+        self.Stars = Stars
+        self.Comment = Comment
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        review = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            StudentId = self.StudentId,
+            Stars = self.Stars,
+            Comment = self.Comment,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt
+            )
+        return review
+    def as_dict_JSON(self):
+        review = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            StudentId = self.StudentId,
+            Stars = self.Stars,
+            Comment = self.Comment,
+            CreatedAt = str(self.CreatedAt),
+            UpdatedAt = str(self.UpdatedAt)
+            )
+        return review
 
 class Student(db.Model):
     __tablename__ = 'Students'
@@ -154,7 +186,7 @@ class Student(db.Model):
         {u'schema': 'OurHouse'}
     )
 
-    Id = db.Column(db.Integer, primary_key=True, server_default=db.FetchedValue())
+    Id = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)
@@ -190,3 +222,54 @@ class Student(db.Model):
             Email = self.Email,
             Phone = self.Phone)
         return student
+
+# class HousePhoto(db.Model):
+#     __tablename__ = 'HousePhotos'
+#     __table_args__ = (
+#         db.UniqueConstraint('RelativePath'),
+#         db.Index('ix_HousePhotos_RelativePath', 'RelativePath'),
+#         {u'schema': 'OurHouse'}
+#     )
+
+#     Id = db.Column(db.Integer, primary_key=True)
+#     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
+#     RelativePath = db.Column(FlaskStoreType())
+#     House = db.relationship(u'House', primaryjoin='HousePhoto.HouseId == House.Id', backref=u'housephotos')
+
+class Developer(db.Model):
+    __tablename__ = 'Developers'
+    __table_args__ = (
+        db.UniqueConstraint('Key'),
+        db.Index('ix_Developers_Key', 'Key'),
+        {u'schema': 'OurHouse'}
+    )
+
+    Id = db.Column(db.Integer, primary_key=True)
+    ProjectName = db.Column(db.String(50), nullable=False)
+    Email = db.Column(db.String(62), nullable=False)
+    Key = db.Column(db.String(128), nullable=False, unique=True)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+
+    def __init__(self, ProjectName, Email, Key, CreatedAt, UpdatedAt):
+        self.ProjectName = ProjectName
+        self.Email = Email
+        self.Key = Key
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        dev = __builtin__.dict(
+            Id = self.Id, 
+            ProjectName =  self.ProjectName,
+            Email = self.Email,
+            Key = self.Key,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return dev
+    def as_dict_JSON(self):
+        dev = __builtin__.dict(
+            Id = self.Id, 
+            ProjectName =  self.ProjectName,
+            Email = self.Email,
+            Key = self.Key)
+        return dev

@@ -50,7 +50,7 @@ def signup():
             db.session.commit()
         except exc.IntegrityError:
             return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
-        return jsonify([{'status':200}])
+        return jsonify([{'status':201}])
     else:
         return render_template('signup.html')
 
@@ -76,3 +76,39 @@ def profile():
         return render_template('profile.html', user=jsonUser, properties=properties)
     else:
         return redirect(url_for('auth_page.index'))
+
+@user_page.route("/profile_edit", methods=['GET', 'PUT'])
+def editProfile():
+    if 'username' in session:
+        if request.method == 'GET':
+            email = session['username']
+            user = Student.query.filter_by(Email=email).first()
+            userType = "Student"
+            if user == None:
+                user = Landlord.query.filter_by(Email=email).first()
+                userType = "Landlord"
+            dictUser = user.as_dict_JSON()
+            dictUser['Type'] = userType
+            jsonUser = json.dumps(dictUser, default=serializeDecimalObject.defaultencode)
+            return render_template('edit_profile.html', user=jsonUser)
+        elif request.method == 'PUT':
+            NewFirstName = request.form['FirstName']
+            NewLastName = request.form['LastName']
+            NewPhoneNum = request.form['PhoneNum']
+            email = session['username']
+            user = Student.query.filter_by(Email=email).first()
+            if user == None:
+                user = Landlord.query.filter_by(Email=email).first()
+            #May want better logic about what to change -- does it make a difference?
+            user.FirstName = NewFirstName
+            user.LastName = NewLastName
+            user.Phone = NewPhoneNum
+            try:
+                db.session.commit()
+            except exc.IntegrityError:
+                return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
+            return jsonify([{'status':200}])
+    else:
+        return redirect(url_for('auth_page.index'))
+
+

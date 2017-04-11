@@ -94,9 +94,12 @@ var AptForm = React.createClass ({
         type: 'POST',
         url: '/newhome',
         data: apartment,
+        headers: {
+            'Cache-Control':'max-age=500'
+        },
         success: function(result) {
           console.log(result);
-          if(result[0].status == 200){
+          if(result[0].status == 201){
             alert('Thank you for uploading your apartment!');
             window.location.href = "/houses";
           }
