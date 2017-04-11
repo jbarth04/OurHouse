@@ -23,6 +23,22 @@ from app import mc
 
 import serializeDecimalObject
 
+@photo_page.route('/testupload', methods=['POST', ])
+def upload():
+    print "HERE"
+    base64ImageUrl = request.form["imageUrl"]
+    # print base64ImageUrl
+    urlList = base64ImageUrl.split(",")
+    imageBase64 =  urlList[-1]
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(imageBase64.decode('base64'))
+    
+
+    # provider = store.Provider(request.files.get('afile'))
+    # provider.save()
+    # return provider.absolute_url
+    return jsonify([])
+
 @photo_page.route('/upload_photo', methods=['POST', ])
 def upload_photo():
     if request.method == 'POST':
@@ -79,3 +95,4 @@ def get_photos(HouseId):
 #     provider = store.Provider(request.files.get('afile'))
 #     provider.save()
 #     return provider.absolute_url
+
