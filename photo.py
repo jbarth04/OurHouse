@@ -75,9 +75,9 @@ def get_photos(HouseId):
     return jsonify([{'status':200, 'AbsoluteURLs': allPhotoURLS}])
 
 
-
-@photo_page.route('/upload', methods=['POST', ])
-def upload():
-    provider = store.Provider(request.files.get('afile'))
-    provider.save()
-    return provider.absolute_url
+# TODO TESTING
+# @photo_page.route('/upload', methods=['POST', ])
+# def upload():
+#     provider = store.Provider(request.files.get('afile'))
+#     provider.save()
+#     return provider.absolute_url

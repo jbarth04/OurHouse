@@ -3,6 +3,9 @@
 # Used sqlagencode to generate SQLAlcehmy classes from PostgreSQL tables
 # https://pypi.python.org/pypi/sqlacodegen
 
+# Password encrypt referenced:
+# https://github.com/cburmeister/flask-bones/blob/master/app/user/models.py
+
 # Database Models
 
 # coding: utf-8
@@ -42,8 +45,8 @@ class House(db.Model):
     DistFromCC = db.Column(db.Float, nullable=False)
     DateAvailable = db.Column(db.Date)
     LeaseTerm = db.Column(db.SmallInteger)
-    CreatedAt = db.Column(db.DateTime(True), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
@@ -102,19 +105,28 @@ class Landlord(db.Model):
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)
+    PasswordHash = db.Column(db.String(60), nullable=False)
     Phone = db.Column(db.String(10), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
-    CreatedAt = db.Column(db.DateTime(True), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
     
     def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
+        # self.set_password(password) TODO: uncomment and change args in init ^^ and UI to sign up
         self.Phone = Phone
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
+
+    # def set_password(self, password):
+    #     self.pw_hash = bcrypt.generate_password_hash(password, 10)
+
+    # def check_password(self, password):
+    #     return bcrypt.check_password_hash(self.pw_hash, password)
+
     def as_dict(self):
         landlord = __builtin__.dict(
             Id = self.Id, 
@@ -145,8 +157,8 @@ class Review(db.Model):
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
     Stars = db.Column(db.String(1), nullable=False)
     Comment = db.Column(db.String(4096))
-    CreatedAt = db.Column(db.DateTime(True), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
 
     House = db.relationship(u'House', primaryjoin='Review.HouseId == House.Id', backref=u'reviews')
     Student = db.relationship(u'Student', primaryjoin='Review.StudentId == Student.Id', backref=u'reviews')
@@ -193,10 +205,11 @@ class Student(db.Model):
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)
+    PasswordHash = db.Column(db.String(60), nullable=False)
     Phone = db.Column(db.String(10), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
-    CreatedAt = db.Column(db.DateTime(True), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
 
     def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
         self.FirstName = FirstName
@@ -237,8 +250,8 @@ class Photo(db.Model):
     Id = db.Column(db.Integer, primary_key=True)
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     RelativePath = db.Column(FlaskStoreType(), unique=True, nullable=False)
-    CreatedAt = db.Column(db.DateTime(True), server_default=db.func.current_timestamp(), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), server_default=db.func.current_timestamp(), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
 
     House = db.relationship(u'House', primaryjoin='Photo.HouseId == House.Id', backref=u'photos')
 
@@ -276,8 +289,8 @@ class Developer(db.Model):
     Key = db.Column(db.String(128), nullable=False, unique=True)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
-    CreatedAt = db.Column(db.DateTime(True), nullable=False)
-    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
 
     def __init__(self, ProjectName, Email, Key, CreatedAt, UpdatedAt):
         self.ProjectName = ProjectName

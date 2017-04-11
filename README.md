@@ -118,6 +118,7 @@ appdirs==1.4.0 <br />
 boto==2.46.1 <br />
 click==6.7 <br />
 Flask==0.12 <br />
+Flask-Bcrypt==0.7.1 <br />
 Flask-CDN==1.5.3 <br />
 Flask-Compress==1.4.0 <br />
 Flask-Migrate==2.0.3 <br />
@@ -133,8 +134,9 @@ Mako==1.0.6 <br />
 MarkupSafe==0.23 <br />
 packaging==16.8 <br />
 psycopg2==2.6.2 <br />
-pyparsing==2.1.10 <br />
+pycparser==2.17 <br />
 pylibmc==1.5.2 <br />
+pyparsing==2.1.10 <br />
 python-editor==1.0.3 <br />
 python-firebase==1.2 <br />
 requests==2.13.0 <br />
