@@ -23,16 +23,23 @@ from app import mc
 
 import serializeDecimalObject
 
+def find(name, path):
+    for root, dirs, files in os.walk(path):
+        if name in files:
+            return os.path.join(root, name)
+
+
 @photo_page.route('/testupload', methods=['POST', ])
 def upload():
     print "HERE"
     base64ImageUrl = request.form["imageUrl"]
-    # print base64ImageUrl
+    # decoding base64: http://stackoverflow.com/questions/2323128/convert-string-in-base64-to-image-and-save-on-filesystem-in-python
     urlList = base64ImageUrl.split(",")
     imageBase64 =  urlList[-1]
     with open("imageToSave.png", "wb") as fh:
         fh.write(imageBase64.decode('base64'))
-    
+    print find("imageToSave.png", ".")
+
 
     # provider = store.Provider(request.files.get('afile'))
     # provider.save()
