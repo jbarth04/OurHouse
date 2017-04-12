@@ -28,17 +28,25 @@ var SingleListing = React.createClass({
 });
 var HousesComponent = React.createClass({
 	render: function() {
-			var viewHouses = this.props.value;
-			if (viewHouses.length == 0){
+			var viewHouses = this.props.houses;
+			console.log(this.props.showing);
+			console.log("GONNA RENDER SOMETHING ");
+			if (this.props.showing == false){
+				console.log("NOTHING BISH");
 				return(
 					<div>
-						<h2>Sorry, there are no houses available</h2>
+					NOTHING
 					</div>
 				);
 			} else {
+				console.log("IT'S TRUE NOW BISHES");
+				console.log(this.props.houses);
 				return (
     				<tbody>
-    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} rooms={house.Rooms} parkingspots={house.ParkingSpots} rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} laundry={house.Laundry} pets={house.Pets} id={house.Id}/>)}
+    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} 
+    												rooms={house.Rooms} parkingspots={house.ParkingSpots} 
+    												rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} 
+    												laundry={house.Laundry} pets={house.Pets} id={house.Id}/>)}
 					</tbody>
 			);
 			}
@@ -68,6 +76,14 @@ var FilterForm = React.createClass({
 		this.UpdateHouses();
 		event.preventDefault();
 	},
+	showFilters: function(event){
+		this.props.showing = true;
+		React.render(<FilterForm showing={true} houses={this.props.houses}/>, document.getElementById('filterbar'));
+	},
+	hideFilters: function(event){
+		this.props.showing = false;
+		React.render(<FilterForm showing={false} houses={this.props.houses}/>, document.getElementById('filterbar'));	
+	},
 	UpdateHouses: function(){
 		var filterHouses = [];
 		var minRent = this.state.MinRent;
@@ -93,57 +109,75 @@ var FilterForm = React.createClass({
 		return submenu;
 	},
 	render: function() {
-		return(
-			<div className="filterOptions">
-				Filters: <br/>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Minimum Rent</label>
-					<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
-					{this.generateSubMenu(filters.MinRent.submenu)}
-					</select>
+		if(this.props.showing == true){
+			HouseComponents = <HousesComponent houses={this.props.houses} showing={true}/>;
+			return(
+				<div className="sidebar">
+					<div className="filterOptions">
+						<a className="btn btn-red btn-xs" onClick={this.hideFilters.bind(this)}>
+							Filters
+							<span className="glyphicon glyphicon-chevron-up"></span>
+						</a>
+						<br/>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Minimum Rent</label>
+							<select id="MinRent" value={this.state.MinRent} onChange={this.handleChange('MinRent')}>
+							{this.generateSubMenu(filters.MinRent.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Maximum Rent</label>
+							<select id="MaxRent" value={this.state.MaxRent} onChange={this.handleChange('MaxRent')}>
+							{this.generateSubMenu(filters.MaxRent.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Distance from Campus Center</label>
+							<select id="Distance" value={this.state.Dist} onChange={this.handleChange('Dist')}>
+							{this.generateSubMenu(filters.Dist.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Number of Bedrooms</label>
+							<select id="NumRooms" value={this.state.NumRooms} onChange={this.handleChange('NumRooms')}>
+							{this.generateSubMenu(filters.NumRooms.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Laundry Included</label>
+							<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>
+							{this.generateSubMenu(filters.Laundry.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Utilities Included</label>
+							<select id="Utilities" value={this.state.Utilities} onChange={this.handleChange('Utilities')}>
+							{this.generateSubMenu(filters.Utilities.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Parking Spots</label>
+							<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
+							{this.generateSubMenu(filters.Parking.submenu)}
+							</select>
+						</div>
+						<button className="btn btn-red filter-btn" onClick={this.handleUpdate}>Update</button>
+					</div>
+					<div className="view-houses">
+						{HouseComponents}
+					</div>
 				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Maximum Rent</label>
-					<select id="MaxRent" value={this.state.MaxRent} onChange={this.handleChange('MaxRent')}>
-					{this.generateSubMenu(filters.MaxRent.submenu)}
-					</select>
-				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Distance from Campus Center</label>
-					<select id="Distance" value={this.state.Dist} onChange={this.handleChange('Dist')}>
-					{this.generateSubMenu(filters.Dist.submenu)}
-					</select>
-				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Number of Bedrooms</label>
-					<select id="NumRooms" value={this.state.NumRooms} onChange={this.handleChange('NumRooms')}>
-					{this.generateSubMenu(filters.NumRooms.submenu)}
-					</select>
-				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Laundry Included</label>
-					<select id="Laundry" value={this.state.Laundry} onChange={this.handleChange('Laundry')}>
-					{this.generateSubMenu(filters.Laundry.submenu)}
-					</select>
-				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Utilities Included</label>
-					<select id="Utilities" value={this.state.Utilities} onChange={this.handleChange('Utilities')}>
-					{this.generateSubMenu(filters.Utilities.submenu)}
-					</select>
-				</div>
-				<div className = "filterOption form-group">
-					<label className="filterLabel">Parking Spots</label>
-					<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
-					{this.generateSubMenu(filters.Parking.submenu)}
-					</select>
-				</div>
-				<button className="btn btn-red filter-btn" onClick={this.handleUpdate}>Update</button>
-			</div>
-		);
-		
+			);
+		} else {
+			return(
+				<a className="btn btn-red btn-xs" onClick={this.showFilters.bind(this)}>
+					Filters
+					<span className="glyphicon glyphicon-chevron-down"></span>
+				</a>
+			)
+		}
+			
 	}
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
-React.render(<FilterForm />, document.getElementById('filterbar'));
-React.render(<HousesComponent value={houses}/>, document.getElementById('view-houses'));
+React.render(<FilterForm showing={false} houses={houses}/>, document.getElementById('filterbar'));
