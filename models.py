@@ -48,7 +48,10 @@ class House(db.Model):
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
-    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm):
+    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, \
+                 Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, \
+                 Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm,\
+                 CreatedAt, UpdatedAt, IsActive):
         self.LandlordId = LandlordId
         self.Address1 = Address1
         self.Address2 = Address2
@@ -66,6 +69,9 @@ class House(db.Model):
         self.DistFromCC = DistFromCC
         self.DateAvailable = DateAvailable
         self.LeaseTerm = LeaseTerm 
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+        self.IsActive = IsActive
 
     def as_dict(self):
         house = __builtin__.dict(

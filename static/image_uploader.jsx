@@ -2,7 +2,7 @@
 var ImageUploader = React.createClass({
 	getInitialState : function(){
 		return{
-			file:'',
+			File:'',
 			imagePreviewUrl:''
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -15,7 +15,7 @@ var ImageUploader = React.createClass({
 
     	reader.onloadend = () => {
 	      	this.setState({
-	        	file: file,
+	        	File: file,
 	        	imagePreviewUrl: reader.result
 	      	});
     	}
@@ -24,15 +24,14 @@ var ImageUploader = React.createClass({
   	},
   	handleSubmit: function(e){
   		console.log("HERE SUBMITTING");
-    	// data = this.state;
-    	// console.log(data);
-    	// console.log(this.state.imagePreviewUrl);
-    	// tdata = this.state.imagePreviewUrl
-    	data = {imageUrl: this.state.imagePreviewUrl};
+  		// data = this.state;
+    	// data = {File: this.state.File, imagePreviewUrl: this.state.imagePreviewUrl, HouseId: 1};
+    	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: 1}
     	console.log(data);
     	$.ajax({
     		type: 'POST',
-    		url: '/testupload',
+    		method: 'POST',
+    		url: '/upload_photo',
     		data: data,
     		success: function(result) {
     			console.log(result)
@@ -47,21 +46,12 @@ var ImageUploader = React.createClass({
     	})
     	event.preventDefault();
   	},
-  	// generateForm: function(){
-
-  	// },
-  	// generateEmptyForm : function(){
-  	// 	return(
-  	// 		<div></div>
-  	// 	)
-  	// },
 	render : function(){
 		let {imagePreviewUrl} = this.state;
     	let $imagePreview = null;
     	if (imagePreviewUrl) {
       		$imagePreview = (<img src={imagePreviewUrl} />);
     	}
-
 	    return (
 		      <div>
 		        <form onSubmit={this._handleSubmit}>

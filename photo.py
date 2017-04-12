@@ -1,7 +1,7 @@
 ## photo.py 
 ## contains routes pertaining to uploading and getting house photos
 
-from flask import Flask, request
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from flask_store import Store
 from datetime import datetime
 from sqlalchemy import exc
@@ -12,6 +12,7 @@ import os
 
 from models import db
 from models import Photo
+from models import House
 
 from flask import Blueprint
 
@@ -40,28 +41,42 @@ def upload():
         fh.write(imageBase64.decode('base64'))
     print find("imageToSave.png", ".")
 
-
     # provider = store.Provider(request.files.get('afile'))
     # provider.save()
     # return provider.absolute_url
     return jsonify([])
 
-@photo_page.route('/upload_photo', methods=['POST', ])
+@photo_page.route('/upload_photo', methods=['POST'])
 def upload_photo():
+    print "CALLED THIS SHIT"
+    print request.method
     if request.method == 'POST':
-
+        print "MADE IT IN POST"
         # TODO probs need to do sessions stuff here
 
         # Step 1: check if the post request has the file part
-        if 'File' not in request.files:
-            return jsonify([{'status':400, 'message':'Must attach a file to upload'}])
+        # if 'File' not in request.files:
+        #     return jsonify([{'status':400, 'message':'Must attach a file to upload'}])
 
         HouseId = int(request.form['HouseId'])
-        RelativePath = request.files.get('File')
-
+        base64Image = request.form['imagePreviewUrl']
+        base64Split = base64Image.split(",")
+        imageBase64 = base64Split[-1]
+        print imageBase64
+        print "HERE!!!!!"
+        # imageTitle = ""
+        with open("test1.png", "wb") as fh:
+            fh.write(imageBase64.decode('base64'))
+        print find("test1.png", ".")
+        RelativePath = find("test1.png", ".")
+        print RelativePath
+        print HouseId
+        house = House.query.filter_by(Id=HouseId).first()
+        print house.Id
+        # RelativePath = request.files.get('File')
         # Step 2: upload relative path to database, note - Flask automatically
         #         uploads the image to S3 bucket     
-        photo = Photo(HouseId, RelativePath, datetime.now(), datetime.now())
+        photo = Photo(house.Id, RelativePath, datetime.now(), datetime.now())
         db.session.add(photo)
 
         try:
@@ -73,6 +88,13 @@ def upload_photo():
         else:
             # Step 3: Return success status 
             return jsonify([{'status':200, 'message': 'Your image was successfully saved!'}])
+    # elif request.method == 'GET':
+    #     print "YO THIS WAS A GET REQUEST"
+    #     return render_template('image_upload.html')
+
+@photo_page.route('/image_uploader', methods=['GET'])
+def uploader():
+    return render_template('image_upload.html')
 
 @photo_page.route('/get_photos/houseid=<HouseId>', methods=['GET', ])
 def get_photos(HouseId):
