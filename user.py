@@ -49,6 +49,7 @@ def signup():
         try:
             db.session.commit()
         except exc.IntegrityError:
+            db.session.rollback()
             return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
         return jsonify([{'status':201}])
     else:
@@ -106,6 +107,7 @@ def editProfile():
             try:
                 db.session.commit()
             except exc.IntegrityError:
+                db.session.rollback()
                 return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
             return jsonify([{'status':200}])
     else:

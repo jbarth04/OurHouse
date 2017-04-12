@@ -123,7 +123,6 @@ def newhome():
             mc.delete("Houses") # flush cache, it's now stale
             mc.delete("AllIds") # flush cache, it's now stale
         except exc.IntegrityError:
-            print exc.IntegrityError
             db.session.rollback()
             return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
         return jsonify([{'status':201, "houseID":house.Id}])

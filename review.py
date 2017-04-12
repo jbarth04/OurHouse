@@ -44,6 +44,7 @@ def reviews():
             try:
                 db.session.commit() 
             except exc.IntegrityError:
+                db.session.rollback()
                 return jsonify([{'status':400, 'message':"Opps you can't post that!"}])
             return jsonify({"status": 200})
     else :

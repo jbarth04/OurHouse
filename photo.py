@@ -84,6 +84,7 @@ def upload_photo():
             mc.delete("Houses") # flush cache, it's now stale
             mc.delete("AllIds") # flush cache, it's now stale
         except exc.IntegrityError:
+            db.session.rollback()
             return jsonify([{'status':400, 'message':'This HouseId is not valid'}])
         else:
             # Step 3: Return success status 
