@@ -27,26 +27,27 @@ import serializeDecimalObject
 @photo_page.route('/upload_photo', methods=['POST', ])
 def upload_photo():
     if request.method == 'POST':
-        print "INSIDE"
         # TODO probs need to do sessions stuff here
         #http://werkzeug.pocoo.org/docs/0.11/datastructures/#werkzeug.datastructures.FileStorage
 
         # Step 1: check if the post request has the file part -- if doing with a request.files not base64
-        # encoded string
+        #         encoded string
         # if 'File' not in request.files:
         #     return jsonify([{'status':400, 'message':'Must attach a file to upload'}])
 
         # Step 1: get the base64 encoded image and decode into a temp file and create a FileStorage object
         base64ImageUrl = request.form["imagePreviewUrl"]
         urlList = base64ImageUrl.split(",")
+        # grabs just the base64 encoding from the string 
         imageBase64 =  urlList[-1]
-        print "SPLIT THAT UP"
-        with open("test1.png", "w+b") as fh:
+        # Grab the other information from the post
+        HouseId = int(request.form['HouseId'])
+
+        filename = "house_" + str(HouseId) + ".png"
+        with open(filename, "w+b") as fh:
             fh.write(imageBase64.decode('base64'))
             RelativePath = FileStorage(fh)
             print RelativePath
-            # Grab the other information from the post
-            HouseId = int(request.form['HouseId'])
 
             # Step 2: upload relative path to database, note - Flask automatically
             #         uploads the image to S3 bucket   
@@ -58,13 +59,13 @@ def upload_photo():
                 mc.delete("Houses") # flush cache, it's now stale
                 mc.delete("AllIds") # flush cache, it's now stale
             except exc.IntegrityError:
-                return jsonify([{'status':400, 'message':'This HouseId is not valid'}])
+                return jsonify({'status':400, 'message':'This HouseId is not valid'})
             else:
                 print "GOT TO HERE"
                 RelativePath.save("test1.png")
                 RelativePath.close()
                 # Step 3: Return success status 
-                return jsonify([{'status':200, 'message': 'Your image was successfully saved!'}])
+                return jsonify({'status':200, 'message': 'Your image was successfully saved!'})
 
 @photo_page.route('/get_photos/houseid=<HouseId>', methods=['GET', ])
 def get_photos(HouseId):
@@ -90,9 +91,9 @@ def get_photos(HouseId):
     return jsonify([{'status':200, 'AbsoluteURLs': allPhotoURLS}])
 
 
-@photo_page.route('/image_uploader', methods=['GET'])
-def uploader():
-    return render_template('image_upload.html')
+@photo_page.route('/image_uploader=<houseID>', methods=['GET'])
+def uploader(houseID):
+    return render_template('image_upload.html', houseID=houseID)
 
 @photo_page.route('/upload', methods=['POST', ])
 def upload():

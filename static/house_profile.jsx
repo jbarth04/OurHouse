@@ -59,7 +59,6 @@ var HouseProfile = React.createClass({
 
 var HouseReviews = React.createClass({
 	generateReview : function(review){
-		console.log(review.UpdatedAt);
 		return(
 			<div className="reviewText">
 				<p>{review.Comment} {review.Stars} </p>
@@ -70,7 +69,6 @@ var HouseReviews = React.createClass({
 	render : function(){
 		var reviewList = [];
 		reviewList = this.props.Reviews.map((review) => this.generateReview(review));
-		console.log(reviewList);
 		return(
 			<div className="reviewList">
 				{reviewList}
@@ -98,19 +96,16 @@ var ReviewForm = React.createClass({
   	},
   	handleSubmit: function(event){
     	data = this.state;
-    	console.log(this.state);
     	$.ajax({
     		type: 'POST',
     		url: '/reviews',
     		data: data,
     		success: function(result) {
-    			console.log(result)
     			if(result.status == 200){
-    				console.log(result);
     				location.reload();
     			}
     			else if (result.status == 400){
-    				console.log(result.message);
+    				alert(result.message);
     			}
     		}
     	})

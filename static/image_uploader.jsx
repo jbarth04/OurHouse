@@ -3,7 +3,8 @@ var ImageUploader = React.createClass({
 	getInitialState : function(){
 		return{
 			file:'',
-			imagePreviewUrl:''
+			imagePreviewUrl:'',
+			houseId:this.props.houseID
 		};
 		this.handleChange = this.handleChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,25 +24,21 @@ var ImageUploader = React.createClass({
     	reader.readAsDataURL(file)
   	},
   	handleSubmit: function(e){
-  		console.log("HERE SUBMITTING");
-  		// data = this.state;
-    	// data = {File: this.state.File, imagePreviewUrl: this.state.imagePreviewUrl, HouseId: 1};
-    	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: 1}
-    	console.log(data);
+    	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: this.state.houseId}
     	$.ajax({
     		type: 'POST',
     		method: 'POST',
     		url: '/upload_photo',
     		data: data,
     		success: function(result) {
-    			console.log(result)
-    			// if(result.status == 200){
-    			// 	console.log(result);
-    			// 	location.reload();
-    			// }
-    			// else if (result.status == 400){
-    			// 	console.log(result.message);
-    			// }
+    			if(result.status == 200){
+    				alertMessage = result.message + " Thank you for uploading your apartment!"
+    				alert(alertMessage);
+    				window.location="/houses"
+    			}
+    			else if (result.status == 400){
+    				alert(result.message);
+    			}
     		}
     	})
     	event.preventDefault();
@@ -63,4 +60,4 @@ var ImageUploader = React.createClass({
 	    );
 	}
 });
-React.render(<ImageUploader />, document.getElementById('imgUpload'));
+React.render(<ImageUploader houseID={HouseId}/>, document.getElementById('imgUpload'));
