@@ -2,7 +2,7 @@
 var ImageUploader = React.createClass({
 	getInitialState : function(){
 		return{
-			File:'',
+			file:'',
 			imagePreviewUrl:''
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -15,7 +15,7 @@ var ImageUploader = React.createClass({
 
     	reader.onloadend = () => {
 	      	this.setState({
-	        	File: file,
+	        	file: file,
 	        	imagePreviewUrl: reader.result
 	      	});
     	}
