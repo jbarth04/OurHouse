@@ -195,6 +195,15 @@ footer{
 	margin: 0.2vw;
 	margin-left: 0.4vw;
 }
+
+.emailTextBox{
+	padding-top: 0;
+   	padding-left: 0;
+	line-height: 1em;
+	height: 200px;
+	width: 800px;
+}
+
 .navbar.transparent{
 	background-color: white;
 	opacity: 0.8;

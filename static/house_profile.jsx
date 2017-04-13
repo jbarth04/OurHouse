@@ -50,9 +50,9 @@ var ContactForm = React.createClass ({
     return {
     	message:'Enter your email here.',
     	useremail:'',
-    	landlordemail: this.props.LandlordEmail 
+    	landlordemail: this.props.LandlordEmail,
+      landlordfname: this.props.LandlordFName
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   },
@@ -69,12 +69,15 @@ var ContactForm = React.createClass ({
 
   	data = this.state;
 
+    console.log(data);
+
     if (this.state.useremail != ''){ 
     	$.ajax({
     		type: 'POST',
     		url: '/contactlandlord',
     		data: data,
     		success: function(result){
+            alert(result);
     			if(result[0].status == 200) { 
     				alert('Your email is on its way!');
     			}
@@ -99,7 +102,7 @@ var ContactForm = React.createClass ({
       </div> 
       <div className="newContactForm form-group">
         <label>
-        <input className="send-email" type="textarea" value={this.state.message} onChange={this.handleChange('message')} /><br/>
+        <textarea className="emailTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
         </label>
       </div> 
     <input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
@@ -108,9 +111,7 @@ var ContactForm = React.createClass ({
   }
 });
 
-React.render(<HouseProfile 
-	LandlordFName={landlord.FirstName} LandlordLName={landlord.LastName} 
-	 LandlordPhone={landlord.Phone} 
+React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={landlord.Phone} 
 	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
 	Dist={house.DistFromCC} Rooms={house.Rooms}
 	Rent={house.MonthlyRent} Parking={house.ParkingSpots} 
@@ -118,4 +119,4 @@ React.render(<HouseProfile
 	DateAvailable={house.DateAvailable} LeaseTerm={house.LeaseTerm} />, 
 	document.getElementById('HouseInfo'));
 
-React.render(<ContactForm LandlordEmail={landlord.Email}/>, document.getElementById('ContactForm'));
+React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));

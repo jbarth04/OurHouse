@@ -48,7 +48,7 @@ class Config(object):
                             'application/json',
                             'application/javascript'
                          ]
-
+                         
 class ProductionConfig(Config):
     DEBUG = False
     SECRET_KEY = os.environ['SESSIONS_KEY']

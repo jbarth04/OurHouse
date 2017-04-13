@@ -69,11 +69,21 @@ app.register_blueprint(house.house_page)
 import developer
 app.register_blueprint(developer.developer_page)
 
+# import mail
+# app.register_blueprint(mail.mail_page)
+
 # import tests
 # app.register_blueprint(tests.tests_page)
 
 ###################### Mail testing ############################
+
+from flask import Flask
+import os
 from flask_mail import Message, Mail
+from flask import request, render_template
+from flask import Blueprint 
+	
+# mail_page = Blueprint('mail_page', __name__)
 
 app.config.update(
 	DEBUG=True,
@@ -81,8 +91,8 @@ app.config.update(
 	MAIL_SERVER='smtp.gmail.com',
 	MAIL_PORT=465,
 	MAIL_USE_SSL=True,
-	MAIL_USERNAME = 'comp120frhj@gmail.com',
-	MAIL_PASSWORD = 'ladyengineering'
+	MAIL_USERNAME = os.environ['EMAIL_ACCOUNT'],
+	MAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
 	)
 
 mail = Mail(app)
@@ -92,14 +102,14 @@ mail = Mail(app)
 def sendMessage(): 
 		if request.method == 'POST':
 			LandlordEmail = request.form['landlordemail']
+			LandlordFName = request.form['landlordfname']
 			UserEmail = request.form['useremail']
 			EmailMessage = request.form['message']
 			msg = Message('Someone is interested in your property!', sender=('The OurHouse Team', 
-			'comp120frhj@gmail.com'), recipients=['rachael.robinson95@gmail.com'])
-			msg.body = EmailMessage
+			'comp120frhj@gmail.com'), recipients=[LandlordEmail])
+			msg.html = render_template('Hybrid/stationery-hybrid.html', useremail=UserEmail, emailmessage=EmailMessage, firstname=LandlordFName)
 			mail.send(msg)
-			return "Sent"
-
+			return "sent"
 ###################### Run the app #############################
 
 if __name__ == "__main__":
