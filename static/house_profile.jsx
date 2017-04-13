@@ -1,5 +1,13 @@
 // HouseInfo
 var HouseProfile = React.createClass({
+	generatePhotos: function(){
+		photos = this.props.Photos.map((photo) => <li className="inlineBlock"><img src={photo}></img></li>);
+		return(
+			<ul className="NoBulletsList">
+				{photos}
+			</ul>
+		);
+	},
 	generateInfo: function(){
 		info = [];
 		info.push(<li>Rent/Month: ${this.props.Rent}</li>);
@@ -48,11 +56,15 @@ var HouseProfile = React.createClass({
 	render: function(){
 		profile = this.generateInfo();
 		landlordInfo = this.generateLandlordInfo();
+		photos = this.generatePhotos();
 		return(
-			<ul className="HouseInfoList, NoBulletsList">
-				{profile}
-				{landlordInfo}
-			</ul>
+			<div className="HousePhotos container">
+				{photos}
+				<ul className="HouseInfoList, NoBulletsList">
+					{profile}
+					{landlordInfo}
+				</ul>
+			</div>
 		);
 	}
 });
@@ -144,7 +156,7 @@ var ReviewForm = React.createClass({
   		)
   	},
 	render : function(){
-		if (user.type == "Student"){
+		if (usertype.type == "Student"){
 			show = this.generateForm();
 		} else{
 			show = this.generateEmptyForm();
@@ -159,7 +171,7 @@ React.render(<HouseProfile
 	Dist={house.DistFromCC} Rooms={house.Rooms}
 	Rent={house.MonthlyRent} Parking={house.ParkingSpots} 
 	Utilities={house.UtilitiesIncluded} Laundry={house.Laundry} Pets={house.Pets}
-	DateAvailable={house.DateAvailable} LeaseTerm={house.LeaseTerm} />, 
+	DateAvailable={house.DateAvailable} LeaseTerm={house.LeaseTerm} Photos={photos}/>, 
 	document.getElementById('HouseInfo'));
 
 React.render(<HouseReviews Reviews={reviews} />, document.getElementById('HouseReviews'));

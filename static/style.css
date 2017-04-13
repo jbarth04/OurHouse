@@ -213,6 +213,9 @@ footer{
 	background-color: #FE414D;
 	color: white;
 }
+.inlineBlock{
+	display: inline-block;
+}
 .clear{
 	clear:both;
 }

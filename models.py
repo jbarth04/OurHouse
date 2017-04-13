@@ -262,10 +262,10 @@ class Photo(db.Model):
             UpdatedAt = self.UpdatedAt)
         return photo
     def as_dict_JSON(self):
-        student = __builtin__.dict(
+        photo = __builtin__.dict(
             Id = self.Id, 
             HouseId =  self.HouseId,
-            RelativePath = self.RelativePath)
+            RelativePath = str(self.RelativePath))
         return photo
 
 class Developer(db.Model):
