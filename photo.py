@@ -64,6 +64,7 @@ def upload_photo():
                 print "GOT TO HERE"
                 RelativePath.save("test1.png")
                 RelativePath.close()
+                #TODO: delete file once stored...
                 # Step 3: Return success status 
                 return jsonify({'status':200, 'message': 'Your image was successfully saved!'})
 
@@ -93,7 +94,8 @@ def get_photos(HouseId):
 
 @photo_page.route('/image_uploader=<houseID>', methods=['GET'])
 def uploader(houseID):
-    return render_template('image_upload.html', houseID=houseID)
+    usertype = {"type": session['usertype']}
+    return render_template('image_upload.html', houseID=houseID, usertype=usertype)
 
 @photo_page.route('/upload', methods=['POST', ])
 def upload():

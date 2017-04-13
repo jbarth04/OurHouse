@@ -29,25 +29,18 @@ var SingleListing = React.createClass({
 var HousesComponent = React.createClass({
 	render: function() {
 			var viewHouses = this.props.houses;
-			console.log(this.props.showing);
-			console.log("GONNA RENDER SOMETHING ");
 			if (this.props.showing == false){
-				console.log("NOTHING BISH");
 				return(
-					<div>
-					NOTHING
-					</div>
+					<div></div>
 				);
 			} else {
-				console.log("IT'S TRUE NOW BISHES");
-				console.log(this.props.houses);
 				return (
-    				<tbody>
+    				<ul className="HouseList">
     					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} 
     												rooms={house.Rooms} parkingspots={house.ParkingSpots} 
     												rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} 
-    												laundry={house.Laundry} pets={house.Pets} id={house.Id}/>)}
-					</tbody>
+    												laundry={house.Laundry} pets={house.Pets} id={house.Id} />)}
+					</ul>
 			);
 			}
 			
@@ -57,13 +50,16 @@ var FilterForm = React.createClass({
 	getInitialState: function() {
 	    return {
 	      MinRent: 500,
-	      MaxRent: 1000,
-	      Dist: 0.1,
-	      NumRooms: 1,
+	      MaxRent: 3000,
+	      Dist: 0.5,
+	      NumRooms: 4,
 	      Laundry: true,
 	      Utilities: true,
-	      ParkingSpots: 0
+	      ParkingSpots: -1,
+	      Houses:''
 	    }
+	    this.handleChange = this.handleChange.bind(this);
+    	this.handleUpdate = this.handleUpdate.bind(this);
   	},
   	handleChange: function(key){
 		return function(event){
@@ -71,10 +67,12 @@ var FilterForm = React.createClass({
 			state[key] = event.target.value;
 			this.setState(state);
 		}.bind(this);
+
   	},
 	handleUpdate: function(event){
 		this.UpdateHouses();
 		event.preventDefault();
+		
 	},
 	showFilters: function(event){
 		this.props.showing = true;
@@ -102,7 +100,11 @@ var FilterForm = React.createClass({
 				}
 			}
 		}
-		React.render(<HousesComponent value={filterHouses}/>, document.getElementById('view-houses'));
+		this.props.houses = filterHouses;
+		this.state.Houses = <HousesComponent houses={this.props.houses} showing={true}/>;
+		HouseList = <HousesComponent houses={this.props.houses} showing={true}/>;
+		var state = {Houses: HouseList};
+		this.setState(state);
 	},
 	generateSubMenu: function(submenu){
 		var submenu = submenu.map((item) => <option value={item.value}>{item.text}</option>);
@@ -110,7 +112,7 @@ var FilterForm = React.createClass({
 	},
 	render: function() {
 		if(this.props.showing == true){
-			HouseComponents = <HousesComponent houses={this.props.houses} showing={true}/>;
+			this.state.Houses = <HousesComponent houses={this.props.houses} showing={true}/>;
 			return(
 				<div className="sidebar">
 					<div className="filterOptions">
@@ -164,7 +166,7 @@ var FilterForm = React.createClass({
 						<button className="btn btn-red filter-btn" onClick={this.handleUpdate}>Update</button>
 					</div>
 					<div className="view-houses">
-						{HouseComponents}
+						{this.state.Houses}
 					</div>
 				</div>
 			);

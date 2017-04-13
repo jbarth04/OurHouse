@@ -51,7 +51,8 @@ def houses():
             mc.set("AllIds", allIds)
             mc.set("Houses", True)
             jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
-        return render_template('houses.html', rhouses=jsonHouses)
+        usertype = {"type": session['usertype']}
+        return render_template('houses.html', rhouses=jsonHouses, usertype=usertype)
     else:
         return redirect(url_for('auth_page.index'))
 
@@ -128,7 +129,8 @@ def newhome():
         return jsonify([{'status':201, "houseID":house.Id}])
     else:   
         if 'username' in session:
-            return render_template('newhome.html')
+            usertype = {"type": session['usertype']}
+            return render_template('newhome.html', usertype=usertype)
         else:
             return redirect(url_for('auth_page.index'))
 
@@ -144,7 +146,8 @@ def editHouse(arg1):
             landlord = Landlord.query.filter_by(Id=landlordID).all()
             singleLandlord = [l.as_dict_JSON() for l in landlord]
             jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
-            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+            usertype = {"type": session['usertype']}
+            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord, usertype=usertype)
         elif request.method == 'PUT':
             HouseId = request.form['houseId']
             newRooms = int(request.form['bedrooms'])

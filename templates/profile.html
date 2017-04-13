@@ -25,6 +25,7 @@
 <script type="text/javascript">
   user = {{ user | safe }};
   props = {{ properties | safe }}
+  usertype = {{ usertype | safe }};
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'profile.jsx') }}"></script>

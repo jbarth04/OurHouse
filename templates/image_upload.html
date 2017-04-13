@@ -23,6 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
 <script type="text/javascript">
   HouseId = {{houseID}};
+  usertype = {{usertype | safe}};
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>

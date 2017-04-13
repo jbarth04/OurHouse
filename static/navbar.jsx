@@ -11,7 +11,11 @@ var NavBar = React.createClass({
             return navbar;
         },
         render: function() {
-            left_navbar_links = this.generateItems(left_navbar_items);
+            if(this.props.usertype.type == "Student"){
+                left_navbar_links = this.generateItems(student_left_navbar_items);
+            } else {
+                left_navbar_links = this.generateItems(landlord_left_navbar_items);
+            }
             right_navbar_links = this.generateItems(right_navbar_items);
             return(
                 <nav className="navbar navbar-default navbar-fixed-top transparent">
@@ -68,4 +72,4 @@ var NavBarDropdown = React.createClass({
         );
     }
 });
-React.render(<NavBar />, document.getElementById('navbar'));
+React.render(<NavBar usertype={usertype} />, document.getElementById('navbar'));
