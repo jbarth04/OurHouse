@@ -69,8 +69,12 @@ def viewhouse(arg1):
         landlord = Landlord.query.filter_by(Id=landlordID).all()
         singleLandlord = [l.as_dict_JSON() for l in landlord]
         jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
+        usertype = {"type": session['usertype']}
+        reviews = Review.query.filter_by(HouseId=arg1).all();
+        allReviews = [r.as_dict_JSON() for r in reviews]
+        jsonReviews = json.dumps(allReviews, default=serializeDecimalObject.defaultencode)
         #should send back the contact for the landlord too??
-        return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+        return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord, usertype=usertype, reviews=jsonReviews)
     else:
         return redirect(url_for('auth_page.index'))
 

@@ -96,8 +96,8 @@ class House(db.Model):
 class Landlord(db.Model):
     __tablename__ = 'Landlords'
     __table_args__ = (
-        db.UniqueConstraint('Email'),
-        db.Index('ix_Landlords_Email', 'Email'),
+
+        db.Index('ix_Landlords_Email_PasswordHash', 'Email', 'PasswordHash'),
         {u'schema': 'OurHouse'}
     )
 
@@ -115,17 +115,14 @@ class Landlord(db.Model):
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
-        # self.set_password(password) TODO: uncomment and change args in init ^^ and UI to sign up
+        # self.PasswordHash = bcrypt.generate_password_hash(password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
         self.Phone = Phone
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
 
-    # def set_password(self, password):
-    #     self.pw_hash = bcrypt.generate_password_hash(password, 10)
-
     # def check_password(self, password):
-    #     return bcrypt.check_password_hash(self.pw_hash, password)
+    #     return bcrypt.check_password_hash(self.PasswordHash, password)
 
     def as_dict(self):
         landlord = __builtin__.dict(
@@ -196,8 +193,8 @@ class Review(db.Model):
 class Student(db.Model):
     __tablename__ = 'Students'
     __table_args__ = (
-        db.UniqueConstraint('Email'),
-        db.Index('ix_Students_Email', 'Email'),
+
+        db.Index('ix_Students_Email_PasswordHash', 'Email', 'PasswordHash'),
         {u'schema': 'OurHouse'}
     )
 
@@ -215,10 +212,15 @@ class Student(db.Model):
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
+        # self.PasswordHash = bcrypt.generate_password_hash(password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
         self.Phone = Phone
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
+
+    # def check_password(self, password):
+    #     return bcrypt.check_password_hash(self.PasswordHash, password)
+
     def as_dict(self):
         student = __builtin__.dict(
             Id = self.Id, 
@@ -242,7 +244,6 @@ class Student(db.Model):
 class Photo(db.Model):
     __tablename__ = 'Photos'
     __table_args__ = (
-        db.UniqueConstraint('RelativePath'),
         db.Index('ix_Photos_RelativePath', 'RelativePath'),
         {u'schema': 'OurHouse'}
     )
@@ -278,7 +279,6 @@ class Photo(db.Model):
 class Developer(db.Model):
     __tablename__ = 'Developers'
     __table_args__ = (
-        db.UniqueConstraint('Key'),
         db.Index('ix_Developers_Key', 'Key'),
         {u'schema': 'OurHouse'}
     )

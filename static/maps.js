@@ -35,9 +35,6 @@ for (var i = 0; i < houses.length; i++) {
 		position: house,
 		title: infoMessage
 	});
-	// google.maps.event.addListener(title, 'click', (function() {
-	// 	window.location.href = "/house_profile/"+houses[i].Id;
-	// }));
 	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		return function() {
 			infowindow.setContent(marker.title);

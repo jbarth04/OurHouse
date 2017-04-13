@@ -10,21 +10,6 @@ var SingleListing = React.createClass({
 		listing.push(<li className="info">Bedrooms: {this.props.rooms}</li>);
 		listing.push(<li className="info">Monthly Rent: ${this.props.rent}</li>);
 		listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
-		// if(this.props.utilities == true){
-		// 	listing.push(<li className="info">Utilities are included</li>);
-		// } else {
-		// 	listing.push(<li className="info">Utilities are not included</li>);
-		// }
-		// if(this.props.laundry == true){
-		// 	listing.push(<li className="info">Laundry is included</li>);
-		// } else {
-		// 	listing.push(<li className="info">Laundry not included</li>);
-		// }
-		// if(this.props.pets == true){
-		// 	listing.push(<li className="info">Pets allowed</li>);
-		// } else {
-		// 	listing.push(<li className="info">Not pets allowed</li>);
-		// }
 		return listing;
 	},
 	handleClick: function(){
@@ -153,7 +138,7 @@ var FilterForm = React.createClass({
 					{this.generateSubMenu(filters.Parking.submenu)}
 					</select>
 				</div>
-				<button className="btn btn-default filter-btn" onClick={this.handleUpdate}>Update</button>
+				<button className="btn btn-red filter-btn" onClick={this.handleUpdate}>Update</button>
 			</div>
 		);
 		

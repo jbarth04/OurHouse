@@ -15,9 +15,6 @@ var LoginForm = React.createClass ({
       }.bind(this);
     },
     handleSubmit: function(event){
-      console.log("HERE");
-      console.log(this.state.email);
-      console.log(this.state.password);
       data = this.state;
       $.ajax({
         type: 'POST',
