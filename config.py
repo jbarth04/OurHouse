@@ -48,7 +48,14 @@ class Config(object):
                             'application/json',
                             'application/javascript'
                          ]
-                         
+    # Mail configuration
+
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT=465
+    MAIL_USE_SSL=True
+    MAIL_USERNAME = os.environ['EMAIL_ACCOUNT']
+    MAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
+
 class ProductionConfig(Config):
     DEBUG = False
     SECRET_KEY = os.environ['SESSIONS_KEY']
