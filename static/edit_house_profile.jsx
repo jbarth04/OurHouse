@@ -51,7 +51,6 @@ var AptForm = React.createClass ({
         },
         success: function(result) {
           if(result[0].status == 200){
-            // console.log
             relocation = "image_uploader=" + result[0].houseId;
             window.location=relocation;
           }
