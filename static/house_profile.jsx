@@ -56,7 +56,11 @@ var HouseProfile = React.createClass({
 	render: function(){
 		profile = this.generateInfo();
 		landlordInfo = this.generateLandlordInfo();
-		photos = this.generatePhotos();
+		if(this.props.Photos.length > 0){
+			photos = <PhotoCarousel Photos={this.props.Photos} />
+		}else {
+			photos = <div></div>
+		}
 		return(
 			<div className="HousePhotos container">
 				{photos}
@@ -66,6 +70,41 @@ var HouseProfile = React.createClass({
 				</ul>
 			</div>
 		);
+	}
+});
+
+// Code from:
+// https://raw.githubusercontent.com/hkrdrm/reactCarousel/master/carousel.jsx
+var PhotoCarousel = React.createClass({
+	render : function(){
+		slides = this.props.Photos.map(function(photo, index){
+			return <Slide imgSrc={photo} index={index} />;
+		});
+		return(
+			<div id="myCarousel" className="carousel slide" data-ride="">
+        		<div className="carousel-inner" role="listbox">
+        		  { [] }
+        		  { slides }
+        		</div>
+        		<a className="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        		  <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        		</a>
+        		<a className="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        		  <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        		</a>
+      		</div>
+		);
+	}
+});
+
+var Slide = React.createClass({
+	render: function(){
+		let className = this.props.index == 0? 'item active' : 'item';
+	    return(
+	    	<div className={ className }>
+	    		<img src={ this.props.imgSrc } alt="..." width="100%"/>
+	    	</div>
+	    );
 	}
 });
 

@@ -151,6 +151,10 @@ input[type=button], input[type=submit], input[type=reset] {
 	height: 200px;
 	width: 800px;
 }
+#myCarousel{
+	width: 50%;
+	margin:0 auto;
+}
 .filterOption{
 	/*display: inline-block;*/
 	/*padding: 0.5vw;*/
