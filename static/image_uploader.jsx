@@ -34,7 +34,7 @@ var ImageUploader = React.createClass({
     			if(result.status == 200){
     				alertMessage = result.message + " Thank you for uploading your apartment!"
     				alert(alertMessage);
-    				window.location="/houses"
+    				// window.location="/houses"
     			}
     			else if (result.status == 400){
     				alert(result.message);
@@ -49,11 +49,12 @@ var ImageUploader = React.createClass({
     	if (imagePreviewUrl) {
       		$imagePreview = (<img src={imagePreviewUrl} />);
     	}
+        //TODO: only render upload image button once the imagePreviewUrl != ""
 	    return (
 		      <div>
-		        <form onSubmit={this._handleSubmit}>
+		        <form onSubmit={this._handleSubmit} className="Form">
 		          <input type="file" onChange={this.handleImageChange} />
-		          <button type="submit" onClick={this.handleSubmit}>Upload Image</button>
+		          <input type="submit" className="btn btn-red" value="Upload Image" onClick={this.handleSubmit} />
 		        </form>
 		        {$imagePreview}
 		      </div>

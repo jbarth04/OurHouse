@@ -192,7 +192,7 @@ def editHouse(arg1):
             except exc.IntegrityError:
                 db.session.rollback()
                 return jsonify([{'status':400, 'message':'Uh OH!!!!'}])
-            return jsonify([{'status':200}])
+            return jsonify([{'status':200, "houseId":house.Id}])
 
     else:
         return redirect(url_for('auth_page.index'))
