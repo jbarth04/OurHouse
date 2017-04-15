@@ -65,7 +65,7 @@ div .houseListing{
 	padding: 2vw;
 	text-align: left;
 	list-style: none;
-	font-size: 1.2vw;
+	font-size: 1em;
 }
 #update-button{
 	padding-left: 0.5vw;
@@ -110,8 +110,8 @@ div .houseListing{
 	text-align: left;
 }
 #filterbar{
-	background-color: white;
-	padding-top: 0.5vw;
+	/*background-color: white;*/
+	/*padding-top: 0.5vw;*/
 	display: block;
 	width: 400px;
 	position: relative;
@@ -121,7 +121,11 @@ div .houseListing{
 	margin-top: 6%;
 	margin-left:1%;
 	border-radius: 10px;
+	padding: 5px;
 
+}
+.sidebar{
+	background-color: white;
 }
 .navbar-links{
 	display: inline-block;
