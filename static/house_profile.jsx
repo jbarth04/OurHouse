@@ -69,8 +69,6 @@ var ContactForm = React.createClass ({
 
   	data = this.state;
 
-    console.log(data);
-
     if (this.state.useremail != ''){ 
     	$.ajax({
     		type: 'POST',
@@ -111,6 +109,45 @@ var ContactForm = React.createClass ({
   }
 });
 
+// var ZillowData = React.createClass ({ 
+
+//   generateInfo: function(){
+
+//     console.log(props);
+//     zwsid = X1-ZWz1992ngtq497_7oq0o; 
+//     address1 = this.props.Address1;
+
+//     for (i = 0; i < address1.length; i++) {
+//       if (address1[i] == 0) {
+//         address1 = address1.substr(i-1, i) + '+' + address1(i + 1);
+//       }
+//     }
+//     this.props.Address1 = address1;
+//     address2 = this.props.Address2; 
+//     zip = this.props.Zipcode; 
+//     // requestURL = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=' + zwsid + '&address=' address1 + '&citystatezip=' + zipcode;
+
+//     // $.ajax ({
+//     //   type: 'GET',
+//     //   url: requestURL,
+//     //   dataType: 'xml',
+
+
+//     // })
+
+//     // info = [];
+
+
+
+//   },
+
+//   render: function() { 
+//     return(
+//       <h1> {this.props.Address1} </h1>     
+//     );
+//   }
+// });
+
 React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={landlord.Phone} 
 	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
 	Dist={house.DistFromCC} Rooms={house.Rooms}
@@ -120,3 +157,5 @@ React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={land
 	document.getElementById('HouseInfo'));
 
 React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
+
+// React.render(<ZillowData Address1={house.Address1} Address2={house.Address2} Zipcode={house.Zipcode}/>, document.getElementById('ZillowData')); 

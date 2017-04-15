@@ -53,13 +53,6 @@ compress.init_app(app)
 import pylibmc
 mc = app.config['CACHE_CONFIG']
 
-###################### Do the configuration for mail #################
-
-
-
-mail = Mail()
-mail.init_app(app)
-
 ###################### Import Blueprints #############################
 
 import serializeDecimalObject
