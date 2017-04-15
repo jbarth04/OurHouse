@@ -6,23 +6,18 @@ from flask import Flask
 import pylibmc
 import os
 
-# from importlib import import_module
-
 import config
-
-_config = getattr(config, os.environ['TEST_SETTINGS'])
-
-# _config = import_module(os.environ['APP_SETTINGS'])
-
-# from config import _config_type
 
 from flask import Blueprint
 memcache_page = Blueprint('memcache_page', __name__)
 
-# _config = _config_type
 
-# print "here"
-print _config
-mc = getattr(_config, 'CACHE_CONFIG')
+# 'APP_SETTINGS' is in the form config.SOME_CONFIG CLASS
+_config_setting = os.environ['APP_SETTINGS']
 
-# mc = os.environ['CACHE_CONFIG']
+_config_arr = _config_setting.split(".")
+
+# Trying to get just the SOME_CONFIG_CLASS part (e.g. DevelopmentConfig)
+_config_class = getattr(config, _config_arr[-1])
+
+mc = getattr(_config_class, 'CACHE_CONFIG')
