@@ -103,6 +103,7 @@ Note2: This project followed the practices outlined in the following tutorial -
 14. In order to allow users to contact landlords, you'll need to export a variable containing your email login information:
 
     $ export EMAIL_ACCOUNT="your_email@you.com"
+
     $ export EMAIL_PASSWORD="yourpassword"
 
 15. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
@@ -120,11 +121,15 @@ Note2: This project followed the practices outlined in the following tutorial -
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
 appdirs==1.4.0 <br />
+bcrypt==3.1.3 <br />
+blinker==1.4 <br />
 boto==2.46.1 <br />
 click==6.7 <br />
 Flask==0.12 <br />
+Flask-Bcrypt==0.7.1 <br />
 Flask-CDN==1.5.3 <br />
 Flask-Compress==1.4.0 <br />
+Flask-Mail==0.9.1 <br />
 Flask-Mail==0.9.1 <br />
 Flask-Migrate==2.0.3 <br />
 Flask-Script==2.0.5 <br />
@@ -139,8 +144,9 @@ Mako==1.0.6 <br />
 MarkupSafe==0.23 <br />
 packaging==16.8 <br />
 psycopg2==2.6.2 <br />
-pyparsing==2.1.10 <br />
+pycparser==2.17 <br />
 pylibmc==1.5.2 <br />
+pyparsing==2.1.10 <br />
 python-editor==1.0.3 <br />
 python-firebase==1.2 <br />
 requests==2.13.0 <br />

@@ -16,18 +16,20 @@ if app.config['SQLALCHEMY_DATABASE_URI'] == None:
     sys.exit(1)
 
 ############ Do the configuration for the database #############
-
-# import created database in models.py
 from models import db
 db.init_app(app)
 
-# import created mail in mail.py
-from mail import mail
-mail.init_app(app)
+############ Do the configuration for bycrpt #############
+from models import bcrypt
+bcrypt.init_app(app)
 
 ############ Do the configuration for the S3 storage bucket #############
 from photo import store
 store.init_app(app)
+
+############ Do the configuration for email #############
+from mail import mail
+mail.init_app(app)
 
 ############ Do the configuration for the CDN Amazon Cloud Storage #############
 from flask_cdn import CDN
@@ -42,11 +44,10 @@ from flask_compress import Compress
 compress = Compress()
 compress.init_app(app)
 
-########## Do the configuration Memcache ###########
-import pylibmc
-mc = app.config['CACHE_CONFIG']
-
 ###################### Import Blueprints #############################
+
+import memcache
+app.register_blueprint(memcache.memcache_page)
 
 import serializeDecimalObject
 app.register_blueprint(serializeDecimalObject.serializeDecimalObject_page)
@@ -71,9 +72,6 @@ app.register_blueprint(review.review_page)
 
 import mail
 app.register_blueprint(mail.mail_page)
-
-# import tests
-# app.register_blueprint(tests.tests_page)
 
 ###################### Run the app #############################
 
