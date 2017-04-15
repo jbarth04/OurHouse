@@ -43,8 +43,9 @@ compress = Compress()
 compress.init_app(app)
 
 ########## Do the configuration Memcache ###########
-import pylibmc
-mc = app.config['CACHE_CONFIG']
+
+# import pylibmc
+# mc = app.config['CACHE_CONFIG']
 
 ###################### Import Blueprints #############################
 
