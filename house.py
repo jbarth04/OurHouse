@@ -26,7 +26,7 @@ import json
 
 import serializeDecimalObject
 
-from app import mc
+from memcache import mc
 
 @house_page.route("/houses", methods=['GET'])
 def houses():

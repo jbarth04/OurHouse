@@ -1,6 +1,5 @@
-## house.py
-## contains routes pertaining to houses: homepage, uploading new house listing, 
-## house profile 
+## review.py
+## contains routes pertaining to reviews
 
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -24,8 +23,6 @@ review_page = Blueprint('review_page', __name__)
 import json
 
 import serializeDecimalObject
-
-from app import mc
 
 @review_page.route("/reviews", methods=['POST'])
 def reviews():
