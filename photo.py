@@ -35,6 +35,8 @@ def upload_photo():
 
         # Step 1: get the base64 encoded image and decode into a temp file and create a FileStorage object
         base64ImageUrl = request.form["imagePreviewUrl"]
+        if base64ImageUrl == None or base64ImageUrl == "":
+            return jsonify([{'status':400, 'message':'Must attach a file to upload'}])
         urlList = base64ImageUrl.split(",")
         # grabs just the base64 encoding from the string 
         imageBase64 =  urlList[-1]

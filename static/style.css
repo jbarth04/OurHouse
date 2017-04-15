@@ -65,7 +65,7 @@ div .houseListing{
 	padding: 2vw;
 	text-align: left;
 	list-style: none;
-	font-size: 1.2vw;
+	font-size: 1em;
 }
 #update-button{
 	padding-left: 0.5vw;
@@ -110,8 +110,8 @@ div .houseListing{
 	text-align: left;
 }
 #filterbar{
-	background-color: white;
-	padding-top: 0.5vw;
+	/*background-color: white;*/
+	/*padding-top: 0.5vw;*/
 	display: block;
 	width: 400px;
 	position: relative;
@@ -121,7 +121,11 @@ div .houseListing{
 	margin-top: 6%;
 	margin-left:1%;
 	border-radius: 10px;
+	padding: 5px;
 
+}
+.sidebar{
+	background-color: white;
 }
 .navbar-links{
 	display: inline-block;
@@ -150,6 +154,10 @@ input[type=button], input[type=submit], input[type=reset] {
 	line-height: 1em;
 	height: 200px;
 	width: 800px;
+}
+#myCarousel{
+	width: 50%;
+	margin:0 auto;
 }
 .filterOption{
 	/*display: inline-block;*/
@@ -205,6 +213,15 @@ footer{
 	margin: 0.2vw;
 	margin-left: 0.4vw;
 }
+
+.emailTextBox{
+	padding-top: 0;
+   	padding-left: 0;
+	line-height: 1em;
+	height: 200px;
+	width: 800px;
+}
+
 .navbar.transparent{
 	background-color: white;
 	opacity: 0.8;
@@ -212,6 +229,9 @@ footer{
 .btn-red{
 	background-color: #FE414D;
 	color: white;
+}
+.inlineBlock{
+	display: inline-block;
 }
 .clear{
 	clear:both;
