@@ -1,6 +1,5 @@
-## house.py
-## contains routes pertaining to houses: homepage, uploading new house listing, 
-## house profile 
+## review.py
+## contains routes pertaining to reviews
 
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -25,8 +24,6 @@ import json
 
 import serializeDecimalObject
 
-from app import mc
-
 @review_page.route("/reviews", methods=['POST'])
 def reviews():
     if 'username' in session and request.method == 'POST':
@@ -44,6 +41,7 @@ def reviews():
             try:
                 db.session.commit() 
             except exc.IntegrityError:
+                db.session.rollback()
                 return jsonify([{'status':400, 'message':"Opps you can't post that!"}])
             return jsonify({"status": 200})
     else :

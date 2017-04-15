@@ -96,8 +96,7 @@ var AptForm = React.createClass ({
         },
         success: function(result) {
           if(result[0].status == 201){
-            alert('Thank you for uploading your apartment!');
-            window.location.href = "/houses";
+            window.location.href = "/image_uploader="+result[0].houseID;
           }
           else if (result[0].status == 400){
             alert(result[0].message);
@@ -313,7 +312,7 @@ var AptForm = React.createClass ({
         </label>
       </div>
       <br />
-    <input className="btn btn-red"type="submit" value="Upload your house!"/>  
+    <input className="btn btn-red"type="submit" value="Continue"/>  
     </form>
     </div>
     );

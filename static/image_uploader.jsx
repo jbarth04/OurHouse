@@ -3,7 +3,8 @@ var ImageUploader = React.createClass({
 	getInitialState : function(){
 		return{
 			file:'',
-			imagePreviewUrl:''
+			imagePreviewUrl:'',
+			houseId:this.props.houseID
 		};
 		this.handleChange = this.handleChange.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,45 +24,31 @@ var ImageUploader = React.createClass({
     	reader.readAsDataURL(file)
   	},
   	handleSubmit: function(e){
-  		console.log("HERE SUBMITTING");
-    	// data = this.state;
-    	// console.log(data);
-    	// console.log(this.state.imagePreviewUrl);
-    	// tdata = this.state.imagePreviewUrl
-    	data = {imageUrl: this.state.imagePreviewUrl};
-    	console.log(data);
+    	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: this.state.houseId}
     	$.ajax({
     		type: 'POST',
-    		url: '/testupload',
+    		method: 'POST',
+    		url: '/upload_photo',
     		data: data,
     		success: function(result) {
-    			console.log(result)
-    			// if(result.status == 200){
-    			// 	console.log(result);
-    			// 	location.reload();
-    			// }
-    			// else if (result.status == 400){
-    			// 	console.log(result.message);
-    			// }
+    			if(result.status == 200){
+    				alertMessage = result.message + " Thank you for uploading your apartment!"
+    				alert(alertMessage);
+    				window.location="/houses"
+    			}
+    			else if (result.status == 400){
+    				alert(result.message);
+    			}
     		}
     	})
     	event.preventDefault();
   	},
-  	// generateForm: function(){
-
-  	// },
-  	// generateEmptyForm : function(){
-  	// 	return(
-  	// 		<div></div>
-  	// 	)
-  	// },
 	render : function(){
 		let {imagePreviewUrl} = this.state;
     	let $imagePreview = null;
     	if (imagePreviewUrl) {
       		$imagePreview = (<img src={imagePreviewUrl} />);
     	}
-
 	    return (
 		      <div>
 		        <form onSubmit={this._handleSubmit}>
@@ -73,4 +60,4 @@ var ImageUploader = React.createClass({
 	    );
 	}
 });
-React.render(<ImageUploader />, document.getElementById('imgUpload'));
+React.render(<ImageUploader houseID={HouseId}/>, document.getElementById('imgUpload'));

@@ -25,7 +25,7 @@ import json
 
 import serializeDecimalObject
 
-from app import mc
+from memcache import mc
 
 @house_page.route("/houses", methods=['GET'])
 def houses():
@@ -51,7 +51,8 @@ def houses():
             mc.set("AllIds", allIds)
             mc.set("Houses", True)
             jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
-        return render_template('houses.html', rhouses=jsonHouses)
+        usertype = {"type": session['usertype']}
+        return render_template('houses.html', rhouses=jsonHouses, usertype=usertype)
     else:
         return redirect(url_for('auth_page.index'))
 
@@ -110,7 +111,10 @@ def newhome():
         #If no landlord exists by that email
         if someLandlord == None:
             return jsonify([{'status':400, 'message':'Landlord does not match any on file, please check the email.'}]) 
-        house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm)
+        house = House(someLandlord.Id, Address1, Address2, City, State, Zipcode, \
+                      Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, \
+                      Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm,\
+                      datetime.now(), datetime.now(), True)
         print house
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
@@ -120,11 +124,13 @@ def newhome():
             mc.delete("Houses") # flush cache, it's now stale
             mc.delete("AllIds") # flush cache, it's now stale
         except exc.IntegrityError:
+            db.session.rollback()
             return jsonify([{'status':400, 'message':'This house has already been listed as active'}])
-        return jsonify([{'status':201}])
+        return jsonify([{'status':201, "houseID":house.Id}])
     else:   
         if 'username' in session:
-            return render_template('newhome.html')
+            usertype = {"type": session['usertype']}
+            return render_template('newhome.html', usertype=usertype)
         else:
             return redirect(url_for('auth_page.index'))
 
@@ -140,7 +146,8 @@ def editHouse(arg1):
             landlord = Landlord.query.filter_by(Id=landlordID).all()
             singleLandlord = [l.as_dict_JSON() for l in landlord]
             jsonLandlord = json.dumps(singleLandlord, default=serializeDecimalObject.defaultencode)
-            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord)
+            usertype = {"type": session['usertype']}
+            return render_template('edit_house_profile.html', house=jsonHouse, landlord=jsonLandlord, usertype=usertype)
         elif request.method == 'PUT':
             HouseId = request.form['houseId']
             newRooms = int(request.form['bedrooms'])
@@ -162,6 +169,7 @@ def editHouse(arg1):
                 mc.delete("Houses") # flush cache, it's now stale
                 mc.delete("AllIds") # flush cache, it's now stale
             except exc.IntegrityError:
+                db.session.rollback()
                 return jsonify([{'status':400, 'message':'Uh OH!!!!'}])
             return jsonify([{'status':200}])
 

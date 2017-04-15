@@ -91,18 +91,17 @@ div .houseListing{
 .markerLink{
 	text-decoration: none;
 }
-#view-houses{
+.view-houses{
 	text-align: center;
 	overflow-y: scroll;
 	height: 300px;
 	position: relative;
 	z-index: 200;
-	width: 30%;
-	/*display: block;*/
 	float: left;
 	margin:0;
-	/*padding-top: 30%;*/
-	/*margin-top: 30%;*/
+}
+.HouseList{
+	padding:0;
 }
 .filter-option{
 	padding: 0.2vw;

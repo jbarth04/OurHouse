@@ -38,10 +38,13 @@ compress = Compress()
 compress.init_app(app)
 
 ########## Do the configuration Memcache ###########
-import pylibmc
-mc = app.config['CACHE_CONFIG']
+# import pylibmc
+# mc = app.config['CACHE_CONFIG']
 
 ###################### Import Blueprints #############################
+
+import memcache
+app.register_blueprint(memcache.memcache_page)
 
 import serializeDecimalObject
 app.register_blueprint(serializeDecimalObject.serializeDecimalObject_page)

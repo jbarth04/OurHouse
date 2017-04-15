@@ -11,6 +11,7 @@
 # $ export MEMCACHIER_SERVERS="mc3.dev.ec2.memcachier.com:11211"
 # $ export MEMCACHIER_USERNAME="abcde12345"
 # $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
+# $ export TEST_SETTINGS="DevelopmentConfig"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
