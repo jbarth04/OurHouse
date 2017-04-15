@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_mail import Mail
 import os
 
 ################### Initial Config ######################
@@ -19,6 +20,10 @@ if app.config['SQLALCHEMY_DATABASE_URI'] == None:
 # import created database in models.py
 from models import db
 db.init_app(app)
+
+# import created mail in mail.py
+from mail import mail
+mail.init_app(app)
 
 ############ Do the configuration for the S3 storage bucket #############
 from photo import store
@@ -63,6 +68,12 @@ app.register_blueprint(photo.photo_page)
 
 import review
 app.register_blueprint(review.review_page)
+
+import mail
+app.register_blueprint(mail.mail_page)
+
+# import tests
+# app.register_blueprint(tests.tests_page)
 
 ###################### Run the app #############################
 

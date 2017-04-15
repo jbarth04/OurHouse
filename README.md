@@ -100,17 +100,22 @@ Note2: This project followed the practices outlined in the following tutorial -
     $ export MEMCACHIER_USERNAME=""
     $ export MEMCACHIER_PASSWORD=""
 
-14. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+14. In order to allow users to contact landlords, you'll need to export a variable containing your email login information:
 
-15. In your first tab, activate Memcache by running:
+    $ export EMAIL_ACCOUNT="your_email@you.com"
+    $ export EMAIL_PASSWORD="yourpassword"
+
+15. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+
+16. In your first tab, activate Memcache by running:
 
     $ memcached -d -m memory -l 127.0.0.1
 
-16. In your second tab, active Postgres by running:
+17. In your second tab, active Postgres by running:
 
     $ postgres -D /usr/local/var/postgres
 
-17. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+18. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />

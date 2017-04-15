@@ -1,0 +1,8 @@
+PWD /Users/francesca/Downloads/Full Download/Hybrid
+INPUT /usr/local/texlive/2016/texmf.cnf
+INPUT /usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/francesca/Downloads/Full Download/Hybrid/stationery-hybrid.html
+OUTPUT /Users/francesca/Downloads/Full Download/Hybrid/stationery-hybrid.log
+OUTPUT /Users/francesca/Downloads/Full Download/Hybrid/stationery-hybrid.pdf
+INPUT /usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map
