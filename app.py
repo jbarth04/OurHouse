@@ -21,6 +21,10 @@ if app.config['SQLALCHEMY_DATABASE_URI'] == None:
 from models import db
 db.init_app(app)
 
+# import created mail in mail.py
+from mail import mail
+mail.init_app(app)
+
 ############ Do the configuration for the S3 storage bucket #############
 
 # from flask_store import Store
