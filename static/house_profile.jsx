@@ -247,7 +247,7 @@ var ContactForm = React.createClass ({
       </div> 
       <div className="newContactForm form-group">
         <label>
-        <textarea className="emailTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
+        <textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
         </label>
       </div> 
     <input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
