@@ -10,6 +10,8 @@ x<!DOCTYPE html>
       <!-- Optional theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <!-- <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon"></link> -->
   </head>
   <body>
     <div id="navbar"></div>
@@ -18,19 +20,18 @@ x<!DOCTYPE html>
               <div id="welcome"></div>
   	        </div>
             <div id="FilterHouses">
-    	          <div id="filterbar" class="container-fluid text-center"></div>
-                <div class="clear"></div>
-                <div id="view-houses" class="container-fluid"></div>
+    	          <div id="filterbar" class="container-fluid"></div>
             </div>
-          </div>
+    </div>
     <footer class="footer " id="footerbar"></footer> 
   </body>
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyCe1TyZZdi-2EGFlwk7t8153ZsgsK0QIqA"></script>
 <script type="text/javascript">
     houses = {{ rhouses | safe}};
+    usertype = {{ usertype | safe}};
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>

@@ -37,7 +37,6 @@ var KeyForm = React.createClass ({
   },
 
   render: function() {
-    console.log("got called");
     return (
     <form onSubmit={this.handleSubmit} className="newPropForm">
       <p className="newPropLabel">Get API Key</p>
@@ -91,7 +90,7 @@ var Developer = React.createClass ({
           <li>GET request via your web browser</li>
           <li>Embedded GET requests in your source code. (Remember to secure your API key if you are embedding your get requests in your source code!)</li>
         </ul>
-        <h3>Select one of the tutorials from below to help you get started.</h3>
+        <h3>Read one of the tutorials from below to help you get started.</h3>
         <h3>Querying for a certain type of house</h3>
         <p>Our database has a lot of information stored about each property added to the application. We want you to be able to get results from our database that are the most relevant to you. Below is a table containing the fields from our database that you can use to make a query. It’s very important that you match the case of the filter field or we won’t be able to process your query!</p>
           <table className="table">

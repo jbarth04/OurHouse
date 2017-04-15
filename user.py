@@ -49,6 +49,7 @@ def signup():
         try:
             db.session.commit()
         except exc.IntegrityError:
+            db.session.rollback()
             return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
         return jsonify([{'status':201}])
     else:
@@ -73,7 +74,8 @@ def profile():
             properties = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
         else: 
             properties = []
-        return render_template('profile.html', user=jsonUser, properties=properties)
+        usertype = {"type": session['usertype']}
+        return render_template('profile.html', user=jsonUser, properties=properties, usertype=usertype)
     else:
         return redirect(url_for('auth_page.index'))
 
@@ -90,7 +92,8 @@ def editProfile():
             dictUser = user.as_dict_JSON()
             dictUser['Type'] = userType
             jsonUser = json.dumps(dictUser, default=serializeDecimalObject.defaultencode)
-            return render_template('edit_profile.html', user=jsonUser)
+            usertype = {"type": session['usertype']}
+            return render_template('edit_profile.html', user=jsonUser, usertype=usertype)
         elif request.method == 'PUT':
             NewFirstName = request.form['FirstName']
             NewLastName = request.form['LastName']
@@ -106,6 +109,7 @@ def editProfile():
             try:
                 db.session.commit()
             except exc.IntegrityError:
+                db.session.rollback()
                 return jsonify([{'status':400, 'message':'A user with this email already exists.'}])
             return jsonify([{'status':200}])
     else:

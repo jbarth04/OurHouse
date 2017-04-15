@@ -42,10 +42,16 @@ class House(db.Model):
     DistFromCC = db.Column(db.Float, nullable=False)
     DateAvailable = db.Column(db.Date)
     LeaseTerm = db.Column(db.SmallInteger)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
+    IsActive = db.Column(db.Boolean, nullable=False)
 
     Landlord = db.relationship(u'Landlord', primaryjoin='House.LandlordId == Landlord.Id', backref=u'houses')
 
-    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm):
+    def __init__(self, LandlordId, Address1, Address2, City, State, Zipcode, \
+                 Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, \
+                 Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm,\
+                 CreatedAt, UpdatedAt, IsActive):
         self.LandlordId = LandlordId
         self.Address1 = Address1
         self.Address2 = Address2
@@ -63,6 +69,9 @@ class House(db.Model):
         self.DistFromCC = DistFromCC
         self.DateAvailable = DateAvailable
         self.LeaseTerm = LeaseTerm 
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+        self.IsActive = IsActive
 
     def as_dict(self):
         house = __builtin__.dict(
@@ -98,7 +107,7 @@ class Landlord(db.Model):
     Id = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
-    Email = db.Column(db.String(62), nullable=False)
+    Email = db.Column(db.String(62), nullable=False, unique=True)
     Phone = db.Column(db.String(10), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
@@ -140,7 +149,7 @@ class Review(db.Model):
     Id = db.Column(db.Integer, primary_key=True)
     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
     StudentId = db.Column(db.ForeignKey(u'OurHouse.Students.Id'), nullable=False, index=True)
-    Stars = db.Column(db.String, nullable=False)
+    Stars = db.Column(db.String(1), nullable=False)
     Comment = db.Column(db.String(4096))
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
@@ -223,18 +232,41 @@ class Student(db.Model):
             Phone = self.Phone)
         return student
 
-# class HousePhoto(db.Model):
-#     __tablename__ = 'HousePhotos'
-#     __table_args__ = (
-#         db.UniqueConstraint('RelativePath'),
-#         db.Index('ix_HousePhotos_RelativePath', 'RelativePath'),
-#         {u'schema': 'OurHouse'}
-#     )
+class Photo(db.Model):
+    __tablename__ = 'Photos'
+    __table_args__ = (
+        db.UniqueConstraint('RelativePath'),
+        db.Index('ix_Photos_RelativePath', 'RelativePath'),
+        {u'schema': 'OurHouse'}
+    )
 
-#     Id = db.Column(db.Integer, primary_key=True)
-#     HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
-#     RelativePath = db.Column(FlaskStoreType())
-#     House = db.relationship(u'House', primaryjoin='HousePhoto.HouseId == House.Id', backref=u'housephotos')
+    Id = db.Column(db.Integer, primary_key=True)
+    HouseId = db.Column(db.ForeignKey(u'OurHouse.Houses.Id'), nullable=False, index=True)
+    RelativePath = db.Column(FlaskStoreType(), unique=True, nullable=False)
+    CreatedAt = db.Column(db.DateTime(True), server_default=db.func.current_timestamp(), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), server_default=db.func.current_timestamp(), nullable=False)
+
+    House = db.relationship(u'House', primaryjoin='Photo.HouseId == House.Id', backref=u'photos')
+
+    def __init__(self, HouseId, RelativePath, CreatedAt, UpdatedAt):
+        self.HouseId = HouseId
+        self.RelativePath = RelativePath
+        self.CreatedAt = CreatedAt
+        self.UpdatedAt = UpdatedAt
+    def as_dict(self):
+        photo = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            RelativePath = self.RelativePath,
+            CreatedAt = self.CreatedAt,
+            UpdatedAt = self.UpdatedAt)
+        return photo
+    def as_dict_JSON(self):
+        photo = __builtin__.dict(
+            Id = self.Id, 
+            HouseId =  self.HouseId,
+            RelativePath = str(self.RelativePath))
+        return photo
 
 class Developer(db.Model):
     __tablename__ = 'Developers'
@@ -248,6 +280,8 @@ class Developer(db.Model):
     ProjectName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False)
     Key = db.Column(db.String(128), nullable=False, unique=True)
+    CreatedAt = db.Column(db.DateTime(True), nullable=False)
+    UpdatedAt = db.Column(db.DateTime(True), nullable=False)
     CreatedAt = db.Column(db.DateTime(True), nullable=False)
     UpdatedAt = db.Column(db.DateTime(True), nullable=False)
 

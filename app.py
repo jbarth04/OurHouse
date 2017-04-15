@@ -26,19 +26,8 @@ from mail import mail
 mail.init_app(app)
 
 ############ Do the configuration for the S3 storage bucket #############
-
-# from flask_store import Store
-# from flask import request
-
-# store = Store()
-
-# store.init_app(app)
-
-# @app.route('/upload', methods=['POST', ])
-# def upload():
-#     provider = store.Provider(request.files.get('afile'))
-#     provider.save()
-#     return provider.absolute_url
+from photo import store
+store.init_app(app)
 
 ############ Do the configuration for the CDN Amazon Cloud Storage #############
 from flask_cdn import CDN
@@ -73,6 +62,12 @@ app.register_blueprint(house.house_page)
 
 import developer
 app.register_blueprint(developer.developer_page)
+
+import photo
+app.register_blueprint(photo.photo_page)
+
+import review
+app.register_blueprint(review.review_page)
 
 import mail
 app.register_blueprint(mail.mail_page)

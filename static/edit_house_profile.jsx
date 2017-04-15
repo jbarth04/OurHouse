@@ -51,7 +51,8 @@ var AptForm = React.createClass ({
         },
         success: function(result) {
           if(result[0].status == 200){
-            window.location.href = "/houses";
+            relocation = "image_uploader=" + result[0].houseId;
+            window.location=relocation;
           }
           else if (result[0].status == 400){
             alert(result[0].message);
@@ -64,7 +65,7 @@ var AptForm = React.createClass ({
 
   render: function() {
     return (
-    <form onSubmit={this.handleSubmit} className="newPropForm">
+    <form onSubmit={this.handleSubmit} className="newPropForm Form">
       <p className="newPropLabel">Landlord Information</p>
       <p>{this.state.landlordFName} {this.state.landlordLName}</p>
       <p>House Info</p>
@@ -128,7 +129,7 @@ var AptForm = React.createClass ({
         </select><br/> 
         </label>
       </div>
-      <input className="btn btn-xs btn-info"type="submit" value="Update"/>  
+      <input type="submit" className="btn btn-red" value="Next"/>  
     </form>
     );
   }

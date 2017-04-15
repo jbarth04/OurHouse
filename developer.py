@@ -87,6 +87,7 @@ def generate_key():
 		try:
 			db.session.commit()
 		except exc.IntegrityError:
+			db.session.rollback()
 			return jsonify([{'status':400, 'message':'Error: Unable to generate key for you at this time'}])
 		return jsonify([{'status':201, 'key':key}])
 

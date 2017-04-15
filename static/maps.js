@@ -31,13 +31,10 @@ for (var i = 0; i < houses.length; i++) {
 				  "<p>Bedrooms: "+houses[i].Rooms+"</p>"+
 				  "<p>Distance from Campus Center: "+distance+" miles</p>";
 	marker = new google.maps.Marker({
-		icon: "static/images/marker_small.png",
+		icon: "static/images/logo2_white.png",
 		position: house,
 		title: infoMessage
 	});
-	// google.maps.event.addListener(title, 'click', (function() {
-	// 	window.location.href = "/house_profile/"+houses[i].Id;
-	// }));
 	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		return function() {
 			infowindow.setContent(marker.title);

@@ -52,13 +52,10 @@ var AptForm = React.createClass ({
     var apartment = this.state;
 
     address = this.state.address1 + ' ' + this.state.address2 + ' ' + this.state.city + ' ' + this.state.state +' ' + this.state.zip; 
-    console.log(address);
     geocoder.geocode({'address': address}, function(results, status) { 
       if (status == 'OK') {
         latitude = results[0].geometry.location.lat();
         longitude = results[0].geometry.location.lng();
-        console.log(latitude, longitude); 
-        console.log(apartment);
 
 
         Number.prototype.toRad = function() {
@@ -98,10 +95,8 @@ var AptForm = React.createClass ({
             'Cache-Control':'max-age=500'
         },
         success: function(result) {
-          console.log(result);
           if(result[0].status == 201){
-            alert('Thank you for uploading your apartment!');
-            window.location.href = "/houses";
+            window.location.href = "/image_uploader="+result[0].houseID;
           }
           else if (result[0].status == 400){
             alert(result[0].message);
@@ -120,6 +115,7 @@ var AptForm = React.createClass ({
 
   render: function() {
     return (
+      <div className="Form">
     <form onSubmit={this.handleSubmit} className="newPropForm">
       <p className="newPropLabel">Landlord Information</p>
       <div className="newPropFormLabel form-group">
@@ -316,8 +312,9 @@ var AptForm = React.createClass ({
         </label>
       </div>
       <br />
-    <input className="btn btn-primary"type="submit" value="Upload your house!"/>  
+    <input className="btn btn-red"type="submit" value="Continue"/>  
     </form>
+    </div>
     );
   }
 });
