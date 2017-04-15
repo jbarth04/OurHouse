@@ -48,6 +48,13 @@ class Config(object):
                             'application/json',
                             'application/javascript'
                          ]
+    # Mail configuration
+
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT=465
+    MAIL_USE_SSL=True
+    MAIL_USERNAME = os.environ['EMAIL_ACCOUNT']
+    MAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
 
 class ProductionConfig(Config):
     DEBUG = False
@@ -79,7 +86,6 @@ class ProductionConfig(Config):
                       'dead_timeout': 30,
                     })
 
-
 class StagingConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
@@ -110,7 +116,6 @@ class StagingConfig(Config):
                       'retry_timeout': 2,
                       'dead_timeout': 30,
                     })
-
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True

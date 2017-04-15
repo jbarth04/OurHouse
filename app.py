@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_mail import Mail
 import os
 
 ################### Initial Config ######################
@@ -68,6 +69,12 @@ app.register_blueprint(house.house_page)
 
 import developer
 app.register_blueprint(developer.developer_page)
+
+import mail
+app.register_blueprint(mail.mail_page)
+
+# import tests
+# app.register_blueprint(tests.tests_page)
 
 ###################### Run the app #############################
 
