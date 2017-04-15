@@ -103,7 +103,7 @@ class Landlord(db.Model):
     __tablename__ = 'Landlords'
     __table_args__ = (
 
-        # db.Index('ix_Landlords_Email_PasswordHash', 'Email', 'PasswordHash'),
+        db.Index('ix_Landlords_Email_PasswordHash', 'Email', 'PasswordHash'),
         {u'schema': 'OurHouse'}
     )
 
@@ -111,7 +111,7 @@ class Landlord(db.Model):
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)
-    # PasswordHash = db.Column(db.String(60), nullable=False)
+    PasswordHash = db.Column(db.String(60), nullable=False)
     Phone = db.Column(db.String(10), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
     CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
@@ -200,7 +200,7 @@ class Student(db.Model):
     __tablename__ = 'Students'
     __table_args__ = (
 
-        # db.Index('ix_Students_Email_PasswordHash', 'Email', 'PasswordHash'),
+        db.Index('ix_Students_Email_PasswordHash', 'Email', 'PasswordHash'),
         {u'schema': 'OurHouse'}
     )
 
@@ -208,7 +208,7 @@ class Student(db.Model):
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     Email = db.Column(db.String(62), nullable=False, unique=True)
-    # PasswordHash = db.Column(db.String(60), nullable=False)
+    PasswordHash = db.Column(db.String(60), nullable=False)
     Phone = db.Column(db.String(10), nullable=False)
     IsActive = db.Column(db.Boolean, nullable=False)
     CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
