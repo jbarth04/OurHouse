@@ -35,14 +35,16 @@ def signup():
             LastName = request.form['LastName']
             PhoneNum = request.form['PhoneNum']
             Email = request.form['Email']
-            user = Landlord(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+            Password = request.form['Password']
+            user = Landlord(FirstName, LastName, Email, Password, PhoneNum, True, datetime.now(), datetime.now())
             db.session.add(user)
         elif request.form['UserType'] == 'Student':
             FirstName = request.form['FirstName']
             LastName = request.form['LastName']
             PhoneNum = request.form['PhoneNum']
             Email = request.form['Email']
-            user = Student(FirstName, LastName, Email, PhoneNum, True, datetime.now(), datetime.now())
+            Password = request.form['Password']
+            user = Student(FirstName, LastName, Email, Password, PhoneNum, True, datetime.now(), datetime.now())
             db.session.add(user)
         #Handling SQLalchemy errors when a user added has the same email address (already exists)
         # http://docs.sqlalchemy.org/en/latest/core/exceptions.html

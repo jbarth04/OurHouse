@@ -13,11 +13,14 @@ from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, Nu
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 from flask_store.sqla import FlaskStoreType
+from flask_bcrypt import Bcrypt
 import __builtin__
 
 # create the database, to be imported later in app.py
 # creating DB here avoids circular dependencies
 db = SQLAlchemy()
+
+bcrypt = Bcrypt()
 
 class House(db.Model):
     __tablename__ = 'Houses'
@@ -117,18 +120,18 @@ class Landlord(db.Model):
     CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
     UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
     
-    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
+    def __init__(self, FirstName, LastName, Email, Password, Phone, IsActive, CreatedAt, UpdatedAt):
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
-        # self.PasswordHash = bcrypt.generate_password_hash(password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
+        self.PasswordHash = bcrypt.generate_password_hash(Password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
         self.Phone = Phone
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
 
-    # def check_password(self, password):
-    #     return bcrypt.check_password_hash(self.PasswordHash, password)
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.PasswordHash, password)
 
     def as_dict(self):
         landlord = __builtin__.dict(
@@ -214,18 +217,18 @@ class Student(db.Model):
     CreatedAt = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp(), nullable=False)
     UpdatedAt = db.Column(db.DateTime(timezone=True), onupdate=db.func.current_timestamp(), nullable=False)
 
-    def __init__(self, FirstName, LastName, Email, Phone, IsActive, CreatedAt, UpdatedAt):
+    def __init__(self, FirstName, LastName, Email, Password, Phone, IsActive, CreatedAt, UpdatedAt):
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
-        # self.PasswordHash = bcrypt.generate_password_hash(password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
+        self.PasswordHash = bcrypt.generate_password_hash(Password, 10) # TODO: uncomment and change args in init ^^ and UI to sign up
         self.Phone = Phone
         self.IsActive = IsActive
         self.CreatedAt = CreatedAt
         self.UpdatedAt = UpdatedAt
 
-    # def check_password(self, password):
-    #     return bcrypt.check_password_hash(self.PasswordHash, password)
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.PasswordHash, password)
 
     def as_dict(self):
         student = __builtin__.dict(
