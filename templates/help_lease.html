@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our House</title>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+</head>
+<body>
+  <div id ="navbar"></div>
+  <div id="contents" class="belowcontainer">
+    <h1>Welcome Students!</h1>
+    <h3>Part of our mission here at OurHouse is to help educate students about leases. We understand that for many this is the first time that you will be signing a lease. Below are a few pointers about what to look out for in your lease before you sign it.</h3>
+  </div>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script type="text/javascript">
+  usertype = {{ usertype | safe }};
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
+<script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+<script type="text/jsx" src="{{ url_for('static', filename = 'profile.jsx') }}"></script>
