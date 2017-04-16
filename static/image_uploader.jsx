@@ -35,7 +35,7 @@ var ImageUploader = React.createClass({
                 data: data,
                 success: function(result) {
                     if(result.status == 200){
-                        alertMessage = result.message + " Thank you for uploading your apartment!"
+                        alertMessage = result.message + " Feel free to upload more photos or click Finish below.";
                         alert(alertMessage);
                         React.render(<ContButton url={finishUrl} />, document.getElementById("contBtn"));
                         // window.location=url
