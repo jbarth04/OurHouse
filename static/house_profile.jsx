@@ -263,7 +263,6 @@ var ContactForm = React.createClass ({
   },
 
   render: function() {
-
     if (usertype.type == "Student"){
 		show = this.generateForm();
 	} else{
@@ -273,44 +272,31 @@ var ContactForm = React.createClass ({
   }
 });
 
-// var ZillowData = React.createClass ({ 
-
-//   generateInfo: function(){
-
-//     console.log(props);
-//     zwsid = X1-ZWz1992ngtq497_7oq0o; 
-//     address1 = this.props.Address1;
-
-//     for (i = 0; i < address1.length; i++) {
-//       if (address1[i] == 0) {
-//         address1 = address1.substr(i-1, i) + '+' + address1(i + 1);
-//       }
-//     }
-//     this.props.Address1 = address1;
-//     address2 = this.props.Address2; 
-//     zip = this.props.Zipcode; 
-//     // requestURL = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=' + zwsid + '&address=' address1 + '&citystatezip=' + zipcode;
-
-//     // $.ajax ({
-//     //   type: 'GET',
-//     //   url: requestURL,
-//     //   dataType: 'xml',
-
-
-//     // })
-
-//     // info = [];
-
-
-
-//   },
-
-//   render: function() { 
-//     return(
-//       <h1> {this.props.Address1} </h1>     
-//     );
-//   }
-// });
+var ZillowData = React.createClass ({ 
+	generateData: function(){
+		headers = {"homeDescription":"Home Description", "parkingType":"Parking Type", 
+				   "finishedSqFt": "Square Feet", "numFloors":"Number of Floors", 
+				   "rooms":"Types of Rooms", "appliances":"Appliances", "heatingSystem":"Heating System",
+				   "heatingSource":"Heating Source", "yearBuilt":"Year Built", "yearUpated":"Year Updated"};
+		ZillowData = this.props.Data;
+		Data = Object.keys(ZillowData).map(function(d){ 
+			return (<p><h4>{headers[d]}:</h4> {ZillowData[d]}</p>);}); 
+		return Data;
+	},
+	render: function() { 
+		Data = this.generateData(); 
+		return(
+			<div className="zillowInfo">
+				<h3>Information brought to you by Zillow:</h3>
+				{Data}
+				<br />
+				<a href="https://www.zillow.com/">
+					<img src="static/images/zillow-Logo.png" id="zillowLogo"></img> 
+				</a>
+			</div>
+		);
+	}
+});
 
 React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={landlord.Phone} 
 	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
@@ -323,6 +309,12 @@ React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={land
 React.render(<HouseReviews Reviews={reviews} />, document.getElementById('HouseReviews'));
 React.render(<ReviewForm HouseId={house.Id}/>, document.getElementById('ReviewForm'));
 
+<<<<<<< HEAD
 React.render(<ContactForm usertype={usertype} LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
+=======
+React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
+if (zillow.ZillowData != null){
+	React.render(<ZillowData Data={zillow.ZillowData} />, document.getElementById('ZillowData')); 
+}
+>>>>>>> 815ae0672a6ad12af2ce81577e087eda2a34101f
 
-// React.render(<ZillowData Address1={house.Address1} Address2={house.Address2} Zipcode={house.Zipcode}/>, document.getElementById('ZillowData')); 
