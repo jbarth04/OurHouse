@@ -44,6 +44,11 @@ from flask_compress import Compress
 compress = Compress()
 compress.init_app(app)
 
+########## Do the configuration Memcache ###########
+
+import pylibmc
+mc = app.config['CACHE_CONFIG']
+
 ###################### Import Blueprints #############################
 
 import memcache

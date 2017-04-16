@@ -34,7 +34,7 @@ def signup():
             FirstName = request.form['FirstName']
             LastName = request.form['LastName']
             PhoneNum = request.form['PhoneNum']
-            Email = request.form['Email']
+            Email = request.form['NewEmail']
             Password = request.form['Password']
             user = Landlord(FirstName, LastName, Email, Password, PhoneNum, True, datetime.now(), datetime.now())
             db.session.add(user)
@@ -42,7 +42,7 @@ def signup():
             FirstName = request.form['FirstName']
             LastName = request.form['LastName']
             PhoneNum = request.form['PhoneNum']
-            Email = request.form['Email']
+            Email = request.form['NewEmail']
             Password = request.form['Password']
             user = Student(FirstName, LastName, Email, Password, PhoneNum, True, datetime.now(), datetime.now())
             db.session.add(user)
