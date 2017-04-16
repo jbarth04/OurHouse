@@ -24,8 +24,8 @@ var LoginForm = React.createClass ({
       }.bind(this);
     },
 
-    handleSubmit: function(event){
-      if (this.state.NewUser = false) {
+    handleSubmitExisting: function(event){
+        console.log("Submitting old user")
         data = this.state;
         $.ajax({
           type: 'POST',
@@ -41,10 +41,12 @@ var LoginForm = React.createClass ({
           }
         })
         event.preventDefault();
-    }
-    else if (this.state.NewUser = true) {
+    },
+
+    handleSubmitNew: function(event){
+
       data = this.state;
-      var passLength = 8; 
+      var passLength = 5; 
 
       if (this.state.Password != this.state.ConPassword) {
         alert("The passwords you entered don't match. Try again!")
@@ -71,9 +73,7 @@ var LoginForm = React.createClass ({
         }
       })
       event.preventDefault();
-    }
-
-  },
+    },
 
     handleNewUser: function(event) { 
       this.state.NewUser = true;
@@ -85,7 +85,7 @@ var LoginForm = React.createClass ({
         return(
           <div className="LoginForm">
             <h1>Welcome to Our House</h1>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmitExisting}>
               <div className="form-group">
                 <label className="loginForm">
                   <input className="loginInput" type="text" value={this.state.email} placeholder="Email" onChange={this.handleChange('email')} />
@@ -106,7 +106,7 @@ var LoginForm = React.createClass ({
         return(
         <div className="LoginForm"> 
           <h2> Welcome to OurHouse! <br/> We are glad to have you! </h2>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmitNew}>
             <div className="form-group">
                 <input value={this.state.FirstName} placeholder= "First Name" onChange={this.handleChange('FirstName')} />
             </div>

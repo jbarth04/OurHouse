@@ -168,6 +168,10 @@ input[type=button], input[type=submit], input[type=reset] {
 .belowcontainer{
 	margin-top: 4.5vw;
 }
+
+.form-group {
+	color: black;
+}
 footer{
 	position: absolute;
 	bottom: 0;
