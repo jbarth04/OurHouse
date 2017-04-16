@@ -24,7 +24,10 @@ var AptForm = React.createClass ({
       pets:house.Pets,
       laundry:house.Laundry,
       leaseterm:house.LeaseTerm, 
-      dateavailable:house.DateAvailable
+      dateavailable:house.DateAvailable,
+      availableday:'1',
+      availablemonth:'1',
+      availableyear:'2017'
     };
 
     this.handleChange = this.handleChange.bind(this);

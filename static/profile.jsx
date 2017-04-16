@@ -23,7 +23,8 @@ var Properties = React.createClass({
 		return (<tr>
 			<th>
 				{Address1} 
-				{Address2}
+				<br/>
+				{Address2}	<br/>
 				<a href = {"/house_profile_edit="+houseId} className="btn btn-xs btn-default edit-btn">Edit</a>
 			</th>
 			<th>{Status}</th>

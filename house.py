@@ -177,6 +177,11 @@ def editHouse(arg1):
             newUtilitiesIncluded = True if request.form['utilities'] == 'true' else False
             newLaundry = True if request.form['laundry'] == 'true' else False
             newPets = True if request.form['pets'] == 'true' else False
+            newLeaseTerm = int(request.form['leaseterm'])
+            newDayAvailable = int(request.form['availableday'])
+            newMonthAvailable = int(request.form['availablemonth'])
+            newYearAvailable = int(request.form['availableyear'])  
+            newDateAvailable = datetime(newYearAvailable, newMonthAvailable, newDayAvailable, 0, 0)
             house = House.query.filter_by(Id=HouseId).first()
             #May want better logic about what to change -- does it make a difference?
             house.Rooms = newRooms
@@ -185,6 +190,8 @@ def editHouse(arg1):
             house.UtilitiesIncluded = newUtilitiesIncluded
             house.Laundry = newLaundry
             house.Pets = newPets
+            house.LeaseTerm = newLeaseTerm
+            house.DateAvailable = newDateAvailable
             try:
                 db.session.commit()
                 mc.delete("Houses") # flush cache, it's now stale
