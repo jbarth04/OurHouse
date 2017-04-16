@@ -9,7 +9,7 @@ var SingleListing = React.createClass({
 		listing.push(<li className="info">Address: {this.props.address}</li>);
 		listing.push(<li className="info">Bedrooms: {this.props.rooms}</li>);
 		listing.push(<li className="info">Monthly Rent: ${this.props.rent}</li>);
-		listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
+		// listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
 		return listing;
 	},
 	handleClick: function(){
@@ -17,34 +17,53 @@ var SingleListing = React.createClass({
 		window.location.href = "/house_profile="+this.props.id;
 	},
     render: function() {
+    	console.log(this.props.photo);
     	var listing = this.generateListing();
     	var house_id = this.props.id;
-        return (<div className={"houseListing"}>   
-        			<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
-        			{listing}
-        			</ul>
+    	if(this.props.photo == undefined || this.props.photo == ""){
+    		return (<div className={"houseListing"}>
+        				<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
+        					{listing}
+        				</ul>
         		</div>);
+    	} else{
+    		console.log("THIS", this.props.photo);
+    		listingStyle = {
+    			backgroundImage:'url(' + this.props.photo + ')',
+    			backgroundRepeat: "no-repeat",
+    			backgroundSize: "cover",
+    			boxShadow: "0 0 200px rgba(0,0,0,0.9) inset",
+    			color:"white"
+    		}
+    		return (<div className={"houseListing"} style={listingStyle}>
+        				<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
+        					{listing}
+        				</ul>
+        		</div>);
+    	}
     }
 });
 var HousesComponent = React.createClass({
 	render: function() {
-			var viewHouses = this.props.houses;
-			if (this.props.showing == false){
-				return(
-					<div></div>
-				);
-			} else {
-				return (
-    				<ul className="HouseList">
-    					{viewHouses.map((house) => <SingleListing key={house.id} address={house.Address1} 
-    												rooms={house.Rooms} parkingspots={house.ParkingSpots} 
-    												rent={house.MonthlyRent} utilities={house.UtilitiesIncluded} 
-    												laundry={house.Laundry} pets={house.Pets} id={house.Id} />)}
-					</ul>
+		console.log("HEY", this.props.photos);
+		var viewHouses = this.props.houses;
+		if (this.props.showing == false){
+			return(
+				<div></div>
 			);
-			}
-			
+		} else {
+			return (
+				<ul className="HouseList">
+					{viewHouses.map((house) => <SingleListing key={house.id} photo={(this.props.photos.find(x => x.HouseId == house.Id)).PhotoUrl}
+												address={house.Address1} rooms={house.Rooms} 
+												parkingspots={house.ParkingSpots} rent={house.MonthlyRent}
+												utilities={house.UtilitiesIncluded} laundry={house.Laundry}
+												pets={house.Pets} id={house.Id} />)}
+				</ul>
+			);
 		}
+			
+	}
 });
 var FilterForm = React.createClass({
 	getInitialState: function() {
@@ -76,7 +95,7 @@ var FilterForm = React.createClass({
 	},
 	showFilters: function(event){
 		this.props.showing = true;
-		React.render(<FilterForm showing={true} houses={this.props.houses}/>, document.getElementById('filterbar'));
+		React.render(<FilterForm showing={true} houses={this.props.houses} photos={this.props.photos}/>, document.getElementById('filterbar'));
 	},
 	hideFilters: function(event){
 		this.props.showing = false;
@@ -101,8 +120,8 @@ var FilterForm = React.createClass({
 			}
 		}
 		this.props.houses = filterHouses;
-		this.state.Houses = <HousesComponent houses={this.props.houses} showing={true}/>;
-		HouseList = <HousesComponent houses={this.props.houses} showing={true}/>;
+		this.state.Houses = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
+		HouseList = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
 		var state = {Houses: HouseList};
 		this.setState(state);
 	},
@@ -112,7 +131,7 @@ var FilterForm = React.createClass({
 	},
 	render: function() {
 		if(this.props.showing == true){
-			this.state.Houses = <HousesComponent houses={this.props.houses} showing={true}/>;
+			this.state.Houses = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
 			return(
 				<div className="sidebar">
 					<div className="filterOptions">
@@ -182,4 +201,4 @@ var FilterForm = React.createClass({
 	}
 });
 React.render(<WelcomeComponent />, document.getElementById('welcome'));
-React.render(<FilterForm showing={false} houses={houses}/>, document.getElementById('filterbar'));
+React.render(<FilterForm showing={true} houses={houses} photos={photos}/>, document.getElementById('filterbar'));

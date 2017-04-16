@@ -42,23 +42,40 @@ def houses():
             print "GRABBING FROM CACHE"
             HouseIds = mc.get("AllIds")
             allHouses = []
+            photos = []
             for hId in HouseIds:
                 allHouses.append(mc.get(str(hId)))
+                photo = Photo.query.filter_by(HouseId=hId).first()
+                if photo == None: 
+                    photos.append({"HouseId":hId, "PhotoUrl":""})
+                else:
+                    photoDict = photo.as_dict()
+                    photoUrl = (photoDict['RelativePath']).absolute_url
+                    photos.append({"HouseId":hId, "PhotoUrl":str(photoUrl)})
             jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
         elif mc.get("Houses") == None:
             print "ABOUT TO CACHE"
             houses = House.query.all()
             allHouses = [h.as_dict() for h in houses]
             allIds = []
+            photos = []
             for h in allHouses:
                 #caching all the houses from the DB
                 mc.set(str(h['Id']), h)
                 allIds.append(h['Id'])
+                photo = Photo.query.filter_by(HouseId=h["Id"]).first()
+                if photo == None:
+                    photos.append({"HouseId":h["Id"], "PhotoUrl":""})
+                else:
+                    photoDict = photo.as_dict()
+                    photoUrl = (photoDict['RelativePath']).absolute_url
+                    photos.append({"HouseId":h["Id"], "PhotoUrl":str(photoUrl)})
             mc.set("AllIds", allIds)
             mc.set("Houses", True)
             jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
         usertype = {"type": session['usertype']}
-        return render_template('houses.html', rhouses=jsonHouses, usertype=usertype)
+        jsonPhotos = json.dumps(photos)
+        return render_template('houses.html', rhouses=jsonHouses, usertype=usertype, photos=jsonPhotos)
     else:
         return redirect(url_for('auth_page.index'))
 

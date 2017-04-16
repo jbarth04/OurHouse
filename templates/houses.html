@@ -32,6 +32,8 @@ x<!DOCTYPE html>
 <script type="text/javascript">
     houses = {{ rhouses | safe}};
     usertype = {{ usertype | safe}};
+    photos = {{ photos | safe }};
+    console.log(photos);
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'filters.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
