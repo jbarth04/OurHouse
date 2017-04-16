@@ -265,8 +265,6 @@ var ZillowData = React.createClass ({
 				   "heatingSource":"Heating Source", "yearBuilt":"Year Built", "yearUpated":"Year Updated"};
 		ZillowData = this.props.Data;
 		Data = Object.keys(ZillowData).map(function(d){ 
-			console.log("key", d);
-			console.log("Data", ZillowData[d]);
 			return (<p><h4>{headers[d]}:</h4> {ZillowData[d]}</p>);}); 
 		return Data;
 	},
