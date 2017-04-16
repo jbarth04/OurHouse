@@ -6,9 +6,9 @@ var WelcomeComponent =  React.createClass({
 var SingleListing = React.createClass({
 	generateListing: function(){
 		var listing = [];
-		listing.push(<li className="info">Address: {this.props.address}</li>);
-		listing.push(<li className="info">Bedrooms: {this.props.rooms}</li>);
-		listing.push(<li className="info">Monthly Rent: ${this.props.rent}</li>);
+		listing.push(<li className="info">{this.props.address}</li>);
+		listing.push(<li className="info">{this.props.rooms} Bedrooms</li>);
+		listing.push(<li className="info">${this.props.rent}/Month</li>);
 		// listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
 		return listing;
 	},
@@ -17,7 +17,6 @@ var SingleListing = React.createClass({
 		window.location.href = "/house_profile="+this.props.id;
 	},
     render: function() {
-    	console.log(this.props.photo);
     	var listing = this.generateListing();
     	var house_id = this.props.id;
     	if(this.props.photo == undefined || this.props.photo == ""){
@@ -27,7 +26,6 @@ var SingleListing = React.createClass({
         				</ul>
         		</div>);
     	} else{
-    		console.log("THIS", this.props.photo);
     		listingStyle = {
     			backgroundImage:'url(' + this.props.photo + ')',
     			backgroundRepeat: "no-repeat",
@@ -45,7 +43,6 @@ var SingleListing = React.createClass({
 });
 var HousesComponent = React.createClass({
 	render: function() {
-		console.log("HEY", this.props.photos);
 		var viewHouses = this.props.houses;
 		if (this.props.showing == false){
 			return(

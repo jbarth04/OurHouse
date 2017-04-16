@@ -67,6 +67,7 @@ div .houseListing{
 	text-align: left;
 	list-style: none;
 	font-size: 1em;
+	bottom:0;
 }
 #update-button{
 	padding-left: 0.5vw;
