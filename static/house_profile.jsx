@@ -237,7 +237,7 @@ var ContactForm = React.createClass ({
 
   render: function() {
     return (
-    <form onSubmit={this.handleSubmit} className="newPropForm">
+    <form onSubmit={this.handleSubmit} className="newPropForm Form">
       <p className="ContactForm">Express interest in this property!</p>
       <div className="newContactForm form-group">
         <label>
@@ -247,53 +247,43 @@ var ContactForm = React.createClass ({
       </div> 
       <div className="newContactForm form-group">
         <label>
-        <textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
+        <textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} 
+        														onChange={this.handleChange('message')} /><br/>
         </label>
       </div> 
-    <input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
+    <input className="btn btn-red"type="submit" value="Contact this landlord!"/>  
     </form>
     );
   }
 });
 
-// var ZillowData = React.createClass ({ 
-
-//   generateInfo: function(){
-
-//     console.log(props);
-//     zwsid = X1-ZWz1992ngtq497_7oq0o; 
-//     address1 = this.props.Address1;
-
-//     for (i = 0; i < address1.length; i++) {
-//       if (address1[i] == 0) {
-//         address1 = address1.substr(i-1, i) + '+' + address1(i + 1);
-//       }
-//     }
-//     this.props.Address1 = address1;
-//     address2 = this.props.Address2; 
-//     zip = this.props.Zipcode; 
-//     // requestURL = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=' + zwsid + '&address=' address1 + '&citystatezip=' + zipcode;
-
-//     // $.ajax ({
-//     //   type: 'GET',
-//     //   url: requestURL,
-//     //   dataType: 'xml',
-
-
-//     // })
-
-//     // info = [];
-
-
-
-//   },
-
-//   render: function() { 
-//     return(
-//       <h1> {this.props.Address1} </h1>     
-//     );
-//   }
-// });
+var ZillowData = React.createClass ({ 
+	generateData: function(){
+		headers = {"homeDescription":"Home Description", "parkingType":"Parking Type", 
+				   "finishedSqFt": "Square Feet", "numFloors":"Number of Floors", 
+				   "rooms":"Types of Rooms", "appliances":"Appliances", "heatingSystem":"Heating System",
+				   "heatingSource":"Heating Source", "yearBuilt":"Year Built", "yearUpated":"Year Updated"};
+		ZillowData = this.props.Data;
+		Data = Object.keys(ZillowData).map(function(d){ 
+			console.log("key", d);
+			console.log("Data", ZillowData[d]);
+			return (<p><h4>{headers[d]}:</h4> {ZillowData[d]}</p>);}); 
+		return Data;
+	},
+	render: function() { 
+		Data = this.generateData(); 
+		return(
+			<div className="zillowInfo">
+				<h3>Information brought to you by Zillow:</h3>
+				{Data}
+				<br />
+				<a href="https://www.zillow.com/">
+					<img src="static/images/zillow-Logo.png" id="zillowLogo"></img> 
+				</a>
+			</div>
+		);
+	}
+});
 
 React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={landlord.Phone} 
 	Address1={house.Address1} Address2={house.Address2} City={house.City} State={house.State}
@@ -307,5 +297,7 @@ React.render(<HouseReviews Reviews={reviews} />, document.getElementById('HouseR
 React.render(<ReviewForm HouseId={house.Id}/>, document.getElementById('ReviewForm'));
 
 React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
+if (zillow.ZillowData != null){
+	React.render(<ZillowData Data={zillow.ZillowData} />, document.getElementById('ZillowData')); 
+}
 
-// React.render(<ZillowData Address1={house.Address1} Address2={house.Address2} Zipcode={house.Zipcode}/>, document.getElementById('ZillowData')); 

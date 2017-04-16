@@ -10,6 +10,13 @@ from sqlalchemy import exc
 
 import os
 
+import config
+
+# These are used to get Zillow info and parse the XML that is returned
+import requests
+import xmltodict
+
+
 # import created database in models.py and import the tables
 from models import db
 from models import Student
@@ -35,7 +42,6 @@ def houses():
             print "GRABBING FROM CACHE"
             HouseIds = mc.get("AllIds")
             allHouses = []
-            print HouseIds
             for hId in HouseIds:
                 allHouses.append(mc.get(str(hId)))
             jsonHouses = json.dumps(allHouses, default=serializeDecimalObject.defaultencode)
@@ -46,7 +52,6 @@ def houses():
             allIds = []
             for h in allHouses:
                 #caching all the houses from the DB
-                print h['Id']
                 mc.set(str(h['Id']), h)
                 allIds.append(h['Id'])
             mc.set("AllIds", allIds)
@@ -60,13 +65,12 @@ def houses():
 @house_page.route("/house_profile=<houseID>", methods=['GET'])
 def viewhouse(houseID):
     if 'username' in session:
-        ### Will want to cache the houses so this won't be a query every time
-        ## Or figure out a better way to avoid a read from the database
+        # Step 1: get house by house ID and it's landlord and make into json
         house = House.query.filter_by(Id=houseID).all()
         singleHouse = [h.as_dict() for h in house]
         sHouse = singleHouse[0]
         jsonHouse = json.dumps(singleHouse, default=serializeDecimalObject.defaultencode)
-        #Getting the landlord associated with 
+        # Getting the landlord associated with 
         landlordID = sHouse['LandlordId']
         landlord = Landlord.query.filter_by(Id=landlordID).all()
         singleLandlord = [l.as_dict_JSON() for l in landlord]
@@ -76,10 +80,9 @@ def viewhouse(houseID):
         allReviews = [r.as_dict_JSON() for r in reviews]
         jsonReviews = json.dumps(allReviews, default=serializeDecimalObject.defaultencode)
 
-
+        # Step 2: get photos associated with that house
         photos = Photo.query.filter_by(HouseId=houseID).all()
 
-        # TODO, query if there are no photos associated a house
         if photos == None:
             return jsonify([{'status':200, 'AbsoluteURLs': []}])
     
@@ -91,12 +94,43 @@ def viewhouse(houseID):
         allPhotos = []
         for p in allPhotoURLS:
             allPhotos.append(str(p))
-        print allPhotos
         jsonAllPhotos = json.dumps(allPhotos)
-        print jsonAllPhotos
-        #should send back the contact for the landlord too??
+
+        # Step 3: get zillow information associated with the house address
+        # Get zillow API Key from environment
+        _config_setting = os.environ["ZWSID"]
+        _config_arr = _config_setting.split(".")
+        # Trying to get just the key part (e.g. DevelopmentConfig)
+        zwsid =  _config_arr[-1]
+
+        # get info from Zillow
+        zAddress = sHouse["Address1"].replace(" ", "+")
+        zipCode = sHouse["Zipcode"]
+        zillowUrl = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id='\
+                    + zwsid + '&address=' + zAddress + '&citystatezip=' + zipCode;
+        result = requests.get(zillowUrl).content
+        xmlDict = xmltodict.parse(result)
+        zillowID = xmlDict["SearchResults:searchresults"]["response"]["results"]["result"]["zpid"]
+        updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
+                     + zwsid + "&zpid=" + zillowID
+        # Get Updated Results from Zillow
+        updatedResult = requests.get(updatedUrl).content 
+        updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
+        # If there is updated data for the house
+        if "response" in updatedResultDict:
+            response = updatedResultDict["response"]
+            ZData = {}
+            keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
+                    "heatingSystem", "heatingSource", "yearBuilt", "yearUpated"]
+            for k in keys:
+                if k in response:
+                    ZData[k] = response[k]
+            ZillowData = json.dumps({"ZillowData": ZData})
+        # If no updated info for the house
+        else:
+            ZillowData = json.dumps({})
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
-                                usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos)
+                                usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
     else:
         return redirect(url_for('auth_page.index'))
 
@@ -136,7 +170,6 @@ def newhome():
                       Rooms, ParkingSpots, MonthlyRent, UtilitiesIncluded, Laundry, \
                       Pets, Latitude, Longitude, DistFromCC, DateAvailable, LeaseTerm,\
                       datetime.now(), datetime.now(), True)
-        print house
         db.session.add(house)
         #Handling SQLalchemy errors when a house cannot be inputted/already has the address
         #Will need to read just once unique key is handled 

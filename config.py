@@ -56,6 +56,8 @@ class Config(object):
     MAIL_USERNAME = os.environ['EMAIL_ACCOUNT']
     MAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
 
+    ZWSID = os.environ["ZWSID"]
+
 class ProductionConfig(Config):
     DEBUG = False
     SECRET_KEY = os.environ['SESSIONS_KEY']

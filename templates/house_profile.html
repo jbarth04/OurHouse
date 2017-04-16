@@ -22,7 +22,7 @@
     <div id="HouseReviews" class = "container">    </div>
     <div id="ReviewForm" class="container"></div>
     <div id="ContactForm"class="container jumbotron"></div>
-    <div id="ZillowData"class="container jumbotron"></div>
+    <div id="ZillowData"class="container"></div>
   </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
@@ -35,6 +35,8 @@
   usertype = {{ usertype | safe}};
   reviews = {{ reviews | safe}};
   photos = {{ photos | safe }};
+  zillow = {{zillowData | safe}};
+  console.log(zillow);
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'house_profile.jsx') }}"></script>

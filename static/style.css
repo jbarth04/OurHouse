@@ -52,7 +52,7 @@ div .houseListing{
 }
 .newUserLink{
 	text-decoration: none;
-	color: #E27C53;
+	color: #FE414D;
 }
 .newPropForm{
 	padding: 1vw;
@@ -242,4 +242,8 @@ footer{
 }
 #imgUpload{
 	padding-bottom: 50px;
+}
+#zillowLogo{
+	width: 30%;
+	padding-bottom: 5%;
 }

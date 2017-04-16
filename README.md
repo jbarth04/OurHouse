@@ -105,17 +105,21 @@ Note2: This project followed the practices outlined in the following tutorial -
     $ export EMAIL_ACCOUNT="your_email@you.com"
     $ export EMAIL_PASSWORD="yourpassword"
 
-15. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+15. In order to access information from Zillow, you'll need to export a variable containing your api key:
 
-16. In your first tab, activate Memcache by running:
+    $ export ZWSID="yourZWSID"
+
+16. To start the server locally, you will need 3 tabs open on your terminal, one for Memcache, one for Postgres, and one to actually run your application.
+
+17. In your first tab, activate Memcache by running:
 
     $ memcached -d -m memory -l 127.0.0.1
 
-17. In your second tab, active Postgres by running:
+18. In your second tab, active Postgres by running:
 
     $ postgres -D /usr/local/var/postgres
 
-18. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
+19. In your third tab, locate the app.py file in the root directory and run `python app.py`. This will deploy a local version of the application to localhost:5000. 
 
 ### Packages, APIs, Dependencies
 alembic==0.9.1 <br />
@@ -148,6 +152,7 @@ six==1.10.0 <br />
 sqlacodegen==1.1.6 <br />
 SQLAlchemy==1.1.5 <br />
 Werkzeug==0.11.15 <br />
+xmltodict==0.10.2 <br />
 
 Google Maps API <br />
 React 0.13.2 <br />
