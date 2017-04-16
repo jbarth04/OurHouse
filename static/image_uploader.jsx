@@ -38,7 +38,6 @@ var ImageUploader = React.createClass({
                         alertMessage = result.message + " Feel free to upload more photos or click Finish below.";
                         alert(alertMessage);
                         React.render(<ContButton url={finishUrl} />, document.getElementById("contBtn"));
-                        // window.location=url
                     }
                     else if (result.status == 400){
                         alert(result.message);
