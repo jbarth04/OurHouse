@@ -5,9 +5,10 @@ var NewUserForm = React.createClass ({
         FirstName:'',
         LastName:'',
         Email:'',
+        Password:'',
+        ConPassword:'',
         PhoneNum: '',
         UserType: 'Student',
-        //We will need a way to deal with passwords
       };
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +22,17 @@ var NewUserForm = React.createClass ({
     },
     handleSubmit: function(event){
       data = this.state;
+
+      var passLength = 8; 
+
+      if (this.state.Password != this.state.ConPassword) {
+        alert("The passwords you entered don't match. Try again!")
+      } else if (this.state.Password.length <  passLength) {
+        alert("Your password must be at least 8 characters long. Please try again!")
+      }
+
+      console.log(data)
+
       $.ajax({
         type: 'POST',
         url: '/signup',
@@ -77,6 +89,19 @@ var NewUserForm = React.createClass ({
                   <option value="Landlord">Landlord</option>
                 </select>
               </label>
+            <div className="form-group">
+              <label className="loginForm">
+                Password: <br />
+                <input type="password" value={this.state.Password} onChange={this.handleChange('Password')} />
+              </label>
+            </div>
+             <div className="form-group">
+              <label className="loginForm">
+                Confirm Password: <br />
+                <input type="password" value={this.state.ConPassword} onChange={this.handleChange('ConPassword')} />
+              </label>
+            </div>
+        
             </div>
             <input type="submit" value="Submit" className="btn btn-info"/>
           </form>

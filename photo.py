@@ -20,10 +20,6 @@ photo_page = Blueprint('photo_page', __name__)
 
 store = Store()
 
-from app import mc
-
-import serializeDecimalObject
-
 @photo_page.route('/upload_photo', methods=['POST', ])
 def upload_photo():
     if request.method == 'POST':
@@ -58,16 +54,13 @@ def upload_photo():
 
             try:
                 db.session.commit()
-                mc.delete("Houses") # flush cache, it's now stale
-                mc.delete("AllIds") # flush cache, it's now stale
             except exc.IntegrityError:
                 return jsonify({'status':400, 'message':'This HouseId is not valid'})
             else:
-                print "GOT TO HERE"
-                RelativePath.save("test1.png")
-                RelativePath.close()
-                #TODO: delete file once stored...
-                # Step 3: Return success status 
+                # Step 3: delete file once stored
+                os.remove(filename)
+                
+                # Step 4: Return success status 
                 return jsonify({'status':200, 'message': 'Your image was successfully saved!'})
 
 @photo_page.route('/get_photos/houseid=<HouseId>', methods=['GET', ])
@@ -87,20 +80,16 @@ def get_photos(HouseId):
     for p in allPhotos:
         allPhotoURLS.append((p['RelativePath']).absolute_url)
 
-    # TODO - maybe not needed
-    # jsonPhotoURLs = json.dumps(allPhotoURLS, default=serializeDecimalObject.defaultencode)
-    # return jsonify([{'status':200, 'AbsoluteURLs': jsonPhotoURLs}]
-
     return jsonify([{'status':200, 'AbsoluteURLs': allPhotoURLS}])
-
 
 @photo_page.route('/image_uploader=<houseID>', methods=['GET'])
 def uploader(houseID):
     usertype = {"type": session['usertype']}
     return render_template('image_upload.html', houseID=houseID, usertype=usertype)
 
-@photo_page.route('/upload', methods=['POST', ])
-def upload():
-    provider = store.Provider(request.files.get('afile'))
-    provider.save()
-    return provider.absolute_url
+# TODO TESTING
+# @photo_page.route('/upload', methods=['POST', ])
+# def upload():
+#     provider = store.Provider(request.files.get('afile'))
+#     provider.save()
+#     return provider.absolute_url

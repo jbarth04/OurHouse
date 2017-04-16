@@ -30,19 +30,28 @@ def index():
             return jsonify([{'status':200}])
         else:
             Email = request.form['email']
+            Password = request.form['password']
             #Will use firebase for authentication so not checking passwords here
             someStudent = Student.query.filter_by(Email=Email).first()
             someLandlord = Landlord.query.filter_by(Email=Email).first()
             if (someStudent == None and someLandlord == None) or Email == '':
                 return jsonify([{'status':400, 'message':'Username/email does not exist. Please try again.'}])
-            else:
-                session['username'] = Email
-                if someStudent == None and someLandlord != None:
-                    session['usertype'] = "Landlord"
-                else:
+
+            if (someStudent != None):
+                if (someStudent.check_password(Password) == True):
+                    session['username'] = Email
                     session['usertype'] = "Student"
-                #maybe also set an expiration time
-                return jsonify([{'status':200}])
+                    return jsonify([{'status':200}])
+                else:
+                    return jsonify([{'status':400, 'message':'Password does not match email username'}])                    
+
+            if (someLandlord != None):
+                if (someLandlord.check_password(Password) == True):
+                    session['username'] = Email
+                    session['usertype'] = "Landlord"
+                    return jsonify([{'status':200}])
+                else:
+                    return jsonify([{'status':400, 'message':'Password does not match email username'}])
     else:
         if 'username' in session:
             return redirect(url_for('house_page.houses'))
@@ -55,5 +64,4 @@ def logout():
     session.pop('username', None)
     session.pop('usertype', None)
     # changed  from just 'index', which raised an error when refactoring to blueprints
-    print 'in logout'
     return redirect(url_for('auth_page.index'))
