@@ -127,23 +127,28 @@ def viewhouse(houseID):
                     + zwsid + '&address=' + zAddress + '&citystatezip=' + zipCode;
         result = requests.get(zillowUrl).content
         xmlDict = xmltodict.parse(result)
-        zillowID = xmlDict["SearchResults:searchresults"]["response"]["results"]["result"]["zpid"]
-        updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
-                     + zwsid + "&zpid=" + zillowID
-        # Get Updated Results from Zillow
-        updatedResult = requests.get(updatedUrl).content 
-        updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
-        # If there is updated data for the house
-        if "response" in updatedResultDict:
-            response = updatedResultDict["response"]
-            ZData = {}
-            keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
-                    "heatingSystem", "heatingSource", "yearBuilt", "yearUpated"]
-            for k in keys:
-                if k in response:
-                    ZData[k] = response[k]
-            ZillowData = json.dumps({"ZillowData": ZData})
-        # If no updated info for the house
+        print xmlDict
+        ZillowSearchResult = xmlDict["SearchResults:searchresults"]
+        if "response" in ZillowSearchResult:
+            zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
+            updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
+                         + zwsid + "&zpid=" + zillowID
+            # Get Updated Results from Zillow
+            updatedResult = requests.get(updatedUrl).content 
+            updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
+            # If there is updated data for the house
+            if "response" in updatedResultDict:
+                response = updatedResultDict["response"]
+                ZData = {}
+                keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
+                        "heatingSystem", "heatingSource", "yearBuilt", "yearUpated"]
+                for k in keys:
+                    if k in response:
+                        ZData[k] = response[k]
+                ZillowData = json.dumps({"ZillowData": ZData})
+            # If no updated info for the house
+            else:
+                ZillowData = json.dumps({})
         else:
             ZillowData = json.dumps({})
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\

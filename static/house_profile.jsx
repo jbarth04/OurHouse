@@ -99,10 +99,14 @@ var Slide = React.createClass({
 
 var HouseReviews = React.createClass({
 	generateReview : function(review){
+		UpdatedArr = review.UpdatedAt.split(" ");
+		date = UpdatedArr[0];
 		return(
 			<div className="reviewText">
-				<p>{review.Comment} {review.Stars} </p>
-				<p>{review.UpdatedAt}</p>
+				<p>{review.Stars} Stars</p>
+				<p>{review.Comment}</p>
+				<p>{date}</p>
+				<hr />
 			</div>
 		);
 	},

@@ -80,6 +80,7 @@ div .houseListing{
 	margin:0;
 	overflow: hidden;
 	z-index: 0;
+	margin-top:-1.5%;
 }
 .markerLink{
 	text-decoration: none;
@@ -239,6 +240,7 @@ footer{
 }
 #imgUpload{
 	padding-bottom: 50px;
+	/*float: left;*/
 }
 #zillowLogo{
 	width: 30%;
