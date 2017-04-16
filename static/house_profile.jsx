@@ -313,12 +313,9 @@ React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={land
 React.render(<HouseReviews Reviews={reviews} />, document.getElementById('HouseReviews'));
 React.render(<ReviewForm HouseId={house.Id}/>, document.getElementById('ReviewForm'));
 
-<<<<<<< HEAD
-React.render(<ContactForm usertype={usertype} LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
-=======
 React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
 if (zillow.ZillowData != null){
 	React.render(<ZillowData Data={zillow.ZillowData} />, document.getElementById('ZillowData')); 
 }
->>>>>>> 815ae0672a6ad12af2ce81577e087eda2a34101f
+
 

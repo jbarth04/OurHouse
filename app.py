@@ -80,5 +80,8 @@ app.register_blueprint(mail.mail_page)
 
 ###################### Run the app #############################
 
+# app.add_url_rule('/favicon.ico',
+#                  redirect_to=url_for('static', filename='favicon.ico'))
+
 if __name__ == "__main__":
     app.run()
