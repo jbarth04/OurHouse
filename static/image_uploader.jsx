@@ -24,7 +24,7 @@ var ImageUploader = React.createClass({
   	},
   	handleSubmit: function(e){
     	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: this.state.houseId}
-        url = "/house_profile="+this.state.houseId;
+        finishUrl = "/house_profile="+this.state.houseId;
         if(this.state.imagePreviewUrl == ''){
             alert("No photo attached for upload. Please upload an image.")
         } else {
@@ -37,7 +37,8 @@ var ImageUploader = React.createClass({
                     if(result.status == 200){
                         alertMessage = result.message + " Thank you for uploading your apartment!"
                         alert(alertMessage);
-                        window.location=url
+                        React.render(<ContButton url={finishUrl} />, document.getElementById("contBtn"));
+                        // window.location=url
                     }
                     else if (result.status == 400){
                         alert(result.message);
@@ -54,7 +55,6 @@ var ImageUploader = React.createClass({
     	if (imagePreviewUrl) {
       		$imagePreview = (<img src={imagePreviewUrl} />);
     	}
-        //TODO: only render upload image button once the imagePreviewUrl != ""
 	    return (
 		      <div>
 		        <form onSubmit={this._handleSubmit} className="Form">
@@ -62,8 +62,20 @@ var ImageUploader = React.createClass({
 		          <input type="submit" className="btn btn-red" value="Upload Image" onClick={this.handleSubmit} />
 		        </form>
 		        {$imagePreview}
+                <div id="contBtn"/>
 		      </div>
 	    );
 	}
+});
+var ContButton = React.createClass({
+    render : function(){
+        return(
+            <div className="Form">
+                <a href={this.props.url}>
+                    <input type="submit" className="btn btn-red" value="Finish" />
+                </a>
+            </div>
+        );
+    }
 });
 React.render(<ImageUploader houseID={HouseId}/>, document.getElementById('imgUpload'));

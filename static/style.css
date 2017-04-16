@@ -236,6 +236,7 @@ footer{
 }
 #imgUpload{
 	padding-bottom: 50px;
+	/*float: left;*/
 }
 #zillowLogo{
 	width: 30%;
