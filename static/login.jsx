@@ -76,8 +76,10 @@ var LoginForm = React.createClass ({
     },
 
     handleNewUser: function(event) { 
+
       this.state.NewUser = true;
       this.setState({NewUser: true});
+ 
     },
 
     render: function(){  
@@ -135,7 +137,8 @@ var LoginForm = React.createClass ({
             </div>
         
             </div>
-            <input type="submit" value="Submit" className="btn btn-info"/>
+            <input type="submit" value="Submit" className="btn btn-info"/> <br/>
+            Already have an account? <a className="ExistingUserLink" href="/"> Click here to login! </a>
           </form>
         </div>
         )
