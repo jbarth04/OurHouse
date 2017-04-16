@@ -31,8 +31,6 @@ var NewUserForm = React.createClass ({
         alert("Your password must be at least 8 characters long. Please try again!")
       }
 
-      console.log(data)
-
       $.ajax({
         type: 'POST',
         url: '/signup',

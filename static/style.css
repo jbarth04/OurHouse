@@ -10,11 +10,12 @@ body{
 	overflow: hidden;
 }
 div .houseListing{
-	height: 300px;
+	height: 150px;
 	width: 300px;
 	background-color: #E8FEFF;
 	display: inline-block;
 	margin: 1.5vw;
+	cursor: pointer;
 }
 #Header{ 
 	padding: 0.5vw;
@@ -52,7 +53,7 @@ div .houseListing{
 }
 .newUserLink{
 	text-decoration: none;
-	color: #E27C53;
+	color: #FE414D;
 }
 .newPropForm{
 	padding: 1vw;
@@ -66,6 +67,7 @@ div .houseListing{
 	text-align: left;
 	list-style: none;
 	font-size: 1em;
+	bottom:0;
 }
 #update-button{
 	padding-left: 0.5vw;
@@ -78,15 +80,6 @@ div .houseListing{
 	margin:0;
 	overflow: hidden;
 	z-index: 0;
-	/*background-size: cover;
-	height: 700px;
-	text-align: right;
-  	overflow: hidden;
-  	margin: 20px;
-  	margin-top: 4.5vw;
-  	width: 60vw;
-  	display: inline-block;
-  	float: right;*/
 }
 .markerLink{
 	text-decoration: none;
@@ -242,4 +235,8 @@ footer{
 }
 #imgUpload{
 	padding-bottom: 50px;
+}
+#zillowLogo{
+	width: 30%;
+	padding-bottom: 5%;
 }
