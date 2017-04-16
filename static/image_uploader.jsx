@@ -13,7 +13,6 @@ var ImageUploader = React.createClass({
 		e.preventDefault();
     	let reader = new FileReader();
     	let file = e.target.files[0];
-
     	reader.onloadend = () => {
 	      	this.setState({
 	        	file: file,
@@ -25,22 +24,28 @@ var ImageUploader = React.createClass({
   	},
   	handleSubmit: function(e){
     	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: this.state.houseId}
-    	$.ajax({
-    		type: 'POST',
-    		method: 'POST',
-    		url: '/upload_photo',
-    		data: data,
-    		success: function(result) {
-    			if(result.status == 200){
-    				alertMessage = result.message + " Thank you for uploading your apartment!"
-    				alert(alertMessage);
-    				// window.location="/houses"
-    			}
-    			else if (result.status == 400){
-    				alert(result.message);
-    			}
-    		}
-    	})
+        url = "/house_profile="+this.state.houseId;
+        if(this.state.imagePreviewUrl == ''){
+            alert("No photo attached for upload. Please upload an image.")
+        } else {
+            $.ajax({
+                type: 'POST',
+                method: 'POST',
+                url: '/upload_photo',
+                data: data,
+                success: function(result) {
+                    if(result.status == 200){
+                        alertMessage = result.message + " Thank you for uploading your apartment!"
+                        alert(alertMessage);
+                        window.location=url
+                    }
+                    else if (result.status == 400){
+                        alert(result.message);
+                    }
+                }
+            })
+        }
+    	
     	event.preventDefault();
   	},
 	render : function(){
