@@ -117,4 +117,9 @@ def editProfile():
     else:
         return redirect(url_for('auth_page.index'))
 
-
+@user_page.route("/lease_help", methods=['GET'])
+def lease_help():
+    if 'username' in session:
+        if request.method == 'GET':
+            usertype = {"type": session['usertype']}
+            return render_template('help_lease.html', usertype=usertype)

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our House</title>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}"></link>
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+  <div id ="navbar"></div>
+  <div id="contents" class="belowcontainer container text-aligned APIContents">
+    <h1>Welcome Students!</h1>
+    <h4>Part of our mission here at OurHouse is to help educate students about leases. We understand that for many this is the first time that you will be signing a lease. Below are a few pointers about what to look out for in your lease before you sign it.</h4>
+    <br/> 
+    <p>Here is a list of topics that you should make sure are touched on in your lease:</p>
+    <ul>
+      <li>How long in advance will your landlord alert you that someone will be entering the house?</li>
+      <li>Are sublets allowed? This is important if you intend to go abroad or have someone sublet your room over the summer</li>
+      <li>Who will be responsible for shoveling the sidewalk and driveways? If it's you, who will supply salt and shovels?</li>
+      <li>How long in advance will your landlord alert you that someone will be entering the house?</li>
+      <li>What are the conditions of your security deposit?</li>
+      <li>Will there be a walk through before and after your time in the apartment?</li>
+      <li>Will the apartment be cleaned before you move in?</li>
+      <li>How will rent be collected? One check or seperate? Mailed or picked up?</li>
+      <li>What utilities are included? Gas? Electric? Water? Is it a montly rate? Note: for Boston area students, water should be included.</li>
+      <li>If you wish to use airconditioners, make sure you know exactly how many are allowed.</li>
+      <li>If you intend to get a pet or are moving in with one, know your landlord's stance on them</li>
+      <li>What space is yours? For example, what outdoors space is yours and can you use while you live there? Same goes for the basement</li>
+      <li>What insurance is included? Note: landlord insurance is not the same as renter insurance.</li>
+    </ul>
+    <h3>Lastly, below is a standard lease for the Boston area. Look through it and make sure that the lease you are signing touches on the points listed here.</h3>
+    <embed src="/static/images/Standard-Apartment-Lease.pdf" id="leasePDF" />
+    <br/>
+  </div>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script type="text/javascript">
+  usertype = {{ usertype | safe }};
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
+<script type="text/jsx" src="{{ url_for('static', filename = 'navbar.jsx') }}"></script>
+<!-- <script type="text/jsx" src="{{ url_for('static', filename = 'profile.jsx') }}"></script> -->

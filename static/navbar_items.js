@@ -30,6 +30,10 @@ student_left_navbar_items = [
                     "url":"/profile_edit"
                 }
             ]
+        },
+        {
+            "text":"Lease Help",
+            "url":"/lease_help"
         }
     ];    
 right_navbar_items = [

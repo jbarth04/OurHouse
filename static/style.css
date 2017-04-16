@@ -167,7 +167,8 @@ input[type=button], input[type=submit], input[type=reset] {
 	list-style: none;
 }
 .belowcontainer{
-	margin-top: 4.5vw;
+	/*margin-top: 4.5vw;*/
+	margin-top: 4%;
 }
 
 .form-group {
@@ -245,4 +246,8 @@ footer{
 #zillowLogo{
 	width: 30%;
 	padding-bottom: 5%;
+}
+#leasePDF{
+	width: 75%;
+	height:1100px;
 }
