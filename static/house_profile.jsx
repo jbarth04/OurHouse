@@ -1,4 +1,5 @@
 // HouseInfo
+
 var HouseProfile = React.createClass({
 	generatePhotos: function(){
 		photos = this.props.Photos.map((photo) => <li className="inlineBlock"><img src={photo}></img></li>);
