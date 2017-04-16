@@ -13,7 +13,6 @@ var ImageUploader = React.createClass({
 		e.preventDefault();
     	let reader = new FileReader();
     	let file = e.target.files[0];
-
     	reader.onloadend = () => {
 	      	this.setState({
 	        	file: file,
@@ -25,22 +24,28 @@ var ImageUploader = React.createClass({
   	},
   	handleSubmit: function(e){
     	data = {imagePreviewUrl: this.state.imagePreviewUrl, HouseId: this.state.houseId}
-    	$.ajax({
-    		type: 'POST',
-    		method: 'POST',
-    		url: '/upload_photo',
-    		data: data,
-    		success: function(result) {
-    			if(result.status == 200){
-    				alertMessage = result.message + " Thank you for uploading your apartment!"
-    				alert(alertMessage);
-    				// window.location="/houses"
-    			}
-    			else if (result.status == 400){
-    				alert(result.message);
-    			}
-    		}
-    	})
+        finishUrl = "/house_profile="+this.state.houseId;
+        if(this.state.imagePreviewUrl == ''){
+            alert("No photo attached for upload. Please upload an image.")
+        } else {
+            $.ajax({
+                type: 'POST',
+                method: 'POST',
+                url: '/upload_photo',
+                data: data,
+                success: function(result) {
+                    if(result.status == 200){
+                        alertMessage = result.message + " Feel free to upload more photos or click Finish below.";
+                        alert(alertMessage);
+                        React.render(<ContButton url={finishUrl} />, document.getElementById("contBtn"));
+                    }
+                    else if (result.status == 400){
+                        alert(result.message);
+                    }
+                }
+            })
+        }
+    	
     	event.preventDefault();
   	},
 	render : function(){
@@ -49,7 +54,6 @@ var ImageUploader = React.createClass({
     	if (imagePreviewUrl) {
       		$imagePreview = (<img src={imagePreviewUrl} />);
     	}
-        //TODO: only render upload image button once the imagePreviewUrl != ""
 	    return (
 		      <div>
 		        <form onSubmit={this._handleSubmit} className="Form">
@@ -57,8 +61,20 @@ var ImageUploader = React.createClass({
 		          <input type="submit" className="btn btn-red" value="Upload Image" onClick={this.handleSubmit} />
 		        </form>
 		        {$imagePreview}
+                <div id="contBtn"/>
 		      </div>
 	    );
 	}
+});
+var ContButton = React.createClass({
+    render : function(){
+        return(
+            <div className="Form">
+                <a href={this.props.url}>
+                    <input type="submit" className="btn btn-red" value="Finish" />
+                </a>
+            </div>
+        );
+    }
 });
 React.render(<ImageUploader houseID={HouseId}/>, document.getElementById('imgUpload'));
