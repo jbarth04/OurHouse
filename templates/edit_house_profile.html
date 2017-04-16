@@ -28,6 +28,7 @@
   landlord_arr = {{landlord | safe}};
   house = house_arr[0];
   landlord = landlord_arr[0];
+  usertype = {{ usertype | safe}};
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'navbar_items.js') }}"></script>
 <script type="text/jsx" src="{{ url_for('static', filename = 'edit_house_profile.jsx') }}"></script>
