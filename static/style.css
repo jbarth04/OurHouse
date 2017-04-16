@@ -80,15 +80,6 @@ div .houseListing{
 	margin:0;
 	overflow: hidden;
 	z-index: 0;
-	/*background-size: cover;
-	height: 700px;
-	text-align: right;
-  	overflow: hidden;
-  	margin: 20px;
-  	margin-top: 4.5vw;
-  	width: 60vw;
-  	display: inline-block;
-  	float: right;*/
 }
 .markerLink{
 	text-decoration: none;
