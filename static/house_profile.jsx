@@ -236,24 +236,40 @@ var ContactForm = React.createClass ({
     event.preventDefault();
   },
 
+  generateEmptyForm : function(){
+  	return(
+  			<div></div>
+  	)
+  },
+
+  generateForm: function() {
+  	return (
+  		<form onSubmit={this.handleSubmit} className="newPropForm">
+      		<p className="ContactForm">Express interest in this property!</p>
+      			<div className="newContactForm form-group">
+        			<label>
+        			Your Email Address
+        			<input className="send-email" type="text" value={this.state.useremail} onChange={this.handleChange('useremail')} /><br/>
+        			</label>
+      			</div> 
+     			<div className="newContactForm form-group">
+        			<label>
+        			<textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
+        			</label>
+      			</div> 
+    		<input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
+   		</form>
+  	)
+  },
+
   render: function() {
-    return (
-    <form onSubmit={this.handleSubmit} className="newPropForm">
-      <p className="ContactForm">Express interest in this property!</p>
-      <div className="newContactForm form-group">
-        <label>
-        Your Email Address
-        <input className="send-email" type="text" value={this.state.useremail} onChange={this.handleChange('useremail')} /><br/>
-        </label>
-      </div> 
-      <div className="newContactForm form-group">
-        <label>
-        <textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
-        </label>
-      </div> 
-    <input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
-    </form>
-    );
+
+    if (usertype.type == "Student"){
+		show = this.generateForm();
+	} else{
+		show = this.generateEmptyForm();
+	}
+	return (show);
   }
 });
 
@@ -307,6 +323,6 @@ React.render(<HouseProfile LandlordLName={landlord.LastName} LandlordPhone={land
 React.render(<HouseReviews Reviews={reviews} />, document.getElementById('HouseReviews'));
 React.render(<ReviewForm HouseId={house.Id}/>, document.getElementById('ReviewForm'));
 
-React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
+React.render(<ContactForm usertype={usertype} LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
 
 // React.render(<ZillowData Address1={house.Address1} Address2={house.Address2} Zipcode={house.Zipcode}/>, document.getElementById('ZillowData')); 
