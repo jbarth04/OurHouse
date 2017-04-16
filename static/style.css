@@ -170,6 +170,10 @@ input[type=button], input[type=submit], input[type=reset] {
 	/*margin-top: 4.5vw;*/
 	margin-top: 4%;
 }
+
+.form-group {
+	color: black;
+}
 footer{
 	position: absolute;
 	bottom: 0;
