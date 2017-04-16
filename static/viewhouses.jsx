@@ -34,7 +34,7 @@ var SingleListing = React.createClass({
     			backgroundSize: "cover",
     			boxShadow: "0 0 200px rgba(0,0,0,0.9) inset",
     			color:"white"
-    		}
+       		}
     		return (<div className={"houseListing"} style={listingStyle}>
         				<ul className={"houseInfo"} onClick={this.handleClick.bind()}>    					
         					{listing}
