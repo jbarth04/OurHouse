@@ -15,7 +15,8 @@ var map = new google.maps.Map(document.getElementById('map-campus'),
 							  mapOptions);
 var marker = new google.maps.Marker({
 		position: TuftsLatLng,
-		map: map
+		map: map,
+		icon: "static/images/elephant_small_icon.png"
 });
 var house;
 

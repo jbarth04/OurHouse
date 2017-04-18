@@ -9,7 +9,7 @@ var HouseProfile = React.createClass({
 			</ul>
 		);
 	},
-	generateInfo: function(){
+	generateLeaseInfo: function(){
 		info = [];
 		info.push(<li>Rent/Month: ${this.props.Rent}</li>);
 		if (this.props.Address2 !=''){
@@ -22,6 +22,12 @@ var HouseProfile = React.createClass({
 		info.push(<li>Number of Bedrooms: {this.props.Rooms}</li>);
 		info.push(<li>Date Available: {this.props.DateAvailable}</li>);
 		info.push(<li>Length of Lease: {this.props.LeaseTerm} months </li>);
+	
+		return info;
+	},
+
+	generateFeaturesInfo: function() {
+		info = [];
 		if(this.props.Parking == 0){
 			info.push(<li>No Parking Available.</li>)
 		} else {
@@ -45,7 +51,8 @@ var HouseProfile = React.createClass({
 		return info;
 	},
 	render: function(){
-		profile = this.generateInfo();
+		leaseInfo = this.generateLeaseInfo();
+		featuresInfo = this.generateFeaturesInfo();
 		if(this.props.Photos.length > 0){
 			photos = <PhotoCarousel Photos={this.props.Photos} />
 		}else {
@@ -54,9 +61,14 @@ var HouseProfile = React.createClass({
 		return(
 			<div className="HousePhotos container">
 				{photos}
-				<ul className="HouseInfoList, NoBulletsList">
-					{profile}
-				</ul>
+				<h2> Lease Information </h2>
+					<ul className="HouseInfoList, NoBulletsList">
+						{leaseInfo}
+					</ul>
+				<h2> Features and Assets </h2>
+					<ul className="HouseInfoList, NoBulletsList">
+						{featuresInfo}
+					</ul>
 			</div>
 		);
 	}
@@ -200,7 +212,7 @@ var ReviewForm = React.createClass({
 var ContactForm = React.createClass ({
   getInitialState: function() {
     return {
-    	message:'Enter your email here.',
+    	message:'Hi, I found your property on OurHouse and I am interested in scheduling a viewing! Please get back to me when you can with details about the property.',
     	useremail:'',
     	landlordemail: this.props.LandlordEmail,
       landlordfname: this.props.LandlordFName
@@ -248,20 +260,17 @@ var ContactForm = React.createClass ({
 
   generateForm: function() {
   	return (
-  		<form onSubmit={this.handleSubmit} className="newPropForm">
+  		<form onSubmit={this.handleSubmit} className="newPropForm Form">
       		<p className="ContactForm">Express interest in this property!</p>
       			<div className="newContactForm form-group">
-        			<label>
-        			Your Email Address
-        			<input className="send-email" type="text" value={this.state.useremail} onChange={this.handleChange('useremail')} /><br/>
-        			</label>
+        			<input className="send-email" placeholder="Your email address" type="text" value={this.state.useremail} onChange={this.handleChange('useremail')} /><br/>
       			</div> 
      			<div className="newContactForm form-group">
         			<label>
         			<textarea className="reviewTextBox" type="textarea" maxlength="4098"value={this.state.message} onChange={this.handleChange('message')} /><br/>
         			</label>
       			</div> 
-    		<input className="btn btn-primary"type="submit" value="Contact this landlord!"/>  
+    		<input className="btn btn-red"type="submit" value="Contact this landlord!"/>  
    		</form>
   	)
   },

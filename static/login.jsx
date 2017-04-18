@@ -86,8 +86,8 @@ var LoginForm = React.createClass ({
       if (this.state.NewUser == false) { 
         return(
           <div className="LoginForm">
-            <h1>Welcome to Our House</h1>
-            <form onSubmit={this.handleSubmitExisting}>
+            <h1><span id="WelcomeText">Welcome to </span> OurHouse</h1>
+            <form onSubmit={this.handleSubmitExisting} className="Form">
               <div className="form-group">
                 <label className="loginForm">
                   <input className="loginInput" type="text" value={this.state.email} placeholder="Email" onChange={this.handleChange('email')} />
@@ -98,17 +98,17 @@ var LoginForm = React.createClass ({
                   <input className="loginInput" type="password" value={this.state.password} placeholder="Password" onChange={this.handleChange('password')} />
                 </label>
               </div>
-              <input className="btn btn-basic"type="submit" value="Submit" />
+              <input className="btn btn-red loginBtn"type="submit" value="Submit" />
             </form>
-            <button className="btn btn-basic" onClick ={this.handleNewUser}> New User? Sign up here! </button>
+            <span id="newUser">New User? Sign up <a onClick={this.handleNewUser} className="link">here!</a></span>
           </div>
           
         );
       } else if (this.state.NewUser == true) {
-        return(
+      return(
         <div className="LoginForm"> 
           <h2> Welcome to OurHouse! <br/> We are glad to have you! </h2>
-          <form onSubmit={this.handleSubmitNew}>
+          <form onSubmit={this.handleSubmitNew} className="Form">
             <div className="form-group">
                 <input value={this.state.FirstName} placeholder= "First Name" onChange={this.handleChange('FirstName')} />
             </div>
@@ -137,8 +137,8 @@ var LoginForm = React.createClass ({
             </div>
         
             </div>
-            <input type="submit" value="Submit" className="btn btn-info"/> <br/>
-            Already have an account? <a className="ExistingUserLink" href="/"> Click here to login! </a>
+            <input type="submit" value="Submit" className="btn btn-red"/> <br/>
+            Already have an account? Click <a className="ExistingUserLink link" href="/"> here </a> to login!
           </form>
         </div>
         )

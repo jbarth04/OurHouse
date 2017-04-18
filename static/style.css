@@ -1,6 +1,6 @@
 body{
 	background-color: white;
-	font-weight: 200;
+	font-weight: 300;
 	font-family: Helvetica;
 }
 #index-background{
@@ -38,22 +38,40 @@ div .houseListing{
  	z-index: 15;
  	top: 50%;
  	left: 50%;
- 	margin: -9vw 0 0 -20vw;
+ 	margin: -18vw 0 0 -20vw;
  	color:white;
  	overflow-y: scroll;
+ 	opacity: 0.95;
+ 	border-style: solid;
+ 	border-color: white;
+}
+#WelcomeText{
+	font-weight: 100;
 }
 .loginForm{
 	padding: 0.4vw;
 	display: block;
 }
-.loginInput{
-	border-radius: 5px;
-	color: black;
-	font-weight: 100;
+#newUser{
+	margin-top: 5px;
+	display: block;
 }
-.newUserLink{
+#UserType{
+	margin-bottom: 5%;
+}
+.LoginForm .form-group input{
+	border-radius: 5px;
+	width: 70%;
+    height: 40px;
+    font-weight: 100;
+}
+.link{
 	text-decoration: none;
 	color: #FE414D;
+	font-weight: 700;
+}
+.loginBtn{
+	color: black;
 }
 .newPropForm{
 	padding: 1vw;
@@ -68,6 +86,7 @@ div .houseListing{
 	list-style: none;
 	font-size: 1em;
 	bottom:0;
+	/*z-index: 300;*/
 }
 #update-button{
 	padding-left: 0.5vw;
@@ -80,7 +99,7 @@ div .houseListing{
 	margin:0;
 	overflow: hidden;
 	z-index: 0;
-	margin-top:-1.5%;
+	margin-top:-2%;
 }
 .markerLink{
 	text-decoration: none;
@@ -90,9 +109,14 @@ div .houseListing{
 	overflow-y: scroll;
 	height: 300px;
 	position: relative;
-	z-index: 200;
+	/*z-index: 200;*/
 	float: left;
 	margin:0;
+	background-color: rgba(255, 255, 255, 0.6);
+	/*background-color: white;*/
+	/*opacity: 0.5;*/
+	z-index: -1;
+	/*padding: 20px*/
 }
 .HouseList{
 	padding:0;
@@ -120,6 +144,10 @@ div .houseListing{
 }
 .sidebar{
 	background-color: white;
+	padding: 10px;
+	z-index: 1;
+	border-radius: 5px;
+	/*position: absolute;*/
 }
 .navbar-links{
 	display: inline-block;
@@ -148,6 +176,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	line-height: 1em;
 	height: 200px;
 	width: 800px;
+	font-weight: 100;
 }
 #myCarousel{
 	width: 50%;
@@ -158,7 +187,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	/*padding: 0.5vw;*/
 }
 .filterLabel{
-	/*padding: 0.3vw;*/
+	padding-right: 10px;
 }
 .filter-btn{
 	margin-bottom: 0.5vw;
@@ -239,6 +268,9 @@ footer{
 	background-color: #FE414D;
 	color: white;
 }
+/*.LoginForm input[type=submit]{
+	color: black;
+}*/
 #imgUpload{
 	padding-bottom: 50px;
 	/*float: left;*/

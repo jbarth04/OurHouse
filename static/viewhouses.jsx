@@ -96,7 +96,7 @@ var FilterForm = React.createClass({
 	},
 	hideFilters: function(event){
 		this.props.showing = false;
-		React.render(<FilterForm showing={false} houses={this.props.houses}/>, document.getElementById('filterbar'));	
+		React.render(<FilterForm showing={false} houses={this.props.houses} photos={this.props.photos} />, document.getElementById('filterbar'));	
 	},
 	UpdateHouses: function(){
 		var filterHouses = [];
