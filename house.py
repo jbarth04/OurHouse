@@ -122,7 +122,9 @@ def viewhouse(houseID):
 
         # get info from Zillow
         zAddress = sHouse["Address1"].replace(" ", "+")
+        # zAddress = "20+Sunset+Road"
         zipCode = sHouse["Zipcode"]
+        # zipCode = "02155"
         zillowUrl = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id='\
                     + zwsid + '&address=' + zAddress + '&citystatezip=' + zipCode;
         result = requests.get(zillowUrl).content
@@ -130,14 +132,22 @@ def viewhouse(houseID):
         print xmlDict
         ZillowSearchResult = xmlDict["SearchResults:searchresults"]
         if "response" in ZillowSearchResult:
-            zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
+            print "HERE YEAH"
+            try:
+                zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
+            except:
+                ZillowData=json.dumps({})
+                return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
+                                usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
             updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
                          + zwsid + "&zpid=" + zillowID
             # Get Updated Results from Zillow
             updatedResult = requests.get(updatedUrl).content 
+            print updatedResult
             updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
             # If there is updated data for the house
             if "response" in updatedResultDict:
+                print "GOT THINGS HERE"
                 response = updatedResultDict["response"]
                 ZData = {}
                 keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
@@ -145,6 +155,9 @@ def viewhouse(houseID):
                 for k in keys:
                     if k in response:
                         ZData[k] = response[k]
+                    else: 
+                        ZData[k] = ""
+                print ZData
                 ZillowData = json.dumps({"ZillowData": ZData})
             # If no updated info for the house
             else:

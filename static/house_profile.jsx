@@ -23,7 +23,7 @@ var HouseProfile = React.createClass({
 		info.push(<li>Date Available: {this.props.DateAvailable}</li>);
 		info.push(<li>Length of Lease: {this.props.LeaseTerm} months </li>);
 		if(this.props.Parking == 0){
-			info.push(<li>No Parking Available</li>)
+			info.push(<li>No Parking Available.</li>)
 		} else {
 			info.push(<li>Number of Parking Spots: {this.props.Parking}</li>);
 		}
@@ -278,20 +278,72 @@ var ContactForm = React.createClass ({
 
 var ZillowData = React.createClass ({ 
 	generateData: function(){
+		//TODO: move objects and arrays into seperate file and feed into class as props.
+		infoKeys = ["homeDescription", "parkingType", "appliances", "rooms", "numFloors", 
+					"finishedSqFt", "heatingSource", "heatingSystem", "yearBuilt", "yearUpated"];
+
+		emptyMessage = {"homeDescription":   "Unfortunately there is no home description. Consult the reviews\
+										      or reach out to the landlord via email.",
+						"parkingTypeNone":   "Looks like there is no parking at this property. \
+											  If you intend to have a car, you might want to look into street \
+						  					  parking. You will need your car registered in Massachussets and \
+						  					  proof of residency at this house.",
+						"parkingTypeNoInfo": "We couldn't find any information about the parking on this property.\
+											  Reach out the the landlord if you have any questions.",
+						"appliances": 	     "We couldn't find any information about the appliances at this property.\
+						   		              Talk with the landlord to know what appliances you should bring with you.",
+						"rooms":             "We couldn't find information about the types of rooms at this property. Contact\
+								  			  the landlord with any questions you may have.",
+						"numFloors": 		 "We couldn't find information about the number of floors for this property.\
+						   			  		  If you are interested, contact the landlord.",
+						"finishedSqFt": 	 "We couldn't find the square footage of this property. Contact the landlord\
+										 	  if you would like to know.",
+						"heatingSource": 	 "We couldn't determine the heating source at this property. Contact the\
+										 	  landlord if you would like to know.",
+						"heatingSystem": 	 "We couldn't find the heating system of this property. If you would like to know,\
+										 	  contact the landlord.",
+						"yearBuilt":         "We couldn't find the year this house was built. If you would like to know, contact \
+						 			  		 the landlord.",
+						"yearUpated": 		 "We coudldn't determine the year this house was last updated. Contact the landlord \
+									  		  for further information."};
+
 		headers = {"homeDescription":"Home Description", "parkingType":"Parking Type", 
 				   "finishedSqFt": "Square Feet", "numFloors":"Number of Floors", 
 				   "rooms":"Types of Rooms", "appliances":"Appliances", "heatingSystem":"Heating System",
 				   "heatingSource":"Heating Source", "yearBuilt":"Year Built", "yearUpated":"Year Updated"};
 		ZillowData = this.props.Data;
-		Data = Object.keys(ZillowData).map(function(d){ 
-			return (<p><h4>{headers[d]}:</h4> {ZillowData[d]}</p>);}); 
+
+		Data = Object.keys(headers).map(function(d){ 
+			if (ZillowData[d] == "" || ZillowData[d] == undefined){
+				console.log(this.props.House);
+				if(d == "parkingType"){
+					if (this.props.House.ParkingSpots == 0){
+						message = emptyMessage["parkingTypeNone"];
+						if (this.props.House.City == "Medford"){
+							parkingLink = <a href="http://www.parkmedford.org/PERMITS.aspx">here</a>
+
+						}else if (this.props.House.City == "Somerville"){
+							parkingLink = <a href="http://www.parksomerville.com/parking-permits.html">here</a>
+						}
+						//Returning out of here because the parking link cannot be added to the message
+						return (<p><h4>{headers[d]}:</h4> {message} Visit {parkingLink} for more information.<hr /></p>);
+					} else {
+						message = emptyMessage["parkingTypeNoInfo"];
+					}
+				} else {
+					message = emptyMessage[d];
+				}
+			} else{
+				message = ZillowData[d];
+			}
+			return (<p><h4>{headers[d]}:</h4> {message}<hr /></p>);}, this); 
 		return Data;
 	},
 	render: function() { 
 		Data = this.generateData(); 
 		return(
 			<div className="zillowInfo">
-				<h3>Information brought to you by Zillow:</h3>
+				<h3>{"Here's some more information we found about this house!"}</h3>
 				{Data}
 				<br />
 				<a href="https://www.zillow.com/">
@@ -315,7 +367,7 @@ React.render(<ReviewForm HouseId={house.Id}/>, document.getElementById('ReviewFo
 
 React.render(<ContactForm LandlordEmail={landlord.Email} LandlordFName={landlord.FirstName}/>, document.getElementById('ContactForm'));
 if (zillow.ZillowData != null){
-	React.render(<ZillowData Data={zillow.ZillowData} />, document.getElementById('ZillowData')); 
+	React.render(<ZillowData Data={zillow.ZillowData} House={house}/>, document.getElementById('ZillowData')); 
 }
 
 

@@ -103,7 +103,6 @@ Note2: This project followed the practices outlined in the following tutorial -
 14. In order to allow users to contact landlords, you'll need to export a variable containing your email login information:
 
     $ export EMAIL_ACCOUNT="your_email@you.com"
-
     $ export EMAIL_PASSWORD="yourpassword"
 
 15. In order to access information from Zillow, you'll need to export a variable containing your api key:
