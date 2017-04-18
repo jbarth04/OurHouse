@@ -13,6 +13,7 @@
 # $ export MEMCACHIER_PASSWORD="abcde12345abcde12345"
 # $ export EMAIL_ACCOUNT="your_email@you.com"
 # $ export EMAIL_PASSWORD="yourpassword"
+# $ export ZWSID="yourZWSID"
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
