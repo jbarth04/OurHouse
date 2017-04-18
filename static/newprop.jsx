@@ -1,6 +1,6 @@
 var Header = React.createClass({
   render: function() {
-    return (<h1>List Your House on Our House!</h1>);
+    return (<h1>List Your House on OurHouse!</h1>);
   }
 });
 
@@ -119,35 +119,21 @@ var AptForm = React.createClass ({
     <form onSubmit={this.handleSubmit} className="newPropForm">
       <p className="newPropLabel">Landlord Information</p>
       <div className="newPropFormLabel form-group">
-        <label>
-          Landlord First Name
-        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordFName')} /><br/>
-        </label>
+        <input placeholder="Landlord First Name" className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordFName')} /><br/>
       </div>
       <div className="newPropFormLabel form-group">
-        <label>
-          Landlord Last Name
-        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
-        </label>
+        <input placeholder="Landlord Last Name" className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordLName')} /><br/>
       </div><br />
       <div className="newPropFormLabel form-group">
-        <label>
-          Landlord Email
-        <input className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordEmail')} /><br/>
-        </label>
+        <input placeholder="Landlord Email" className="new-prop" type="text" value={this.state.landlord} onChange={this.handleChange('landlordEmail')} /><br/>
       </div>
-      <p className="newPropLabel">Apartment Information</p>
+      <hr />
+      <p className="newPropLabel">Apartment Location</p>
       <div className="newPropFormLabel form-group">
-        <label>
-          Address 1
-        <input className="new-prop" type="text" value={this.state.address1} onChange={this.handleChange('address1')} /><br/>
-        </label>
+        <input placeholder="Address 1" className="new-prop" type="text" value={this.state.address1} onChange={this.handleChange('address1')} /><br/>
       </div>
       <div className="newPropFormLabel form-group">
-        <label>
-          Address 2
-        <input className="new-prop" type="text" value={this.state.address2} onChange={this.handleChange('address2')} /><br/>
-        </label>
+        <input placeholder="Address 2" className="new-prop" type="text" value={this.state.address2} onChange={this.handleChange('address2')} /><br/>
       </div>
       <br />
       <div className="newPropFormLabel form-group">
@@ -176,16 +162,12 @@ var AptForm = React.createClass ({
         </label>
       </div>
       <div className="form-group">
-        <label>
-          Zipcode
-          <input className="new-prop" type="text" value={this.state.zip} onChange={this.handleChange('zip')} /><br/>
-        </label>
+          <input placeholder="Zipcode" className="new-prop" type="text" value={this.state.zip} onChange={this.handleChange('zip')} /><br/>
       </div>
+      <hr />
+      <p className="newPropLabel">Apartment Details</p>
       <div className="form-group">
-        <label>
-          Monthly rent 
-          <input className="new-prop" type="text" value={this.state.rent} onChange={this.handleChange('rent')} /><br/>
-        </label>  
+          <input placeholder="Monthly rent" className="new-prop" type="text" value={this.state.rent} onChange={this.handleChange('rent')} /><br/> 
       </div>
       <div className="newPropFormLabel form-group">
         <label> 
