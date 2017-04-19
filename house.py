@@ -113,61 +113,77 @@ def viewhouse(houseID):
             allPhotos.append(str(p))
         jsonAllPhotos = json.dumps(allPhotos)
 
-        # Step 3: get zillow information associated with the house address
-        # Get zillow API Key from environment
-        _config_setting = os.environ["ZWSID"]
-        _config_arr = _config_setting.split(".")
-        # Trying to get just the key part (e.g. DevelopmentConfig)
-        zwsid =  _config_arr[-1]
-
-        # get info from Zillow
-        zAddress = sHouse["Address1"].replace(" ", "+")
-        # zAddress = "20+Sunset+Road"
-        zipCode = sHouse["Zipcode"]
-        # zipCode = "02155"
-        zillowUrl = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id='\
-                    + zwsid + '&address=' + zAddress + '&citystatezip=' + zipCode;
-        result = requests.get(zillowUrl).content
-        xmlDict = xmltodict.parse(result)
-        print xmlDict
-        ZillowSearchResult = xmlDict["SearchResults:searchresults"]
-        if "response" in ZillowSearchResult:
-            print "HERE YEAH"
-            try:
-                zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
-            except:
-                ZillowData=json.dumps({})
-                return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
-                                usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
-            updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
-                         + zwsid + "&zpid=" + zillowID
-            # Get Updated Results from Zillow
-            updatedResult = requests.get(updatedUrl).content 
-            print updatedResult
-            updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
-            # If there is updated data for the house
-            if "response" in updatedResultDict:
-                print "GOT THINGS HERE"
-                response = updatedResultDict["response"]
-                ZData = {}
-                keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
-                        "heatingSystem", "heatingSource", "yearBuilt", "yearUpated"]
-                for k in keys:
-                    if k in response:
-                        ZData[k] = response[k]
-                    else: 
-                        ZData[k] = ""
-                print ZData
-                ZillowData = json.dumps({"ZillowData": ZData})
-            # If no updated info for the house
-            else:
-                ZillowData = json.dumps({})
-        else:
-            ZillowData = json.dumps({})
+        # Step 3: get zillow data:
+        ZillowData = getZillow(sHouse["Address1"], sHouse["Zipcode"])
+        
         return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
                                 usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
     else:
         return redirect(url_for('auth_page.index'))
+
+def getZillow(address, zipcode):
+    # Step 3: get zillow information associated with the house address
+
+    # The information we'll try to grab about the properties 
+    keys = ["homeDescription", "parkingType", "finishedSqFt", "numFloors", "rooms", "appliances",\
+                    "heatingSystem", "heatingSource", "yearBuilt", "yearUpated"]
+    # Get zillow API Key from environment
+    _config_setting = os.environ["ZWSID"]
+    _config_arr = _config_setting.split(".")
+    # Trying to get just the key part (e.g. DevelopmentConfig)
+    zwsid =  _config_arr[-1]
+
+    # formatting for zillow API
+    zAddress = address.replace(" ", "+")
+    zipCode = zipcode
+    zillowUrl = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id='\
+                + zwsid + '&address=' + zAddress + '&citystatezip=' + zipCode;
+    
+    result = requests.get(zillowUrl).content
+    xmlDict = xmltodict.parse(result)
+    ZillowSearchResult = xmlDict["SearchResults:searchresults"]
+    # If there is a response for this address:
+    if "response" in ZillowSearchResult:
+        print "HERE YEAH"
+        # Try block here for error that occured when searching incorrect addresses
+        # When 20 Sunset Road. 02155 was searched, error called that list must be indexed by 
+            # integers not strings. This prevents that error. 
+        try:
+            zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
+        except:
+            ZillowData=json.dumps({})
+            return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
+                            usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
+        updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
+                     + zwsid + "&zpid=" + zillowID
+        
+        # Get Updated Results from Zillow (the data that we really want)
+        updatedResult = requests.get(updatedUrl).content 
+        # print updatedResult
+        updatedResultDict = xmltodict.parse(updatedResult)["UpdatedPropertyDetails:updatedPropertyDetails"]
+        # If there is updated data for the house
+        if "response" in updatedResultDict:
+            response = updatedResultDict["response"]
+            ZData = {}
+            for k in keys:
+                if k in response:
+                    ZData[k] = response[k]
+                else: 
+                    ZData[k] = ""
+            # print ZData
+            ZillowData = json.dumps({"ZillowData": ZData})
+        # If no updated info for the house
+        else:
+            ZData = {}
+            for k in keys:
+                ZData[k] = ""
+            ZillowData = json.dumps({"ZillowData": ZData})
+    else:
+        ZData = {}
+        for k in keys:
+            ZData[k] = ""
+        ZillowData = json.dumps({"ZillowData": ZData})
+    return ZillowData
 
 @house_page.route("/newhome", methods=['GET', 'POST'])
 def newhome():
