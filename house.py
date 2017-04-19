@@ -122,6 +122,7 @@ def viewhouse(houseID):
         return redirect(url_for('auth_page.index'))
 
 def getZillow(address, zipcode):
+    # TODO: make creating ZData modular (make it's own function)
     # Step 3: get zillow information associated with the house address
 
     # The information we'll try to grab about the properties 
@@ -151,7 +152,10 @@ def getZillow(address, zipcode):
         try:
             zillowID = ZillowSearchResult["response"]["results"]["result"]["zpid"]
         except:
-            ZillowData=json.dumps({})
+            ZData = {}
+            for k in keys:
+                ZData[k] = ""
+            ZillowData = json.dumps({"ZillowData": ZData})
             return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
                             usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
         updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
@@ -170,7 +174,6 @@ def getZillow(address, zipcode):
                     ZData[k] = response[k]
                 else: 
                     ZData[k] = ""
-            # print ZData
             ZillowData = json.dumps({"ZillowData": ZData})
         # If no updated info for the house
         else:
@@ -178,6 +181,7 @@ def getZillow(address, zipcode):
             for k in keys:
                 ZData[k] = ""
             ZillowData = json.dumps({"ZillowData": ZData})
+    # if no info about the house at all on
     else:
         ZData = {}
         for k in keys:
