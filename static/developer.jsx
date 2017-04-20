@@ -172,11 +172,11 @@ var Developer = React.createClass ({
             </tbody>
         </table>
         <p>Each query requires that you select a field to filter on, a value for that field, and the number of results you want to see at a time. Let's walk through an example. Let's say you want information for 10 houses in our database that have three bedrooms. Your URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
+        <code>https://ourhouse-pro.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>And a curl command would looke like this:</p>
-        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
+        <code>curl -i -X GET https://ourhouse-pro.herokuapp.com/houseData/&lt;Your API Key goes here&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>An example URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/houseData/ABCDEFG1234/Zipcode=02155/3</code>
+        <code>https://ourhouse-pro.herokuapp.com/houseData/ABCDEFG1234/Zipcode=02155/3</code>
         <br /><br />
         <p>And the response to that example request would look like this:</p>
         <code>{ '[{"City": "Medford", "ParkingSpots": 1, "MonthlyRent": 2900, "Longitude": -71.11761260000003, "Zipcode": "02155", "State": "MA", "UtilitiesIncluded": false, "Pets": false, "LandlordId": 2, "Latitude": 42.4166637, "DistFromCC": 0.779666967374512, "Laundry": true, "Address1": "23 Curtis St.", "Address2": "", "Rooms": 4, "Id": 4}, {"City": "Medford", "ParkingSpots": 1, "MonthlyRent": 2700, "Longitude": -71.12299109999998, "Zipcode": "02155", "State": "MA", "UtilitiesIncluded": true, "Pets": false, "LandlordId": 2, "Latitude": 42.4125732, "DistFromCC": 0.510050941380327, "Laundry": true, "Address1": "300 Boston Ave", "Address2": "Apt. 3", "Rooms": 3, "Id": 5}, {"City": "Medford", "ParkingSpots": 1, "MonthlyRent": 2700, "Longitude": -71.12299109999998, "Zipcode": "02155", "State": "MA", "UtilitiesIncluded": true, "Pets": true, "LandlordId": 2, "Latitude": 42.4125732, "DistFromCC": 0.510050941380327, "Laundry": true, "Address1": "300 Boston Ave", "Address2": "Apt 3", "Rooms": 3, "Id": 6}]' }</code>
@@ -205,11 +205,11 @@ var Developer = React.createClass ({
           </tbody>
         </table>
         <p>Your URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
+        <code>https://ourhouse-pro.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>A curl command would look like this:</p>
-        <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
+        <code>curl -i -X GET https://ourhouse-pro.herokuapp.com/reviewData/&lt;Your API Key goes here&gt;/HouseID=&lt;House Id&gt;/&lt;Number of Responses&gt;</code><br /><br />
         <p>An example URL would look like this:</p>
-        <code>https://ourhouse-stage.herokuapp.com/reviewData/ABCDEFG1234/HouseID=3/3</code>
+        <code>https://ourhouse-pro.herokuapp.com/reviewData/ABCDEFG1234/HouseID=3/3</code>
         <br /><br />
         <p>And the response to that example request would look like this:</p>
         <code>{'[{"Comment": "What an amazing house and landlord! Landlord is responsive to issues about the house. Bit of a walk from campus but great location for scitech/halligan/the gym", "StudentId": 1, "HouseId": 1, "Stars": "5", "UpdatedAt": "2017-04-04 17:31:05.401063-04:00", "Id": 1, "CreatedAt": "2017-04-04 17:31:05.401054-04:00"}]'}</code>
@@ -295,11 +295,11 @@ var Developer = React.createClass ({
             </tbody>
           </table>
           <p>Your URL would look like this:</p>
-          <code>https://ourhouse-stage.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
+          <code>https://ourhouse-pro.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
           <p>A curl command would look like this:</p>
-          <code>curl -i -X GET https://ourhouse-stage.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
+          <code>curl -i -X GET https://ourhouse-pro.herokuapp.com/statistics/&lt;Your API Key goes here&gt;/&lt;Data Type&gt;/&lt;Filter By Field&gt;=&lt;Filter Value&gt;</code><br /><br />
           <p>An example URL would look like this:</p>
-          <code>https://ourhouse-stage.herokuapp.com/statistics/ABCDEFG1234/House/Zipcode=02155</code>
+          <code>https://ourhouse-pro.herokuapp.com/statistics/ABCDEFG1234/House/Zipcode=02155</code>
           <br /><br />
           <p>And the response to that example request would look like this:</p>
           <code>{ '[{"numberHouses": 5}]' }</code>
