@@ -87,8 +87,6 @@ def viewhouse(houseID):
         singleHouse = [h.as_dict() for h in house]
         sHouse = singleHouse[0]
         jsonHouse = json.dumps(singleHouse, default=serializeDecimalObject.defaultencode)
-        print "Here in house_profile"
-        print jsonHouse
 
         # Getting the landlord associated with 
         landlordID = sHouse['LandlordId']
@@ -160,12 +158,8 @@ def getZillow(address, zipcode):
                 ZData[k] = ""
             ZillowData = json.dumps({"ZillowData": ZData})
 
-            print "Here in getZillow"
             return ZillowData
 
-            # TODO don't render template here
-            # return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
-            #                 usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
         updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
                      + zwsid + "&zpid=" + zillowID
         
