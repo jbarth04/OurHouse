@@ -72,14 +72,14 @@ filters =
             text:"Laundry",
             submenu:[
                 {text:"No preference", value:-1},
-                {text:"Included", value:0}
+                {text:"Included", value:true}
             ]
         },
         Utilities:{
             text:"Utilities",
             submenu:[
                 {text:"No preference", value:-1},
-                {text:"Included", value:0}
+                {text:"Included", value:true}
             ]
         },
         Parking:{
@@ -97,7 +97,7 @@ filters =
             text:"Pets",
             submenu:[
                 {text:"No preference", value:-1},
-                {text:"Allowed", value:0}
+                {text:"Allowed", value:true}
             ]
         }
     };

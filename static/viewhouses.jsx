@@ -111,8 +111,8 @@ var FilterForm = React.createClass({
 
 		for (var i=0; i<houses.length; i++) {
 			if (((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)) &&
-				(houses[i].DistFromCC == -1 || (houses[i].DistFromCC <= dist)) &&
-				(houses[i].Rooms == -1 || (houses[i].Rooms == rooms)) &&
+				(dist == -1 || (houses[i].DistFromCC <= dist)) &&
+				(rooms == -1 || (houses[i].Rooms == rooms)) &&
 				(laundry == -1 || (houses[i].Laundry == laundry)) &&
 				(utilities == -1 || (houses[i].Utilities == utilities)) &&
 				(parking == -1 || (houses[i].ParkingSpots == parking)) &&
