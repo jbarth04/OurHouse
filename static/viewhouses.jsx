@@ -110,6 +110,8 @@ var FilterForm = React.createClass({
 		var pets = this.state.Pets;
 
 		console.log(houses);
+		console.log(laundry);
+
 
 		for (var i=0; i<houses.length; i++) {
 			if (((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)) &&
@@ -122,6 +124,9 @@ var FilterForm = React.createClass({
 
 				filterHouses.push(houses[i]);
 			}
+
+			console.log("Laundry equal?");
+			console.log(houses[i].Laundry == laundry);
 		}
 
 		this.props.houses = filterHouses;
