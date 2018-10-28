@@ -9,7 +9,6 @@ var SingleListing = React.createClass({
 		listing.push(<li className="info">{this.props.address}</li>);
 		listing.push(<li className="info">{this.props.rooms} Bedrooms</li>);
 		listing.push(<li className="info">${this.props.rent}/Month</li>);
-		// listing.push(<li className="info">Parking Spots: {this.props.parkingspots}</li>);
 		return listing;
 	},
 	handleClick: function(){
@@ -65,13 +64,14 @@ var HousesComponent = React.createClass({
 var FilterForm = React.createClass({
 	getInitialState: function() {
 	    return {
-	      MinRent: 500,
-	      MaxRent: 3000,
-	      Dist: 0.5,
-	      NumRooms: 4,
-	      Laundry: true,
-	      Utilities: true,
+	      MinRent: 0,
+	      MaxRent: 10000000,
+	      Dist: -1,
+	      NumRooms: -1,
+	      Laundry: -1,
+	      Utilities: -1,
 	      ParkingSpots: -1,
+	      Pets: -1,
 	      Houses:''
 	    }
 	    this.handleChange = this.handleChange.bind(this);
@@ -104,25 +104,36 @@ var FilterForm = React.createClass({
 		var maxRent = this.state.MaxRent;
 		var dist = this.state.Dist;
 		var rooms = this.state.NumRooms;
+		var laundry = this.state.Laundry;
+		var utilities = this.state.Utilities;
 		var parking = this.state.ParkingSpots;
+		var pets = this.state.Pets;
 
-		console.log("houses");
-		console.log(houses);
+		for (var i=0; i<houses.length; i++) {
+			if (((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)) &&
+				(houses[i].DistFromCC == -1 || (houses[i].DistFromCC <= dist)) &&
+				(houses[i].Rooms == -1 || (houses[i].Rooms == rooms)) &&
+				(laundry == -1 || (houses[i].Laundry == laundry)) &&
+				(utilities == -1 || (houses[i].Utilities == utilities)) &&
+				(parking == -1 || (houses[i].ParkingSpots == parking)) &&
+				(pets == -1 || (houses[i].Pets == pets))) {
 
-		for(var i=0;i<houses.length;i++){
-			if((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)){
-				if(houses[i].DistFromCC <= dist){
-					if(houses[i].Rooms == rooms){
-						if(parking == -1 || houses[i].ParkingSpots == parking){
-							filterHouses.push(houses[i]);
-						}
-					}
-				}
+				filterHouses.push(houses[i]);
 			}
 		}
 
-		console.log("filtered houses");
-		console.log(filteredHouses);
+		// TODO
+		//for(var i=0;i<houses.length;i++){
+		//	if((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)){
+		//		if(houses[i].DistFromCC <= dist){
+		//			if(houses[i].Rooms == rooms){
+		//				if(parking == -1 || houses[i].ParkingSpots == parking){
+		//					filterHouses.push(houses[i]);
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 
 		this.props.houses = filterHouses;
 		this.state.Houses = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
@@ -185,6 +196,12 @@ var FilterForm = React.createClass({
 							<label className="filterLabel">Parking Spots</label>
 							<select id="ParkingSpots" value={this.state.ParkingSpots} onChange={this.handleChange('ParkingSpots')}>
 							{this.generateSubMenu(filters.Parking.submenu)}
+							</select>
+						</div>
+						<div className = "filterOption form-group">
+							<label className="filterLabel">Pets</label>
+							<select id="Pets" value={this.state.Pets} onChange={this.handleChange('Pets')}>
+							{this.generateSubMenu(filters.Pets.submenu)}
 							</select>
 						</div>
 						<button className="btn btn-red filter-btn" onClick={this.handleUpdate}>Update</button>
