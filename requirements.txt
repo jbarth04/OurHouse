@@ -5,7 +5,7 @@ blinker==1.4
 boto==2.46.1
 cffi==1.10.0
 click==6.7
-Flask==0.12
+Flask==0.12.3
 Flask-Bcrypt==0.7.1
 Flask-CDN==1.5.3
 Flask-Compress==1.4.0
@@ -33,6 +33,6 @@ SQLAlchemy==1.1.5
 Werkzeug==0.11.15
 xmltodict==0.10.2
 
-# MUST have Flask version 0.12 again at the end of file, as Flask-Store downgrades
+# MUST have Flask version 0.12.3 again at the end of file, as Flask-Store downgrades
 # Flask to version 0.10, causing errors with using JSON function jsonify() 
-Flask==0.12
+Flask==0.12.3

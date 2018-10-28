@@ -128,7 +128,7 @@ bcrypt==3.1.3 <br />
 blinker==1.4 <br />
 boto==2.46.1 <br />
 click==6.7 <br />
-Flask==0.12 <br />
+Flask==0.12.3 <br />
 Flask-Bcrypt==0.7.1 <br />
 Flask-CDN==1.5.3 <br />
 Flask-Compress==1.4.0 <br />
