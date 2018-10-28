@@ -146,7 +146,7 @@ Jinja2==2.9.5 <br />
 Mako==1.0.6 <br />
 MarkupSafe==0.23 <br />
 packaging==16.8 <br />
-psycopg2==2.6.2 <br />
+psycopg2==2.7.1 <br />
 pycparser==2.17 <br />
 pylibmc==1.5.2 <br />
 pyparsing==2.1.10 <br />
