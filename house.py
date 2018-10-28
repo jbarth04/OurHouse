@@ -161,10 +161,11 @@ def getZillow(address, zipcode):
             ZillowData = json.dumps({"ZillowData": ZData})
 
             print "Here in getZillow"
-            print jsonHouse
-            
-            return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
-                            usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
+            return ZillowData
+
+            # TODO don't render template here
+            # return render_template('house_profile.html', house=jsonHouse, landlord=jsonLandlord,\
+            #                 usertype=usertype, reviews=jsonReviews, photos=jsonAllPhotos, zillowData=ZillowData)
         updatedUrl = "http://www.zillow.com/webservice/GetUpdatedPropertyDetails.htm?zws-id=" \
                      + zwsid + "&zpid=" + zillowID
         
