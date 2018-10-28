@@ -109,31 +109,20 @@ var FilterForm = React.createClass({
 		var parking = this.state.ParkingSpots;
 		var pets = this.state.Pets;
 
+		console.log(houses);
+
 		for (var i=0; i<houses.length; i++) {
 			if (((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)) &&
 				(dist == -1 || (houses[i].DistFromCC <= dist)) &&
 				(rooms == -1 || (houses[i].Rooms == rooms)) &&
 				(laundry == -1 || (houses[i].Laundry == laundry)) &&
-				(utilities == -1 || (houses[i].Utilities == utilities)) &&
+				(utilities == -1 || (houses[i].UtilitiesIncluded == utilities)) &&
 				(parking == -1 || (houses[i].ParkingSpots == parking)) &&
 				(pets == -1 || (houses[i].Pets == pets))) {
 
 				filterHouses.push(houses[i]);
 			}
 		}
-
-		// TODO
-		//for(var i=0;i<houses.length;i++){
-		//	if((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)){
-		//		if(houses[i].DistFromCC <= dist){
-		//			if(houses[i].Rooms == rooms){
-		//				if(parking == -1 || houses[i].ParkingSpots == parking){
-		//					filterHouses.push(houses[i]);
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
 
 		this.props.houses = filterHouses;
 		this.state.Houses = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
