@@ -105,6 +105,10 @@ var FilterForm = React.createClass({
 		var dist = this.state.Dist;
 		var rooms = this.state.NumRooms;
 		var parking = this.state.ParkingSpots;
+
+		console.log("houses");
+		console.log(houses);
+
 		for(var i=0;i<houses.length;i++){
 			if((houses[i].MonthlyRent <= maxRent) && (houses[i].MonthlyRent >= minRent)){
 				if(houses[i].DistFromCC <= dist){
@@ -116,6 +120,10 @@ var FilterForm = React.createClass({
 				}
 			}
 		}
+
+		console.log("filtered houses");
+		console.log(filteredHouses);
+
 		this.props.houses = filterHouses;
 		this.state.Houses = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
 		HouseList = <HousesComponent houses={this.props.houses} photos={this.props.photos} showing={true}/>;
