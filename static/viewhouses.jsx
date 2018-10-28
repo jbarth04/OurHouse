@@ -109,7 +109,7 @@ var FilterForm = React.createClass({
 		var parking = this.state.ParkingSpots;
 		var pets = this.state.Pets;
 
-		console.log(houses);
+		console.log("Laundry form state");
 		console.log(laundry);
 
 
@@ -124,6 +124,9 @@ var FilterForm = React.createClass({
 
 				filterHouses.push(houses[i]);
 			}
+
+			console.log("House laundry state");
+			console.log(houses[i].Laundry);
 
 			console.log("Laundry equal?");
 			console.log(houses[i].Laundry == laundry);
