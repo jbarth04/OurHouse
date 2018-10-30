@@ -152,7 +152,7 @@ pylibmc==1.5.2 <br />
 pyparsing==2.1.10 <br />
 python-editor==1.0.3 <br />
 python-firebase==1.2 <br />
-requests==2.13.0 <br />
+requests==2.20.0 <br />
 six==1.10.0 <br />
 sqlacodegen==1.1.6 <br />
 SQLAlchemy==1.1.5 <br />
